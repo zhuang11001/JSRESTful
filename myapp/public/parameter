@@ -1,0 +1,168 @@
+
+{
+  //secret 加解密
+  "secret":{
+    //3.2.1.6.对称加密接口
+    "RS_EncryptFile":{
+      "souceFilePath": "string", //待加密文件路径，带文件名
+      "encFilePath" :"string" //加密后文件保存路径，带文件名
+    },
+    //3.2.1.7.对称解密接口
+    "RS_DevryptFile":{
+      "rsKey": "string", //对称密钥原文
+      "encFilePath" :"string", //加密文件路径，带文件名
+      "dncDirectoryPath" :"string" //解密后文件保存路径，带文件名
+    },
+
+    //3.2.2.14.非对称加密接口
+    "RS_KeyEncryptData":{
+      "rsKey": "string", //待加密明文，32位长度
+      "certBase64" :"string" //证书base64编码
+    },
+
+    //3.2.2.15.非对称解密接口
+    "RS_KeyDecryptData":{
+      "encRsKey" :"string" //待解密的密文
+    },
+
+    //3.2.2.16.数字信封加密接口
+    "RS_KeyEncryptByDigitalEnvelope":{
+      "souceFilePath": "string", //原文路径，带文件名
+      "encFilePath" :"string", //加密后的密文保存路径，带文件名
+      "certBase64" :"string" //证书base64编码
+    },
+
+    //3.2.2.17.数字信封解密接口
+    "RS_KeyDecryptByDigitalEnvelope":{
+      "encFilePath": "string", //:要解密的文件路径，带文件名
+      "dncDirectory" :"string", //解密后文件保存路径，不带文件名
+      "encRsKeyPath" :"string" //对称密钥信息文件路径，带文件名
+    }
+  },
+
+  //interface 接口类
+  "interface":{
+    //3.2.1.3.P7验签接口
+    "RS_VerifySignByP7":{
+      "msg" :"string", //待签名原文，若signdMsg带原文，则该参数为空
+      "signdMsg" :"string", //签名值，P7签名
+      "flag":"string" //是否带原文的标识，1:不带原文;0:带原文
+    },
+
+    //3.2.2.9.P1签名接口（域签）
+    "RS_KeyDigitalSignByP1":{
+      "asn1Msg" :"string", //待签名原文
+      "containerId" :"string" //唯一标识
+    },
+
+    //3.2.2.10.P1验签接口（域签）
+    "RS_VerifyDigitalSignByP1":{
+      "certBase64" :"string", //base64编码的签名证书
+      "asn1Msg" :"string", //待签名原文
+      "signdMsg":"string" //签名值
+    },
+
+    //3.2.2.11.P1签名接口
+    "RS_KeySignByP1":{
+      "msg" :"string" //待签名原文
+    },
+
+    //3.2.2.12.P1验签接口
+    "RS_VerifySignByP1":{
+      "certBase64" :"string", //base64编码的签名证书
+      "asn1Msg" :"string", //待签名原文
+      "signdMsg":"string" //签名值
+    },
+
+    //3.2.2.13.P7签名接口
+    "RS_KeySignByP7":{
+      "msg" :"string", //待签名原文
+      "flag" :"string" //是否带原文的标识，1:不带原文;0:带原文
+    }
+  },
+  //通用
+  "currency":{
+    //3.2.1.1.参数配置接口
+    "RS_ConfigParameters":{
+      "cmd" :"string", //命令标识
+      "val" :"string" //服务器地址
+    },
+
+    //3.2.1.2.获取配置参数接口
+    "RS_GetParameters":{
+      "cmd" :"string" //命令标识
+    },
+
+    //3.2.1.4.生成二维码图片接口
+    "RS_GreateQRCode":{
+      "qrcode" :"string", //二维码图片内容
+      "path" :"string" //二维码图片存放路径（图片格式为png）
+    },
+
+    //3.2.1.5.获取流水号接口
+    "RS_GreateQRCode":{
+      "joinCode" :"string" //接入方编号
+    },
+
+    //3.2.2.1.获取证书列表接口
+    "RS_GetUserList":"",  //无参数
+
+    //3.2.2.2.获取数字证书接口
+    "RS_GetCertBase64String":{
+      "certType" :"string", //1(签名证书)，2(加密证书)
+      "containerId" :"string" //容器名，可为空
+    },
+
+    //3.2.2.3.获取证书信息接口
+    "RS_GetCertInfo":{
+      "certBase64" :"string", //证书base64编码
+      "type" :"string" //1、证书版本；2、证书序列号
+    },
+
+    //3.2.2.4.证书口令验证接口
+    "RS_CertLogin":{
+      "containerId" :"string", //唯一标识，可为空
+      "password" :"string" //6位证书口令，可为空
+    },
+
+    //3.2.2.5.获取密码重试剩余次数接口
+    "RS_GetPinRetryCount":{
+      "containerId" :"string" //唯一标识，可为空
+    },
+
+    //3.2.2.6.修改证书口令接口
+    "RS_ChangePassWd":"",  //无参数
+
+    //3.2.2.7.验证证书有效性接口
+    "RS_VerifyIdentity":{
+      "certBase64" :"string", //证书base64编码
+      "authNo" :"string" //授权码（32位UUID）
+    },
+
+    //3.2.2.8.获取证书用户标识接口
+    "RS_KeyGetKeySn":""  //无参数
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
