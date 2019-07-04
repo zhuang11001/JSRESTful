@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
+<head>
+    <title>接口测试</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+</head>
+<body>
+<h1>接口测试</h1>
+<button onclick="sendAjax()">发送图片</button>
+<button onclick="changePwd()">修改密码</button>
+<img id="img-show">
+</body>
+<script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function sendAjax(){
+        $.ajax({
+            url:"/RS_GreateQRCode",
+            type:"post",
+            data:{
+                name:"ma2"
+            },
+            success:function(res){
+                console.log(res);
+                var obj = JSON.parse(res);
+                $("#img-show").attr("src",obj.data);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+    function changePwd(){
+        $.ajax({
+            url:"/RS_ChangePassWd",
+            type:"get",
+            data:{
+            },
+            success:function(res){
+                console.log(res);
+                console.log(res.code);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+</script>
 </html>
