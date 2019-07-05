@@ -9,10 +9,27 @@
 </head>
 <body>
 <div>
-    <h1>接口测试</h1>
-    <a href="/secret"><h3>接口测试2</h3></a>
-    <a href="/interface"><h3>接口测试3</h3></a>
-    <button type="button" class="btn btn-default" onclick="ConfigParameters()">配置参数</button>
+    <h2>接口测试 / <a href="/secret">接口测试2</a> / <a href="/interface">接口测试3</a></h2>
+    <div style="margin: 20px 0">
+        <h3 class="text-success" id="text1"></h3>
+        <h3 class="text-success" id="text2"></h3>
+        <h3 class="text-success" id="text3"></h3>
+        <img id="img-show">
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">命令标识:</label>
+                <input type="text" class="form-control" id="cmd">
+            </div>
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">服务器地址:</label>
+                <input type="text" class="form-control" id="val">
+            </div>
+            <button type="button" class="btn btn-default" onclick="ConfigParameters()">配置参数</button>
+        </div>
+    </div>
+
     <button type="button" class="btn btn-default" onclick="GetParameters()">获取配置参数</button>
     <button type="button" class="btn btn-default" onclick="RCode()">请求二维码</button>
     <button type="button" class="btn btn-default" onclick="Transid()">获取流水号</button>
@@ -48,8 +65,8 @@
             url:"/RS_ConfigParameters",
             type:"get",
             data:{
-                cmd:"123",
-                val:"123"
+                cmd:$("#cmd").val(),
+                val:$("#val").val(),
             },
             success:function(res){
                 JudgeCode(res);
