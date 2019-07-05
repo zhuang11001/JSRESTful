@@ -1,43 +1,248 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <title>接口测试</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
-<h1>接口测试</h1>
-<button onclick="sendAjax()">发送图片</button>
-<button onclick="changePwd()">修改密码</button>
-<img id="img-show">
+<div>
+    <h1>接口测试</h1>
+    <a href="/secret"><h3>接口测试2</h3></a>
+    <a href="/interface"><h3>接口测试3</h3></a>
+    <button type="button" class="btn btn-default" onclick="ConfigParameters()">配置参数</button>
+    <button type="button" class="btn btn-default" onclick="GetParameters()">获取配置参数</button>
+    <button type="button" class="btn btn-default" onclick="RCode()">请求二维码</button>
+    <button type="button" class="btn btn-default" onclick="Transid()">获取流水号</button>
+    <button type="button" class="btn btn-default" onclick="GetUserList()">获取证书列表</button>
+    <button type="button" class="btn btn-default" onclick="GetCertBase64String()">获取数字证书</button>
+    <button type="button" class="btn btn-default" onclick="GetCertInfo()">获取证书信息</button>
+    <button type="button" class="btn btn-default" onclick="CertLogin()">证书口令验证</button>
+    <button type="button" class="btn btn-default" onclick="GetPinRetryCount()">获取密码重试剩余次数</button>
+    <button type="button" class="btn btn-default" onclick="VerifyIdentity()">验证证书有效性</button>
+    <button type="button" class="btn btn-default" onclick="KeyGetKeySn()">获取证书用户标识</button>
+    <button type="button" class="btn btn-default" onclick="changePwd()">修改证书口令</button>
+</div>
+<div style="margin-top: 50px">
+    <h3 class="text-success" id="text1"></h3>
+    <h3 class="text-success" id="text2"></h3>
+    <h3 class="text-success" id="text3"></h3>
+    <img id="img-show">
+</div>
+
 </body>
+<script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
 <script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-    function sendAjax(){
+    function JudgeCode(res){
+        $("#text1").html("code:"+res.code);
+        $("#text2").html("msg:"+res.msg);
+        $("#text3").html("data:"+res.data);
+        $("#img-show").attr("src","");
+    }
+    function ConfigParameters(){
         $.ajax({
-            url:"/RS_GreateQRCode",
-            type:"post",
+            url:"/RS_ConfigParameters",
+            type:"get",
             data:{
-                name:"ma2"
+                cmd:"123",
+                val:"123"
             },
             success:function(res){
+                JudgeCode(res);
                 console.log(res);
-                var obj = JSON.parse(res);
-                $("#img-show").attr("src",obj.data);
             },
             error:function(res){
                 console.log(res);
             }
         });
     }
+    function GetParameters(){
+        $.ajax({
+            url:"/RS_GetParameters",
+            type:"post",
+            data:{
+                cmd:"123",
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+    function RCode(){
+        $.ajax({
+            url:"/RS_GreateQRCode",
+            type:"post",
+            data:{
+                qrcode:"ma2",
+                path:"./images"
+            },
+            success:function(res){
+                JudgeCode(res);
+                $("#img-show").attr("src",res.data);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+    function Transid(){
+        $.ajax({
+            url:"/RS_GetTransid",
+            type:"post",
+            data:{
+                joinCode:"123142",
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+    function GetUserList(){
+        $.ajax({
+            url:"/RS_GetUserList",
+            type:"get",
+            data:{
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+
+    function GetCertBase64String(){
+        $.ajax({
+            url:"/RS_GetCertBase64String",
+            type:"post",
+            data:{
+                certType:"1",
+                containerId:"123142"
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+
+    function GetCertInfo(){
+        $.ajax({
+            url:"/RS_GetCertInfo",
+            type:"post",
+            data:{
+                certBase64:"123142",
+                type:"1",
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+
+    function CertLogin(){
+        $.ajax({
+            url:"/RS_CertLogin",
+            type:"post",
+            data:{
+                containerId:"123142",
+                password:"1",
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+
+    function GetPinRetryCount(){
+        $.ajax({
+            url:"/RS_GetPinRetryCount",
+            type:"post",
+            data:{
+                containerId:"123142"
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+
     function changePwd(){
         $.ajax({
             url:"/RS_ChangePassWd",
             type:"get",
             data:{
+
             },
             success:function(res){
+                JudgeCode(res);
                 console.log(res);
-                console.log(res.code);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+
+    function VerifyIdentity(){
+        $.ajax({
+            url:"/RS_VerifyIdentity",
+            type:"post",
+            data:{
+                certBase64:"123",
+                authNoL:""
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+
+
+
+    function KeyGetKeySn(){
+        $.ajax({
+            url:"/RS_KeyGetKeySn",
+            type:"get",
+            data:{
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
             },
             error:function(res){
                 console.log(res);

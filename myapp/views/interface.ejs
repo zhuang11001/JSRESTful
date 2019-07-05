@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>接口测试</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<div>
+    <h1>接口测试3</h1>
+    <a href="/"><h3>接口测试1</h3></a>
+    <a href="/secret"><h3>接口测试2</h3></a>
+    <button type="button" class="btn btn-default" onclick="VerifySignByP7()">P7验签</button>
+    <button type="button" class="btn btn-default" onclick="KeyDigitalSignByP1()">P1签名（域签）</button>
+    <button type="button" class="btn btn-default" onclick="VerifyDigitalSignByP1()">P1验签（域签）</button>
+    <button type="button" class="btn btn-default" onclick="KeySignByP1()">P1签名</button>
+    <button type="button" class="btn btn-default" onclick="VerifySignByP1()">P1验名</button>
+    <button type="button" class="btn btn-default" onclick="KeySignByP7()">P7签名</button>
+
+</div>
+<div style="margin-top: 50px">
+    <h3 class="text-success" id="text1"></h3>
+    <h3 class="text-success" id="text2"></h3>
+    <h3 class="text-success" id="text3"></h3>
+    <img id="img-show">
+</div>
+
+</body>
+<script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
+<script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script>
+    function JudgeCode(res){
+        $("#text1").html("code:"+res.code);
+        $("#text2").html("msg:"+res.msg);
+        $("#text3").html("data:"+res.data);
+        $("#img-show").attr("src","");
+    }
+    function VerifySignByP7(){
+        $.ajax({
+            url:"/RS_VerifySignByP7",
+            type:"post",
+            data:{
+                msg:"123",
+                signdMsg:"123",
+                flag:"23"
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+    function KeyDigitalSignByP1(){
+        $.ajax({
+            url:"/RS_KeyDigitalSignByP1",
+            type:"post",
+            data:{
+                asn1Msg:"123",
+                containerId:"cvaw",
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+    function VerifyDigitalSignByP1(){
+        $.ajax({
+            url:"/RS_VerifyDigitalSignByP1",
+            type:"post",
+            data:{
+
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+    function KeySignByP1(){
+        $.ajax({
+            url:"/RS_KeySignByP1",
+            type:"post",
+            data:{
+
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+
+    function VerifySignByP1(){
+        $.ajax({
+            url:"/RS_KeyVerifySignByP1 ",
+            type:"post",
+            data:{
+
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+    function KeySignByP7(){
+        $.ajax({
+            url:"/RS_KeySignByP7",
+            type:"post",
+            data:{
+
+            },
+            success:function(res){
+                JudgeCode(res);
+                console.log(res);
+            },
+            error:function(res){
+                console.log(res);
+            }
+        });
+    }
+</script>
+</html>
