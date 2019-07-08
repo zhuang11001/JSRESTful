@@ -8,13 +8,8 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
-<div>
-    <h2>接口测试 / <a href="/secret">接口测试2</a> / <a href="/interface">接口测试3</a></h2>
-    <div style="margin: 20px 0">
-        <h3 class="text-success" id="text1"></h3>
-        <h3 class="text-success" id="text2"></h3>
-        <h3 class="text-success" id="text3"></h3>
-        <img id="img-show">
+    <div class="top">
+        <h2>接口测试 / <a href="/secret">接口测试2</a> / <a href="/interface">接口测试3</a></h2>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
@@ -26,29 +21,60 @@
                 <label for="recipient-name" class="control-label">服务器地址:</label>
                 <input type="text" class="form-control" id="val">
             </div>
-            <button type="button" class="btn btn-default" onclick="ConfigParameters()">配置参数</button>
+            <button type="button" class="btn btn-default" onclick="ConfigParameters()">配置参数接口</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">命令标识:</label>
+                <input type="text" class="form-control" id="get-cmd">
+            </div>
+            <button type="button" class="btn btn-default" onclick="GetParameters()">获取配置参数接口</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">二维码图片内容:</label>
+                <input type="text" class="form-control" id="img-content">
+            </div>
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">二维码图片存放路径（图片格式为png）:</label>
+                <input type="text" class="form-control" id="img-path">
+            </div>
+            <button type="button" class="btn btn-default" onclick="RCode()">请求二维码接口</button>
         </div>
     </div>
 
-    <button type="button" class="btn btn-default" onclick="GetParameters()">获取配置参数</button>
-    <button type="button" class="btn btn-default" onclick="RCode()">请求二维码</button>
-    <button type="button" class="btn btn-default" onclick="Transid()">获取流水号</button>
-    <button type="button" class="btn btn-default" onclick="GetUserList()">获取证书列表</button>
-    <button type="button" class="btn btn-default" onclick="GetCertBase64String()">获取数字证书</button>
-    <button type="button" class="btn btn-default" onclick="GetCertInfo()">获取证书信息</button>
-    <button type="button" class="btn btn-default" onclick="CertLogin()">证书口令验证</button>
-    <button type="button" class="btn btn-default" onclick="GetPinRetryCount()">获取密码重试剩余次数</button>
-    <button type="button" class="btn btn-default" onclick="VerifyIdentity()">验证证书有效性</button>
-    <button type="button" class="btn btn-default" onclick="KeyGetKeySn()">获取证书用户标识</button>
-    <button type="button" class="btn btn-default" onclick="changePwd()">修改证书口令</button>
-</div>
-<div style="margin-top: 50px">
-    <h3 class="text-success" id="text1"></h3>
-    <h3 class="text-success" id="text2"></h3>
-    <h3 class="text-success" id="text3"></h3>
-    <img id="img-show">
-</div>
-
+    <button type="button" class="btn btn-default" onclick="Transid()">获取流水号接口</button>
+    <button type="button" class="btn btn-default" onclick="GetUserList()">获取证书列表接口</button>
+    <button type="button" class="btn btn-default" onclick="GetCertBase64String()">获取数字证书接口</button>
+    <button type="button" class="btn btn-default" onclick="GetCertInfo()">获取证书信息接口</button>
+    <button type="button" class="btn btn-default" onclick="CertLogin()">证书口令验证接口</button>
+    <button type="button" class="btn btn-default" onclick="GetPinRetryCount()">获取密码重试剩余次数接口</button>
+    <button type="button" class="btn btn-default" onclick="VerifyIdentity()">验证证书有效性接口</button>
+    <button type="button" class="btn btn-default" onclick="KeyGetKeySn()">获取证书用户标识接口</button>
+    <button type="button" class="btn btn-default" onclick="changePwd()">修改证书口令接口</button>
+    <!--模态弹出框-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="mymodel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="text">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-success" id="text1"></h4>
+                    <h4 class="text-success" id="text2"></h4>
+                    <h4 class="text-success" id="text3"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </body>
 <script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
 <script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
@@ -58,7 +84,6 @@
         $("#text1").html("code:"+res.code);
         $("#text2").html("msg:"+res.msg);
         $("#text3").html("data:"+res.data);
-        $("#img-show").attr("src","");
     }
     function ConfigParameters(){
         $.ajax({
@@ -69,7 +94,9 @@
                 val:$("#val").val(),
             },
             success:function(res){
+                $("#text").html("3.2.1.1.参数配置接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
@@ -82,10 +109,12 @@
             url:"/RS_GetParameters",
             type:"post",
             data:{
-                cmd:"123",
+                cmd:$("#get-cmd").val(),
             },
             success:function(res){
+                $("#text").html("3.2.1.2.获取配置参数接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
@@ -98,12 +127,13 @@
             url:"/RS_GreateQRCode",
             type:"post",
             data:{
-                qrcode:"ma2",
-                path:"./images"
+                qrcode:$("img-content").val(),
+                path:$("img-path").val()
             },
             success:function(res){
+                $("#text").html("3.2.1.4.生成二维码图片接口");
                 JudgeCode(res);
-                $("#img-show").attr("src",res.data);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){

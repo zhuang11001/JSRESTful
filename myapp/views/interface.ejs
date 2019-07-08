@@ -9,8 +9,27 @@
 </head>
 <body>
 <div>
-    <h2>接口测试3 / <a href="/">接口测试1</a> / <a href="/secret">接口测试2</a></h2>
-    <button type="button" class="btn btn-default" onclick="VerifySignByP7()">P7验签</button>
+    <div class="top">
+        <h2><a href="/">接口测试</a> / <a href="/secret">接口测试2</a> / 接口测试3</h2>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="signed" class="control-label">待签名原文，若signdMsg带原文，则该参数为空:</label>
+                <input type="text" class="form-control" id="signed">
+            </div>
+            <div class="form-group">
+                <label for="sign" class="control-label">签名值，P7签名:</label>
+                <input type="text" class="form-control" id="sign">
+            </div>
+            <div class="form-group">
+                <label for="Identification" class="control-label">是否带原文的标识，1:不带原文;0:带原文:</label>
+                <input type="text" class="form-control" id="Identification">
+            </div>
+            <button type="button" class="btn btn-default" onclick="VerifySignByP7()">P7验签</button>
+        </div>
+    </div>
+
     <button type="button" class="btn btn-default" onclick="KeyDigitalSignByP1()">P1签名（域签）</button>
     <button type="button" class="btn btn-default" onclick="VerifyDigitalSignByP1()">P1验签（域签）</button>
     <button type="button" class="btn btn-default" onclick="KeySignByP1()">P1签名</button>
@@ -18,12 +37,24 @@
     <button type="button" class="btn btn-default" onclick="KeySignByP7()">P7签名</button>
 
 </div>
-<div style="margin-top: 50px">
-    <h3 class="text-success" id="text1"></h3>
-    <h3 class="text-success" id="text2"></h3>
-    <h3 class="text-success" id="text3"></h3>
-    <img id="img-show">
-</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="mymodel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="text">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-success" id="text1"></h4>
+                <h4 class="text-success" id="text2"></h4>
+                <h4 class="text-success" id="text3"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </body>
 <script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
@@ -34,19 +65,20 @@
         $("#text1").html("code:"+res.code);
         $("#text2").html("msg:"+res.msg);
         $("#text3").html("data:"+res.data);
-        $("#img-show").attr("src","");
     }
     function VerifySignByP7(){
         $.ajax({
             url:"/RS_VerifySignByP7",
             type:"post",
             data:{
-                msg:"123",
-                signdMsg:"123",
-                flag:"23"
+                msg:$("#signed").val(),
+                signdMsg:$("#sign").val(),
+                flag:$("#Identification").val()
             },
             success:function(res){
+                $("#text").html("3.2.1.3.P7验签接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
