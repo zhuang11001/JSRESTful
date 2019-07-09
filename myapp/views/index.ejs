@@ -8,6 +8,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
+<div class="container">
     <div class="top">
         <h2>接口测试 / <a href="/secret">接口测试2</a> / <a href="/interface">接口测试3</a></h2>
     </div>
@@ -21,7 +22,7 @@
                 <label for="recipient-name" class="control-label">服务器地址:</label>
                 <input type="text" class="form-control" id="val">
             </div>
-            <button type="button" class="btn btn-default" onclick="ConfigParameters()">配置参数接口</button>
+            <button type="button" class="btn btn-primary" onclick="ConfigParameters()">配置参数接口</button>
         </div>
     </div>
     <div class="panel panel-default">
@@ -30,7 +31,7 @@
                 <label for="recipient-name" class="control-label">命令标识:</label>
                 <input type="text" class="form-control" id="get-cmd">
             </div>
-            <button type="button" class="btn btn-default" onclick="GetParameters()">获取配置参数接口</button>
+            <button type="button" class="btn btn-primary" onclick="GetParameters()">获取配置参数接口</button>
         </div>
     </div>
     <div class="panel panel-default">
@@ -43,19 +44,94 @@
                 <label for="recipient-name" class="control-label">二维码图片存放路径（图片格式为png）:</label>
                 <input type="text" class="form-control" id="img-path">
             </div>
-            <button type="button" class="btn btn-default" onclick="RCode()">请求二维码接口</button>
+            <button type="button" class="btn btn-primary" onclick="RCode()">请求二维码接口</button>
         </div>
     </div>
-
-    <button type="button" class="btn btn-default" onclick="Transid()">获取流水号接口</button>
-    <button type="button" class="btn btn-default" onclick="GetUserList()">获取证书列表接口</button>
-    <button type="button" class="btn btn-default" onclick="GetCertBase64String()">获取数字证书接口</button>
-    <button type="button" class="btn btn-default" onclick="GetCertInfo()">获取证书信息接口</button>
-    <button type="button" class="btn btn-default" onclick="CertLogin()">证书口令验证接口</button>
-    <button type="button" class="btn btn-default" onclick="GetPinRetryCount()">获取密码重试剩余次数接口</button>
-    <button type="button" class="btn btn-default" onclick="VerifyIdentity()">验证证书有效性接口</button>
-    <button type="button" class="btn btn-default" onclick="KeyGetKeySn()">获取证书用户标识接口</button>
-    <button type="button" class="btn btn-default" onclick="changePwd()">修改证书口令接口</button>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="Numbering" class="control-label">接入方编号:</label>
+                <input type="text" class="form-control" id="Numbering">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="Transid()">获取流水号接口</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <button type="button" class="btn btn-primary" onclick="GetUserList()">获取证书列表接口</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="certType" class="control-label">1(签名证书)，2(加密证书):</label>
+                <input type="text" class="form-control" id="certType">
+            </div>
+            <div class="form-group">
+                <label for="containerId2" class="control-label">容器名，可为空:</label>
+                <input type="text" class="form-control" id="containerId2">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="GetCertBase64String()">获取数字证书接口</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="certBase64" class="control-label">证书base64编码:</label>
+                <input type="text" class="form-control" id="certBase64">
+            </div>
+            <div class="form-group">
+                <label for="type" class="control-label">1、证书版本；2、证书序列号:</label>
+                <input type="text" class="form-control" id="type">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="GetCertInfo()">获取证书信息接口</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="containerId" class="control-label">唯一标识，可为空:</label>
+                <input type="text" class="form-control" id="containerId">
+            </div>
+            <div class="form-group">
+                <label for="password" class="control-label">6位证书口令，可为空:</label>
+                <input type="text" class="form-control" id="password">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="CertLogin()">证书口令验证接口</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="containerId2" class="control-label">唯一标识:</label>
+                <input type="text" class="form-control" id="containerId2">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="GetPinRetryCount()">获取密码重试剩余次数接口</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <button type="button" class="btn btn-primary" onclick="VerifyIdentity()">验证证书有效性接口</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="certBase" class="control-label">证书base64编码:</label>
+                <input type="text" class="form-control" id="certBase">
+            </div>
+            <div class="form-group">
+                <label for="authNo" class="control-label">授权码（32位UUID）:</label>
+                <input type="text" class="form-control" id="authNo">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="KeyGetKeySn()">获取证书用户标识接口</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <button type="button" class="btn btn-primary" onclick="changePwd()">修改证书口令接口</button>
+        </div>
+    </div>
     <!--模态弹出框-->
     <div class="modal fade" tabindex="-1" role="dialog" id="mymodel">
         <div class="modal-dialog" role="document">
@@ -75,6 +151,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+</div>
 </body>
 <script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
 <script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
@@ -149,7 +226,9 @@
                 joinCode:"123142",
             },
             success:function(res){
+                $("#text").html("3.2.1.5.获取流水号接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
@@ -164,7 +243,9 @@
             data:{
             },
             success:function(res){
+                $("#text").html("3.2.2.1.获取证书列表接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
@@ -182,7 +263,9 @@
                 containerId:"123142"
             },
             success:function(res){
+                $("#text").html("3.2.2.2.获取数字证书接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
@@ -200,7 +283,9 @@
                 type:"1",
             },
             success:function(res){
+                $("#text").html("3.2.2.3.获取证书信息接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
@@ -218,7 +303,9 @@
                 password:"1",
             },
             success:function(res){
+                $("#text").html("3.2.2.4.证书口令验证接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show');
                 console.log(res);
             },
             error:function(res){
@@ -235,7 +322,9 @@
                 containerId:"123142"
             },
             success:function(res){
+                $("#text").html("3.2.2.5.获取密码重试剩余次数接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show');
                 console.log(res);
             },
             error:function(res){
@@ -252,7 +341,9 @@
 
             },
             success:function(res){
+                $("#text").html("3.2.2.6.修改证书口令接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show');
                 console.log(res);
             },
             error:function(res){
@@ -270,7 +361,9 @@
                 authNoL:""
             },
             success:function(res){
+                $("#text").html("3.2.2.7.验证证书有效性接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show');
                 console.log(res);
             },
             error:function(res){
@@ -288,7 +381,9 @@
             data:{
             },
             success:function(res){
+                $("#text").html("3.2.2.8.获取证书用户标识接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show');
                 console.log(res);
             },
             error:function(res){

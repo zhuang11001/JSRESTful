@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
-<div>
+<div class="container">
     <div class="top">
         <h2><a href="/">接口测试</a> / <a href="/secret">接口测试2</a> / 接口测试3</h2>
     </div>
@@ -26,36 +26,98 @@
                 <label for="Identification" class="control-label">是否带原文的标识，1:不带原文;0:带原文:</label>
                 <input type="text" class="form-control" id="Identification">
             </div>
-            <button type="button" class="btn btn-default" onclick="VerifySignByP7()">P7验签</button>
+            <button type="button" class="btn btn-primary" onclick="VerifySignByP7()">P7验签</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="asn1Msg" class="control-label">待签名原文:</label>
+                <input type="text" class="form-control" id="asn1Msg">
+            </div>
+            <div class="form-group">
+                <label for="containerId" class="control-label">唯一标识:</label>
+                <input type="text" class="form-control" id="containerId">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="KeyDigitalSignByP1()">P1签名（域签）</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="certBase64" class="control-label">base64编码的签名证书:</label>
+                <input type="text" class="form-control" id="certBase64">
+            </div>
+            <div class="form-group">
+                <label for="asn1Ms2" class="control-label">待签名原文:</label>
+                <input type="text" class="form-control" id="asn1Msg2">
+            </div>
+            <div class="form-group">
+                <label for="signdMsg" class="control-label">签名值:</label>
+                <input type="text" class="form-control" id="signdMsg">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="VerifyDigitalSignByP1()">P1验签（域签）</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="msg" class="control-label">待签名原文:</label>
+                <input type="text" class="form-control" id="msg">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="KeySignByP1()">P1签名</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="certBase2" class="control-label">base64编码的签名证书:</label>
+                <input type="text" class="form-control" id="certBase2">
+            </div>
+            <div class="form-group">
+                <label for="asn1Ms3" class="control-label">待签名原文:</label>
+                <input type="text" class="form-control" id="asn1Msg3">
+            </div>
+            <div class="form-group">
+                <label for="signdMsg2" class="control-label">签名值:</label>
+                <input type="text" class="form-control" id="signdMsg2">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="VerifySignByP1()">P1验名</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="msg2" class="control-label">待签名原文:</label>
+                <input type="text" class="form-control" id="msg2">
+            </div>
+            <div class="form-group">
+                <label for="flag" class="control-label">是否带原文的标识，1:不带原文;0:带原文:</label>
+                <input type="text" class="form-control" id="flag">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="KeySignByP7()">P7签名</button>
         </div>
     </div>
 
-    <button type="button" class="btn btn-default" onclick="KeyDigitalSignByP1()">P1签名（域签）</button>
-    <button type="button" class="btn btn-default" onclick="VerifyDigitalSignByP1()">P1验签（域签）</button>
-    <button type="button" class="btn btn-default" onclick="KeySignByP1()">P1签名</button>
-    <button type="button" class="btn btn-default" onclick="VerifySignByP1()">P1验名</button>
-    <button type="button" class="btn btn-default" onclick="KeySignByP7()">P7签名</button>
-
+    <div class="modal fade" tabindex="-1" role="dialog" id="mymodel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="text">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-success" id="text1"></h4>
+                    <h4 class="text-success" id="text2"></h4>
+                    <h4 class="text-success" id="text3"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
-<div class="modal fade" tabindex="-1" role="dialog" id="mymodel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="text">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                <h4 class="text-success" id="text1"></h4>
-                <h4 class="text-success" id="text2"></h4>
-                <h4 class="text-success" id="text3"></h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 </body>
 <script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
 <script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
@@ -95,7 +157,9 @@
                 containerId:"cvaw",
             },
             success:function(res){
+                $("#text").html("3.2.2.9.P1签名接口（域签）");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
@@ -111,7 +175,9 @@
 
             },
             success:function(res){
+                $("#text").html("3.2.2.10.P1验签接口（域签）");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
@@ -127,7 +193,9 @@
 
             },
             success:function(res){
+                $("#text").html("3.2.2.11.P1签名接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
@@ -144,7 +212,9 @@
 
             },
             success:function(res){
+                $("#text").html("3.2.2.12.P1验签接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
@@ -160,7 +230,9 @@
 
             },
             success:function(res){
+                $("#text").html("3.2.2.13.P7签名接口");
                 JudgeCode(res);
+                $('#mymodel').modal('show')
                 console.log(res);
             },
             error:function(res){
