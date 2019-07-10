@@ -121,16 +121,12 @@
 </body>
 <script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
 <script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="/javascripts/ajax.js" type="text/javascript"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script>
-    function JudgeCode(res){
-        $("#text1").html("code:"+res.code);
-        $("#text2").html("msg:"+res.msg);
-        $("#text3").html("data:"+res.data);
-    }
     function VerifySignByP7(){
         $.ajax({
-            url:"/RS_VerifySignByP7",
+            url:commonUrl+"/RS_VerifySignByP7",
             type:"post",
             data:{
                 msg:$("#signed").val(),
@@ -150,7 +146,7 @@
     }
     function KeyDigitalSignByP1(){
         $.ajax({
-            url:"/RS_KeyDigitalSignByP1",
+            url:commonUrl+"/RS_KeyDigitalSignByP1",
             type:"post",
             data:{
                 asn1Msg:"123",
@@ -169,7 +165,7 @@
     }
     function VerifyDigitalSignByP1(){
         $.ajax({
-            url:"/RS_VerifyDigitalSignByP1",
+            url:commonUrl+"/RS_VerifyDigitalSignByP1",
             type:"post",
             data:{
 
@@ -187,7 +183,7 @@
     }
     function KeySignByP1(){
         $.ajax({
-            url:"/RS_KeySignByP1",
+            url:commonUrl+"/RS_KeySignByP1",
             type:"post",
             data:{
 
@@ -206,7 +202,7 @@
 
     function VerifySignByP1(){
         $.ajax({
-            url:"/RS_KeyVerifySignByP1 ",
+            url:commonUrl+"/RS_KeyVerifySignByP1 ",
             type:"post",
             data:{
 
@@ -224,7 +220,7 @@
     }
     function KeySignByP7(){
         $.ajax({
-            url:"/RS_KeySignByP7",
+            url:commonUrl+"/RS_KeySignByP7",
             type:"post",
             data:{
 

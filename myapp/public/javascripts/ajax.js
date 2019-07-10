@@ -1,3 +1,11 @@
+//url接口地址
+var commonUrl="";
+
+function JudgeCode(res){
+    $("#text1").html("code:"+res.code);
+    $("#text2").html("msg:"+res.msg);
+    $("#text3").html("data:"+res.data);
+}
 //页面加载所要进行的操作
 $(function () {
     //设置ajax当前状态(是否可以发送);
@@ -12,23 +20,24 @@ function ajax(url, data, success, cache, alone, async, type, dataType, error) {
     var alone = alone || false;//独立提交（一次有效的提交）
     var cache = cache || false;//浏览器历史缓存
     var success = success || function (data) {
+            console.log(data);
             /*console.log('请求成功');*/
-            setTimeout(function () {
-                alert(data.msg);//
-            },500);
-            if(data.status){//服务器处理成功
-                setTimeout(function () {
-                    if(data.url){
-                        location.replace(data.url);
-                    }else{
-                        location.reload(true);
-                    }
-                },1500);
-            }else{//服务器处理失败
-                if(alone){//改变ajax提交状态
-                    ajaxStatus = true;
-                }
-            }
+            //setTimeout(function () {
+            //    alert(data.msg);//
+            //},500);
+            //if(data.status){//服务器处理成功
+            //    setTimeout(function () {
+            //        if(data.url){
+            //            location.replace(data.url);
+            //        }else{
+            //            location.reload(true);
+            //        }
+            //    },1500);
+            //}else{//服务器处理失败
+            //    if(alone){//改变ajax提交状态
+            //        ajaxStatus = true;
+            //    }
+            //}
         };
     var error = error || function (data) {
             /*console.error('请求成功失败');*/
