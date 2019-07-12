@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <div class="top">
-        <h2>接口测试 / <a href="/secret">接口测试2</a> / <a href="/interface">接口测试3</a></h2>
+        <h2>接口测试 / <a href="/secret">接口测试（加解密）</a> / <a href="/interface">接口测试（签名验签）</a></h2>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label for="recipient-name" class="control-label">二维码图片存放路径（图片格式为png）:</label>
-                <input type="text" class="form-control" id="img-path">
+                <input type="text" class="form-control" id="img-path" value="/images/" disabled>
             </div>
             <button type="button" class="btn btn-primary" onclick="RCode()">请求二维码接口</button>
         </div>
@@ -129,7 +129,7 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
-            <button type="button" class="btn btn-primary" onclick="changePwd()">修改证书口令接口</button>
+            <button type="button" class="btn btn-primary" onclick="changePwd()">获取证书用户标识</button>
         </div>
     </div>
     <!--模态弹出框-->
