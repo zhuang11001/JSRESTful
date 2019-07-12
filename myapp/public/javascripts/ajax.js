@@ -19,8 +19,9 @@ function ajax(url, data, success, cache, alone, async, type, dataType, error) {
     var async = async || true;//异步请求
     var alone = alone || false;//独立提交（一次有效的提交）
     var cache = cache || false;//浏览器历史缓存
-    var success = success || function (data) {
-            console.log(data);
+    var success = success || function (res) {
+            console.log(res);
+            return res;
             /*console.log('请求成功');*/
             //setTimeout(function () {
             //    alert(data.msg);//
