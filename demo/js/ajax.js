@@ -1,12 +1,6 @@
 //url接口地址
-//var commonUrl="http://192.168.1.197:11200";
-var commonUrl="http://localhost:11200";
+var commonUrl="http://127.0.0.1:11200";
 
-function JudgeCode(res){
-    $("#text1").html("code:"+res.code);
-    $("#text2").html("msg:"+res.msg);
-    $("#text3").html("data:"+res.data);
-}
 //页面加载所要进行的操作
 $(function () {
     //设置ajax当前状态(是否可以发送);
@@ -14,18 +8,18 @@ $(function () {
 });
 
 // ajax封装
-function ajax(url, data, success, cache, alone, async, type, dataType, error) {
-    var type = type || 'post';//请求类型
-    var dataType = dataType || 'json';//接收数据类型
-    var async = async || true;//异步请求
-    var alone = alone || false;//独立提交（一次有效的提交）
-    var cache = cache || false;//浏览器历史缓存
-    var success = success || function (res) {
-            console.log(res);
+function ajax(url, data, dataType) {
+    var type =  'post';//请求类型
+    var dataType =  'json';//接收数据类型
+    var async =  true;//异步请求
+    var alone =  false;//独立提交（一次有效的提交）
+    var cache = false;//浏览器历史缓存
+    var success =  function (res) {
+
             return res;
             /*console.log('请求成功');*/
             //setTimeout(function () {
-            //    alert(data.msg);//
+            //    console.log(data.msg);//
             //},500);
             //if(data.status){//服务器处理成功
             //    setTimeout(function () {
@@ -41,17 +35,17 @@ function ajax(url, data, success, cache, alone, async, type, dataType, error) {
             //    }
             //}
         };
-    var error = error || function (data) {
+    var error = function (data) {
             /*console.error('请求成功失败');*/
             /*data.status;//错误状态吗*/
             //layer.closeAll('loading');
             setTimeout(function () {
                 if(data.status == 404){
-                    alert('请求失败，请求未找到');
+                    console.log('请求失败，请求未找到');
                 }else if(data.status == 503){
-                    alert('请求失败，服务器内部错误');
+                    console.log('请求失败，服务器内部错误');
                 }else {
-                    alert('请求失败,网络连接超时');
+                    console.log('请求失败,网络连接超时');
                 }
                 ajaxStatus = true;
             },500);
@@ -75,11 +69,7 @@ function ajax(url, data, success, cache, alone, async, type, dataType, error) {
         'async': async,
         'success': success,
         'error': error,
-        'jsonpCallback': 'jsonp' + (new Date()).valueOf().toString().substr(-4),
-        'beforeSend': function () {
-            alert('加载中');
-},
-});
+    });
 }
 
 // submitAjax(post方式提交)

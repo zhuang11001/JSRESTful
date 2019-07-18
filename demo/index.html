@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <title>接口测试</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!--<link rel='stylesheet' href='/css/style.css' />-->
 </head>
 <body>
 <div class="container">
     <div class="top">
-        <h2>接口测试 </h2>
+        <h2>接口测试 版本1.0.32 </h2>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
             <h4>1、配置参数接口</h4>
             <div class="form-group">
-                <label for="recipient-name" class="control-label">命令标识:</label>
+                <label for="cmd" class="control-label">命令标识:</label>
                 <input type="text" class="form-control" id="cmd">
             </div>
             <div class="form-group">
-                <label for="recipient-name" class="control-label">服务器地址:</label>
+                <label for="val" class="control-label">服务器地址:</label>
                 <input type="text" class="form-control" id="val">
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="ConfigParameters()">配置参数接口</button>
             </div>
             <!--<div class="form-group">-->
-                <!--<textarea class="form-control" id="ConfigParametersTxt" cols="150" rows="5"></textarea>-->
+            <!--<textarea class="form-control" id="ConfigParametersTxt" cols="150" rows="5"></textarea>-->
             <!--</div>-->
             <!--<div class="form-group">-->
-                <!--<input value="" type="text" class="form-control" id="ConfigParametersData">-->
+            <!--<input value="" type="text" class="form-control" id="ConfigParametersData">-->
             <!--</div>-->
             <!--<div class="form-group">-->
-                <!--<button type="button" class="btn btn-default" onClick="copy(ConfigParametersData)">复制data数据</button>-->
+            <!--<button type="button" class="btn btn-default" onClick="copy(ConfigParametersData)">复制data数据</button>-->
             <!--</div>-->
         </div>
     </div>
@@ -41,20 +42,20 @@
         <div class="panel-body">
             <h4>2、获取配置参数接口</h4>
             <div class="form-group">
-                <label for="recipient-name" class="control-label">命令标识:</label>
+                <label for="get-cmd" class="control-label">命令标识:</label>
                 <input type="text" class="form-control" id="get-cmd">
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="GetParameters()">获取配置参数接口</button>
             </div>
             <!--<div class="form-group">-->
-                <!--<textarea class="form-control" id="GetParametersTxt" cols="150" rows="5"></textarea>-->
+            <!--<textarea class="form-control" id="GetParametersTxt" cols="150" rows="5"></textarea>-->
             <!--</div>-->
             <!--<div class="form-group">-->
-                <!--<input value="" type="text" class="form-control" id="GetParametersData">-->
+            <!--<input value="" type="text" class="form-control" id="GetParametersData">-->
             <!--</div>-->
             <!--<div class="form-group">-->
-                <!--<button type="button" class="btn btn-default" onClick="copy(GetParametersData)">复制data数据</button>-->
+            <!--<button type="button" class="btn btn-default" onClick="copy(GetParametersData)">复制data数据</button>-->
             <!--</div>-->
         </div>
     </div>
@@ -62,24 +63,24 @@
         <div class="panel-body">
             <h4>3、请求二维码接口</h4>
             <div class="form-group">
-                <label for="recipient-name" class="control-label">二维码图片内容:</label>
+                <label for="img-content" class="control-label">二维码图片内容:</label>
                 <input type="text" class="form-control" id="img-content">
             </div>
             <div class="form-group">
-                <label for="recipient-name" class="control-label">二维码图片存放路径（图片格式为png）:</label>
+                <label for="img-path" class="control-label">二维码图片存放路径（图片格式为png）:</label>
                 <input type="text" class="form-control" id="img-path" value="/images/" disabled>
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="RCode()">请求二维码接口</button>
             </div>
             <!--<div class="form-group">-->
-                <!--<textarea class="form-control" id="RCodeTxt" cols="150" rows="5"></textarea>-->
+            <!--<textarea class="form-control" id="RCodeTxt" cols="150" rows="5"></textarea>-->
             <!--</div>-->
             <!--<div class="form-group">-->
-                <!--<input value="" type="text" class="form-control" id="RCodeData">-->
+            <!--<input value="" type="text" class="form-control" id="RCodeData">-->
             <!--</div>-->
             <!--<div class="form-group">-->
-                <!--<button type="button" class="btn btn-default" onClick="copy(RCodeData)">复制data数据</button>-->
+            <!--<button type="button" class="btn btn-default" onClick="copy(RCodeData)">复制data数据</button>-->
             <!--</div>-->
         </div>
     </div>
@@ -94,13 +95,13 @@
                 <button type="button" class="btn btn-primary" onclick="Transid()">获取流水号接口</button>
             </div>
             <!--<div class="form-group">-->
-                <!--<textarea class="form-control" id="TransidTxt" cols="150" rows="5"></textarea>-->
+            <!--<textarea class="form-control" id="TransidTxt" cols="150" rows="5"></textarea>-->
             <!--</div>-->
             <!--<div class="form-group">-->
-                <!--<input value="" type="text" class="form-control" id="TransidData">-->
+            <!--<input value="" type="text" class="form-control" id="TransidData">-->
             <!--</div>-->
             <!--<div class="form-group">-->
-                <!--<button type="button" class="btn btn-default" onClick="copy(TransidData)">复制data数据</button>-->
+            <!--<button type="button" class="btn btn-default" onClick="copy(TransidData)">复制data数据</button>-->
             <!--</div>-->
         </div>
     </div>
@@ -226,6 +227,14 @@
                 <input type="text" class="form-control" id="containerId4">
             </div>
             <div class="form-group">
+                <label for="oldCode" class="control-label">旧密码:</label>
+                <input type="text" class="form-control" id="oldCode">
+            </div>
+            <div class="form-group">
+                <label for="newCode" class="control-label">新密码:</label>
+                <input type="text" class="form-control" id="newCode">
+            </div>
+            <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="changePwd()">获取证书用户标识</button>
             </div>
             <div class="form-group">
@@ -262,6 +271,10 @@
         <div class="panel-body">
             <h4>12、获取证书用户标识接口</h4>
             <div class="form-group">
+                <label for="SncontainerId" class="control-label">唯一标识:</label>
+                <input type="text" class="form-control" id="SncontainerId">
+            </div>
+            <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="KeyGetKeySn()">获取证书用户标识接口</button>
             </div>
             <div class="form-group">
@@ -279,42 +292,45 @@
         <div class="panel-body">
             <h4>13、对称加密接口</h4>
             <div class="form-group">
-                <label for="recipient-name" class="control-label">待加密文件路径，带文件名:</label>
-                <input type="file" id="surEncryption" webkitdirectory>
+                <label for="surEncryption" class="control-label">待加密文件路径，带文件名:</label>
+                <input type="text" class="form-control" id="surEncryption">
             </div>
             <div class="form-group">
-                <label for="recipient-name" class="control-label">加密后文件保存路径，带文件名:</label>
-                <input type="text" class="form-control" id="encryption" value="C:\Users\shenqian\Desktop\tset" disabled>
+                <label for="encryption" class="control-label">加密后文件保存路径，带文件名:</label>
+                <input type="text" class="form-control" id="encryption">
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="EncryptFile()">对称加密</button>
-                <button type="button" class="btn btn-primary" onclick="EncryptFile()">查看待加密文件</button>
-                <button type="button" class="btn btn-primary" onclick="EncryptFile()">查看加密文件</button>
             </div>
             <div class="form-group">
                 <textarea class="form-control" id="EncryptFileTxt" cols="150" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <input value="" type="text" class="form-control" id="EncryptFileData">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default" onClick="copy(EncryptFileData)">复制data数据</button>
             </div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
-            <h4>14、对称加密接口</h4>
+            <h4>14、对称解密接口</h4>
             <div class="form-group">
-                <label for="recipient-name" class="control-label">对称密钥原文:</label>
+                <label for="symmetricKey" class="control-label">对称密钥原文:</label>
                 <input type="text" class="form-control" id="symmetricKey">
             </div>
             <div class="form-group">
-                <label for="recipient-name" class="control-label">加密文件路径，带文件名:</label>
-                <input type="text" class="form-control" id="encryption2" value="/file/test.txt" disabled>
+                <label for="encryption2" class="control-label">加密文件路径，带文件名:</label>
+                <input type="text" id="encryption2" class="form-control">
             </div>
             <div class="form-group">
-                <label for="recipient-name" class="control-label">解密后文件保存路径，带文件名:</label>
-                <input type="text" class="form-control" id="decryptedFiles" value="/file/test" disabled>
+                <label for="decryptedFiles" class="control-label">解密后文件保存路径，带文件名:</label>
+                <input type="text" class="form-control" id="decryptedFiles">
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="DevryptFile()">对称解密</button>
-                <button type="button" class="btn btn-primary" onclick="DevryptFile()">查看加密文件</button>
-                <button type="button" class="btn btn-primary" onclick="DevryptFile()">查看解密文件</button>
+
             </div>
             <div class="form-group">
                 <textarea class="form-control" id="DevryptFileTxt" cols="150" rows="5"></textarea>
@@ -325,7 +341,7 @@
         <div class="panel-body">
             <h4>15、非对称加密接口</h4>
             <div class="form-group">
-                <label for="rsKey" class="control-label">待加密明文，32位长度:</label>
+                <label for="rsKey" class="control-label">待加密明文:</label>
                 <input type="text" class="form-control" id="rsKey">
             </div>
             <div class="form-group">
@@ -338,11 +354,21 @@
             <div class="form-group">
                 <textarea class="form-control" id="KeyEncryptDataTxt" cols="150" rows="5"></textarea>
             </div>
+            <div class="form-group">
+                <input value="" type="text" class="form-control" id="KeyEncryptDataData">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default" onClick="copy(KeyEncryptDataData)">复制data数据</button>
+            </div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
             <h4>16、非对称解密接口</h4>
+            <div class="form-group">
+                <label for="containerId6" class="control-label">唯一标识:</label>
+                <input type="text" class="form-control" id="containerId6">
+            </div>
             <div class="form-group">
                 <label for="encRsKey" class="control-label">待解密的密文:</label>
                 <input type="text" class="form-control" id="encRsKey">
@@ -362,11 +388,11 @@
             <h4>17、数字信封加密接口</h4>
             <div class="form-group">
                 <label for="souceFilePath" class="control-label">原文路径，带文件名:</label>
-                <input type="text" class="form-control" id="souceFilePath" value="/file/test.txt" disabled>
+                <input type="text" class="form-control" id="souceFilePath">
             </div>
             <div class="form-group">
                 <label for="encFilePath" class="control-label">加密后的密文保存路径，带文件名:</label>
-                <input type="text" class="form-control" id="encFilePath" value="/file/test.txt" disabled>
+                <input type="text" class="form-control" id="encFilePath">
             </div>
             <div class="form-group">
                 <label for="certBase" class="control-label">证书base64编码:</label>
@@ -374,8 +400,6 @@
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="KeyEncryptByDigitalEnvelope()">数字信封加密</button>
-                <button type="button" class="btn btn-primary" onclick="DevryptFile()">查看加密文件</button>
-                <button type="button" class="btn btn-primary" onclick="DevryptFile()">查看解密文件</button>
             </div>
             <div class="form-group">
                 <textarea class="form-control" id="KeyEncryptTxt" cols="150" rows="5"></textarea>
@@ -386,21 +410,23 @@
         <div class="panel-body">
             <h4>18、数字信封解密接口</h4>
             <div class="form-group">
+                <label for="containerId7" class="control-label">唯一标识:</label>
+                <input type="text" class="form-control" id="containerId7">
+            </div>
+            <div class="form-group">
                 <label for="encFilePath2" class="control-label">要解密的文件路径，带文件名:</label>
-                <input type="text" class="form-control" id="encFilePath2" value="/file/test.txt" disabled>
+                <input type="text" class="form-control" id="encFilePath2">
             </div>
             <div class="form-group">
                 <label for="dncDirectory" class="control-label">解密后文件保存路径，不带文件名:</label>
-                <input type="text" class="form-control" id="dncDirectory" value="/file/test.txt" disabled>
+                <input type="text" class="form-control" id="dncDirectory">
             </div>
             <div class="form-group">
                 <label for="encRsKeyPath" class="control-label">对称密钥信息文件路径，带文件名:</label>
-                <input type="text" class="form-control" id="encRsKeyPath" value="/file/test.txt" disabled>
+                <input type="text" class="form-control" id="encRsKeyPath">
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="KeyDecryptByDigitalEnvelope()">数字信封解密</button>
-                <button type="button" class="btn btn-primary" onclick="DevryptFile()">查看加密文件</button>
-                <button type="button" class="btn btn-primary" onclick="DevryptFile()">查看解密文件</button>
             </div>
             <div class="form-group">
                 <textarea class="form-control" id="KeyDecryptByDigitalTxt" cols="150" rows="5"></textarea>
@@ -417,7 +443,7 @@
             </div>
             <div class="form-group">
                 <label for="containerId" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="containerId">
+                <input type="text" class="form-control" id="containerId5">
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="KeyDigitalSignByP1()">P1签名（域签）</button>
@@ -431,11 +457,11 @@
         <div class="panel-body">
             <h4>20、P1验签接口（域签）</h4>
             <div class="form-group">
-                <label for="certBase64" class="control-label">base64编码的签名证书:</label>
-                <input type="text" class="form-control" id="certBase64">
+                <label for="VerifycertBase64" class="control-label">base64编码的签名证书:</label>
+                <input type="text" class="form-control" id="VerifycertBase64">
             </div>
             <div class="form-group">
-                <label for="asn1Ms2" class="control-label">待签名原文:</label>
+                <label for="asn1Msg2" class="control-label">待签名原文:</label>
                 <input type="text" class="form-control" id="asn1Msg2">
             </div>
             <div class="form-group">
@@ -458,10 +484,20 @@
                 <input type="text" class="form-control" id="msg">
             </div>
             <div class="form-group">
+                <label for="KeycontainerId" class="control-label">唯一标识:</label>
+                <input type="text" class="form-control" id="KeycontainerId">
+            </div>
+            <div class="form-group">
                 <button type="button" class="btn btn-primary" onclick="KeySignByP1()">P1签名</button>
             </div>
             <div class="form-group">
                 <textarea class="form-control" id="KeySignByP1Txt" cols="150" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <input value="" type="text" class="form-control" id="KeySignByP1Data">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default" onClick="copy(KeySignByP1Data)">复制data数据</button>
             </div>
         </div>
     </div>
@@ -469,11 +505,11 @@
         <div class="panel-body">
             <h4>22、P1验签接口</h4>
             <div class="form-group">
-                <label for="certBase2" class="control-label">base64编码的签名证书:</label>
-                <input type="text" class="form-control" id="certBase2">
+                <label for="SigncertBase" class="control-label">base64编码的签名证书:</label>
+                <input type="text" class="form-control" id="SigncertBase">
             </div>
             <div class="form-group">
-                <label for="asn1Ms3" class="control-label">待签名原文:</label>
+                <label for="asn1Msg3" class="control-label">待签名原文:</label>
                 <input type="text" class="form-control" id="asn1Msg3">
             </div>
             <div class="form-group">
@@ -493,6 +529,10 @@
         <div class="panel-body">
             <h4>23、P7签名接口</h4>
             <div class="form-group">
+                <label for="P7containerId" class="control-label">唯一标识:</label>
+                <input type="text" class="form-control" id="P7containerId">
+            </div>
+            <div class="form-group">
                 <label for="msg2" class="control-label">待签名原文:</label>
                 <input type="text" class="form-control" id="msg2">
             </div>
@@ -506,11 +546,17 @@
             <div class="form-group">
                 <textarea class="form-control" id="KeySignByP7Txt" cols="150" rows="5"></textarea>
             </div>
+            <div class="form-group">
+                <input value="" type="text" class="form-control" id="KeySignByP7Data">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default" onClick="copy(KeySignByP7Data)">复制data数据</button>
+            </div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
-            <h4>24、验签接口</h4>
+            <h4>24、P7验签接口</h4>
             <div class="form-group">
                 <label for="signed" class="control-label">待签名原文，若signdMsg带原文，则该参数为空:</label>
                 <input type="text" class="form-control" id="signed">
@@ -535,7 +581,7 @@
 </body>
 <script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
 <script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
-<script src="/javascripts/ajax.js" type="text/javascript"></script>
+<script src="./js/ajax.js" type="text/javascript"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/javascripts/public.js"></script>
+<script src="./js/public.js" type="text/javascript"></script>
 </html>

@@ -86,7 +86,7 @@
             <div class="form-group">
                 <textarea class="form-control" id="KeySignByP1Txt" cols="150" rows="5"></textarea>
             </div>
-
+        </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
@@ -182,8 +182,8 @@
             url:commonUrl+"/RS_KeyDigitalSignByP1",
             type:"post",
             data:{
-                asn1Msg:"123",
-                containerId:"cvaw",
+                asn1Msg:$("#asn1Msg").val(),
+                containerId:$("#containerId").val()
             },
             success:function(res){
                 var smg=JSON.stringify(res);
