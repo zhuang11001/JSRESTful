@@ -1,587 +1,173 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head lang="en">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
-    <title>接口测试</title>
+    <title>兼容多浏览器证书调用测试资源下载</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <!--<link rel='stylesheet' href='/css/style.css' />-->
+    <style>
+        .top{
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <div class="top">
-        <h2>接口测试 版本1.0.32 </h2>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>1、配置参数接口</h4>
-            <div class="form-group">
-                <label for="cmd" class="control-label">命令标识:</label>
-                <input type="text" class="form-control" id="cmd">
-            </div>
-            <div class="form-group">
-                <label for="val" class="control-label">服务器地址:</label>
-                <input type="text" class="form-control" id="val">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="ConfigParameters()">配置参数接口</button>
-            </div>
-            <!--<div class="form-group">-->
-            <!--<textarea class="form-control" id="ConfigParametersTxt" cols="150" rows="5"></textarea>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<input value="" type="text" class="form-control" id="ConfigParametersData">-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<button type="button" class="btn btn-default" onClick="copy(ConfigParametersData)">复制data数据</button>-->
-            <!--</div>-->
+    <div class="container">
+        <div class="top">
+            <h2>兼容多浏览器证书调用测试资源下载</h2>
         </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>2、获取配置参数接口</h4>
-            <div class="form-group">
-                <label for="get-cmd" class="control-label">命令标识:</label>
-                <input type="text" class="form-control" id="get-cmd">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="GetParameters()">获取配置参数接口</button>
-            </div>
-            <!--<div class="form-group">-->
-            <!--<textarea class="form-control" id="GetParametersTxt" cols="150" rows="5"></textarea>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<input value="" type="text" class="form-control" id="GetParametersData">-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<button type="button" class="btn btn-default" onClick="copy(GetParametersData)">复制data数据</button>-->
-            <!--</div>-->
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>3、请求二维码接口</h4>
-            <div class="form-group">
-                <label for="img-content" class="control-label">二维码图片内容:</label>
-                <input type="text" class="form-control" id="img-content">
-            </div>
-            <div class="form-group">
-                <label for="img-path" class="control-label">二维码图片存放路径（图片格式为png）:</label>
-                <input type="text" class="form-control" id="img-path" value="/images/" disabled>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="RCode()">请求二维码接口</button>
-            </div>
-            <!--<div class="form-group">-->
-            <!--<textarea class="form-control" id="RCodeTxt" cols="150" rows="5"></textarea>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<input value="" type="text" class="form-control" id="RCodeData">-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<button type="button" class="btn btn-default" onClick="copy(RCodeData)">复制data数据</button>-->
-            <!--</div>-->
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>4、获取流水号接口</h4>
-            <div class="form-group">
-                <label for="Numbering" class="control-label">接入方编号:</label>
-                <input type="text" class="form-control" id="Numbering">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="Transid()">获取流水号接口</button>
-            </div>
-            <!--<div class="form-group">-->
-            <!--<textarea class="form-control" id="TransidTxt" cols="150" rows="5"></textarea>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<input value="" type="text" class="form-control" id="TransidData">-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<button type="button" class="btn btn-default" onClick="copy(TransidData)">复制data数据</button>-->
-            <!--</div>-->
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>5、获取证书列表接口</h4>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="GetUserList()">获取证书列表接口</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="GetUserListTxt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input value="" type="text" class="form-control" id="GetUserListData">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(GetUserListData)">复制data数据</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>6、获取数字证书接口</h4>
-            <div class="form-group">
-                <label for="certType" class="control-label">1(签名证书)，2(加密证书):</label>
-                <input type="text" class="form-control" id="certType">
-            </div>
-            <div class="form-group">
-                <label for="containerId3" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="containerId3">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="GetCertBase64String()">获取数字证书接口</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="GetCertBase64StringTxt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="GetCertBase64StringData">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(GetCertBase64StringData)">复制data数据</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>7、获取证书信息接口</h4>
-            <div class="form-group">
-                <label for="certBase64" class="control-label">证书base64编码:</label>
-                <input type="text" class="form-control" id="certBase64">
-            </div>
-            <div class="form-group">
-                <label for="type" class="control-label">1、证书版本；2、证书序列号:</label>
-                <input type="text" class="form-control" id="type">
-            </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>驱动名称</th>
+                    <th>下载地址</th>
+                    <th>版本</th>
+                    <th>更新时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>CFCA_华申HSIC DriverSetup</td>
+                    <td><a href="./res/CFCA_华申HSIC%20DriverSetup.exe">下载</a></td>
+                    <td>8.1.1006.0</td>
+                    <td>2019-7-18</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>CFCAUSBKeySetup_XS</td>
+                    <td><a href="./res/CFCAUSBKeySetup_XS（2018-8-29）.exe">下载</a></td>
+                    <td>1.2.2.27</td>
+                    <td>2019-7-18</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>GTHelperV1.72</td>
+                    <td><a href="./res/GTHelperV1.72.exe">下载</a></td>
+                    <td>1.72</td>
+                    <td>2019-7-18</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>HTSetup_NMCA</td>
+                    <td><a href="./res/HTSetup_NMCA.exe">下载</a></td>
+                    <td>5.0.2018.5221</td>
+                    <td>2019-7-18</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>ePass3000SimpChinese-With-PrvDll_silent</td>
+                    <td><a href="./res/ePass3000SimpChinese-With-PrvDll_silent.exe">下载</a></td>
+                    <td>1.2.18.613</td>
+                    <td>2019-7-18</td>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>ePass3000SimpChinese-With-PrvDll_64_silent</td>
+                    <td><a href="./res/ePass3000SimpChinese-With-PrvDll_64_silent.exe">下载</a></td>
+                    <td>1.2.18.613</td>
+                    <td>2019-7-18</td>
+                </tr>
 
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="GetCertInfo()">获取证书信息接口</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="GetCertInfoTxt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input value="" type="text" class="form-control" id="GetCertInfoData">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(GetCertInfoData)">复制data数据</button>
-            </div>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>8、证书口令验证接口</h4>
-            <div class="form-group">
-                <label for="containerId" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="containerId">
-            </div>
-            <div class="form-group">
-                <label for="password" class="control-label">证书口令:</label>
-                <input type="text" class="form-control" id="password">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="CertLogin()">证书口令验证接口</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="CertLoginTxt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input value="" type="text" class="form-control" id="CertLoginData">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(CertLoginData)">复制data数据</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>9、获取密码重试剩余次数接口</h4>
-            <div class="form-group">
-                <label for="containerId2" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="containerId2">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="GetPinRetryCount()">获取密码重试剩余次数接口</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="GetPinRetryCountTxt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input value="" type="text" class="form-control" id="GetPinRetryCountData">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(GetPinRetryCountData)">复制data数据</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>10、修改证书口令接口</h4>
-            <div class="form-group">
-                <label for="containerId4" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="containerId4">
-            </div>
-            <div class="form-group">
-                <label for="oldCode" class="control-label">旧密码:</label>
-                <input type="text" class="form-control" id="oldCode">
-            </div>
-            <div class="form-group">
-                <label for="newCode" class="control-label">新密码:</label>
-                <input type="text" class="form-control" id="newCode">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="changePwd()">获取证书用户标识</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="changePwdTxt" cols="150" rows="5"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>11、验证证书有效性接口</h4>
-            <div class="form-group">
-                <label for="certBase" class="control-label">证书base64编码:</label>
-                <input type="text" class="form-control" id="certBase">
-            </div>
-            <div class="form-group">
-                <label for="authNo" class="control-label">授权码（32位UUID）:</label>
-                <input type="text" class="form-control" id="authNo">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="VerifyIdentity()">验证证书有效性接口</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="VerifyIdentityTxt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input value="" type="text" class="form-control" id="VerifyIdentityTxtData">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(VerifyIdentityTxtData)">复制data数据</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>12、获取证书用户标识接口</h4>
-            <div class="form-group">
-                <label for="SncontainerId" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="SncontainerId">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="KeyGetKeySn()">获取证书用户标识接口</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="KeyGetKeySnTxt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input value="" type="text" class="form-control" id="KeyGetKeySnData">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(KeyGetKeySnData)">复制data数据</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>13、对称加密接口</h4>
-            <div class="form-group">
-                <label for="surEncryption" class="control-label">待加密文件路径，带文件名:</label>
-                <input type="text" class="form-control" id="surEncryption">
-            </div>
-            <div class="form-group">
-                <label for="encryption" class="control-label">加密后文件保存路径，带文件名:</label>
-                <input type="text" class="form-control" id="encryption">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="EncryptFile()">对称加密</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="EncryptFileTxt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input value="" type="text" class="form-control" id="EncryptFileData">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(EncryptFileData)">复制data数据</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>14、对称解密接口</h4>
-            <div class="form-group">
-                <label for="symmetricKey" class="control-label">对称密钥原文:</label>
-                <input type="text" class="form-control" id="symmetricKey">
-            </div>
-            <div class="form-group">
-                <label for="encryption2" class="control-label">加密文件路径，带文件名:</label>
-                <input type="text" id="encryption2" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="decryptedFiles" class="control-label">解密后文件保存路径，带文件名:</label>
-                <input type="text" class="form-control" id="decryptedFiles">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="DevryptFile()">对称解密</button>
 
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="DevryptFileTxt" cols="150" rows="5"></textarea>
-            </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>名称</th>
+                    <th>下载地址</th>
+                    <th>版本</th>
+                    <th>更新时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td style="color: red"><strong>测试demo</strong></td>
+                    <td><a href="./demo.html" download="demo.html">下载</a></td>
+                    <td>1.0.32</td>
+                    <td>2019-7-18</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td style="color: red"><strong>兼容多浏览器服务端</strong></td>
+                    <td><a href="./res/testSuite.exe">下载</a></td>
+                    <td>1.0.32.0003</td>
+                    <td>2019-7-19</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>phpStudy(用来压测)</td>
+                    <td><a href="./res/phpStudy20161103.exe">下载</a></td>
+                    <td>1.2.0.715</td>
+                    <td>2019-7-18</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>postman（接口测试）</td>
+                    <td><a href="./res/Postman-win64-7.2.2-Setup.exe">下载</a></td>
+                    <td>7.2.2</td>
+                    <td>2019-7-18</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>接口参数</td>
+                    <td><a href="https://github.com/anyboo/UKEY/wiki/RESTful-API-document" target="view_window">地址</a></td>
+                    <td></td>
+                    <td>2019-7-18</td>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>统一安全认证服务平台-对接规范</td>
+                    <td><a href="./res/统一安全认证服务平台-对接规范.docx">下载</a></td>
+                    <td></td>
+                    <td>2019-7-18</td>
+                </tr>
+                <tr>
+                    <th scope="row">7</th>
+                    <td>phpStudy中apache的ab命令压测参考</td>
+                    <td><a href="https://www.cnblogs.com/jingmin/p/9100747.html" target="view_window">地址</a></td>
+                    <td></td>
+                    <td>2019-7-18</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>15、非对称加密接口</h4>
-            <div class="form-group">
-                <label for="rsKey" class="control-label">待加密明文:</label>
-                <input type="text" class="form-control" id="rsKey">
-            </div>
-            <div class="form-group">
-                <label for="certBase64" class="control-label">证书base64编码:</label>
-                <input type="text" class="form-control" id="KeycertBase64">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="KeyEncryptData()">非对称加密</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="KeyEncryptDataTxt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input value="" type="text" class="form-control" id="KeyEncryptDataData">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(KeyEncryptDataData)">复制data数据</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>16、非对称解密接口</h4>
-            <div class="form-group">
-                <label for="containerId6" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="containerId6">
-            </div>
-            <div class="form-group">
-                <label for="encRsKey" class="control-label">待解密的密文:</label>
-                <input type="text" class="form-control" id="encRsKey">
-            </div>
 
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="KeyDecryptData()">非对称解密</button>
-            </div>
-            <div class="form-group">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>历史版本</th>
+                    <th>下载地址</th>
+                    <th>版本</th>
+                    <th>更新时间</th>
+                </tr>
+                </thead>
+                <tbody>
 
-                <textarea class="form-control" id="KeyDecryptDataTxt" cols="150" rows="5"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>17、数字信封加密接口</h4>
-            <div class="form-group">
-                <label for="souceFilePath" class="control-label">原文路径，带文件名:</label>
-                <input type="text" class="form-control" id="souceFilePath">
-            </div>
-            <div class="form-group">
-                <label for="encFilePath" class="control-label">加密后的密文保存路径，带文件名:</label>
-                <input type="text" class="form-control" id="encFilePath">
-            </div>
-            <div class="form-group">
-                <label for="certBase" class="control-label">证书base64编码:</label>
-                <input type="text" class="form-control" id="certBase2">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="KeyEncryptByDigitalEnvelope()">数字信封加密</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="KeyEncryptTxt" cols="150" rows="5"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>18、数字信封解密接口</h4>
-            <div class="form-group">
-                <label for="containerId7" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="containerId7">
-            </div>
-            <div class="form-group">
-                <label for="encFilePath2" class="control-label">要解密的文件路径，带文件名:</label>
-                <input type="text" class="form-control" id="encFilePath2">
-            </div>
-            <div class="form-group">
-                <label for="dncDirectory" class="control-label">解密后文件保存路径，不带文件名:</label>
-                <input type="text" class="form-control" id="dncDirectory">
-            </div>
-            <div class="form-group">
-                <label for="encRsKeyPath" class="control-label">对称密钥信息文件路径，带文件名:</label>
-                <input type="text" class="form-control" id="encRsKeyPath">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="KeyDecryptByDigitalEnvelope()">数字信封解密</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="KeyDecryptByDigitalTxt" cols="150" rows="5"></textarea>
-            </div>
-        </div>
-    </div>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>兼容多浏览器服务端</td>
+                    <td><a href="./res/testSuite.exe">下载</a></td>
+                    <td>1.0.32</td>
+                    <td>2019-7-18</td>
+                </tr>
 
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>19、P1签名接口（域签）</h4>
-            <div class="form-group">
-                <label for="asn1Msg" class="control-label">待签名原文:</label>
-                <input type="text" class="form-control" id="asn1Msg">
-            </div>
-            <div class="form-group">
-                <label for="containerId" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="containerId5">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="KeyDigitalSignByP1()">P1签名（域签）</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="KeyDigitalSignByP1Txt" cols="150" rows="5"></textarea>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>20、P1验签接口（域签）</h4>
-            <div class="form-group">
-                <label for="VerifycertBase64" class="control-label">base64编码的签名证书:</label>
-                <input type="text" class="form-control" id="VerifycertBase64">
-            </div>
-            <div class="form-group">
-                <label for="asn1Msg2" class="control-label">待签名原文:</label>
-                <input type="text" class="form-control" id="asn1Msg2">
-            </div>
-            <div class="form-group">
-                <label for="signdMsg" class="control-label">签名值:</label>
-                <input type="text" class="form-control" id="signdMsg">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="VerifyDigitalSignByP1()">P1验签（域签）</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="VerifyDigitalSignByP1Txt" cols="150" rows="5"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>21、P1签名接口</h4>
-            <div class="form-group">
-                <label for="msg" class="control-label">待签名原文:</label>
-                <input type="text" class="form-control" id="msg">
-            </div>
-            <div class="form-group">
-                <label for="KeycontainerId" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="KeycontainerId">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="KeySignByP1()">P1签名</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="KeySignByP1Txt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input value="" type="text" class="form-control" id="KeySignByP1Data">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(KeySignByP1Data)">复制data数据</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>22、P1验签接口</h4>
-            <div class="form-group">
-                <label for="SigncertBase" class="control-label">base64编码的签名证书:</label>
-                <input type="text" class="form-control" id="SigncertBase">
-            </div>
-            <div class="form-group">
-                <label for="asn1Msg3" class="control-label">待签名原文:</label>
-                <input type="text" class="form-control" id="asn1Msg3">
-            </div>
-            <div class="form-group">
-                <label for="signdMsg2" class="control-label">签名值:</label>
-                <input type="text" class="form-control" id="signdMsg2">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="VerifySignByP1()">P1验名</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="VerifySignByP1Txt" cols="150" rows="5"></textarea>
-            </div>
-
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>23、P7签名接口</h4>
-            <div class="form-group">
-                <label for="P7containerId" class="control-label">唯一标识:</label>
-                <input type="text" class="form-control" id="P7containerId">
-            </div>
-            <div class="form-group">
-                <label for="msg2" class="control-label">待签名原文:</label>
-                <input type="text" class="form-control" id="msg2">
-            </div>
-            <div class="form-group">
-                <label for="flag" class="control-label">是否带原文的标识，1:不带原文;0:带原文:</label>
-                <input type="text" class="form-control" id="flag">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="KeySignByP7()">P7签名</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="KeySignByP7Txt" cols="150" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-                <input value="" type="text" class="form-control" id="KeySignByP7Data">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default" onClick="copy(KeySignByP7Data)">复制data数据</button>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h4>24、P7验签接口</h4>
-            <div class="form-group">
-                <label for="signed" class="control-label">待签名原文，若signdMsg带原文，则该参数为空:</label>
-                <input type="text" class="form-control" id="signed">
-            </div>
-            <div class="form-group">
-                <label for="sign" class="control-label">签名值，P7签名:</label>
-                <input type="text" class="form-control" id="sign">
-            </div>
-            <div class="form-group">
-                <label for="Identification" class="control-label">是否带原文的标识，1:不带原文;0:带原文:</label>
-                <input type="text" class="form-control" id="Identification">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="VerifySignByP7()">P7验签</button>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="VerifySignByP7Txt" cols="150" rows="5"></textarea>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 <script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
 <script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
-<script src="./js/ajax.js" type="text/javascript"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="./js/public.js" type="text/javascript"></script>
 </html>
