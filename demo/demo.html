@@ -26,7 +26,7 @@
 <div class="container">
     <div class="col-md-9">
     <div class="top">
-        <h2>接口测试 版本1.0.32 </h2>
+        <h2>接口测试 版本1.0.32.0003 </h2>
     </div>
     <div style="margin: 10px 0">
         <button type="button" class="btn btn-primary" onclick="OpenDevice()">开启设备</button>
@@ -678,49 +678,8 @@
                     </a>
                 </li>
             </ul>
-
         </nav>
     </div>
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">.col-md-4</div>
-                        <div class="col-md-4 col-md-offset-4">.col-md-4 .col-md-offset-4</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 col-md-offset-3">.col-md-3 .col-md-offset-3</div>
-                        <div class="col-md-2 col-md-offset-4">.col-md-2 .col-md-offset-4</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3">.col-md-6 .col-md-offset-3</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-9">
-                            Level 1: .col-sm-9
-                            <div class="row">
-                                <div class="col-xs-8 col-sm-6">
-                                    Level 2: .col-xs-8 .col-sm-6
-                                </div>
-                                <div class="col-xs-4 col-sm-6">
-                                    Level 2: .col-xs-4 .col-sm-6
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 </div>
 </body>
 <script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
@@ -758,9 +717,9 @@
     function OpenDevice(){
         var url=commonUrl+"/SOF_OpenDevice";
         var data='';
-        ajax(url, data,function(result) {
-            console.log(result);
-            if(result.code=="0000"){
+        ajax(url, data,function(res) {
+            console.log(res);
+            if(res.code=="0000"){
                 alert("打开设备成功")
             }else{
                 alert("打开设备失败")
@@ -770,9 +729,9 @@
     function CloseDevice(){
         var url=commonUrl+"/SOF_CloseDevice";
         var data='';
-        ajax(url, data,function(result) {
-            console.log(result)
-            if(result.code=="0000"){
+        ajax(url, data,function(res) {
+            console.log(res)
+            if(res.code=="0000"){
                 alert("关闭设备成功");
             }else{
                 alert("关闭设备失败");
@@ -786,197 +745,144 @@
             cmd:$("#cmd").val(),
             val:$("#val").val()
         }
-        ajax(url, data,function(result) {
-            console.log(result)
-            alert(result);
+        ajax(url, data,function(res) {
+            console.log(res)
+            alert(res);
         });
 
     }
     //3.2.1.2.获取配置参数接口
     function GetParameters(){
-        $.ajax({
-            url:commonUrl+"/RS_GetParameters",
-            type:"post",
-            data:{
-                cmd:$("#get-cmd").val(),
-            },
-            success:function(res){
-                alert(res);
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_ConfigParameters";
+        var data={
+            cmd:$("#get-cmd").val(),
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            alert(res);
         });
+
     }
     //3.2.1.4.生成二维码图片接口
     function RCode(){
-        $.ajax({
-            url:commonUrl+"/RS_GreateQRCode",
-            type:"post",
-            data:{
-                qrcode:$("img-content").val(),
-                path:$("img-path").val()
-            },
-            success:function(res){
-                alert(res);
-                console.log(res);
-            },
-            error:function(res){
-                alert("RCode Not Implmented!")
-            }
-        });
+        var url=commonUrl+"/RS_GreateQRCode";
+        var data={
+            qrcode:$("img-content").val(),
+            path:$("img-path").val()
+        }
+        alert("RCode Not Implmented!")
+//        ajax(url, data,function(res) {
+//            console.log(res)
+//            alert(res);
+//        });
+
     }
     //3.2.1.5.获取流水号接口
     function Transid(){
-        $.ajax({
-            url:commonUrl+"/RS_GetTransid",
-            type:"post",
-            data:{
-                joinCode:$("Numbering").val(),
-            },
-            success:function(res){
-                alert(res);
-                console.log(res);
-            },
-            error:function(res){
-                alert("Transid Not Implmented!")
-            }
-        });
+        var url=commonUrl+"/RS_GetTransid";
+        var data={
+            joinCode:$("Numbering").val(),
+        }
+//        ajax(url, data,function(res) {
+//            console.log(res)
+//            alert(res);
+//        });
+        alert("Transid Not Implmented!")
     }
     //3.2.2.1.获取证书列表接口
     function GetUserList(){
-
-        $.ajax({
-            url:commonUrl+"/RS_GetUserList",
-            type:"post",
-//            contentType: 'application/json',
-//            dataType:"jsonp",  //数据格式设置为jsonp
-            data:{
-            },
-            success:function(res){
-                var msg = JSON.parse(res);
-                console.log(res);
-                console.log(msg);
-                var i = msg.data.userlist.indexOf("||");
-                var j = msg.data.userlist.slice(i+2);
-                console.log(j);
-                document.getElementById("GetUserListData").value = j;
-                document.getElementById("GetUserListTxt").innerHTML = res;
-                document.getElementById("containerId3").value = j;
-                document.getElementById("containerId").value = j;
-                document.getElementById("containerId2").value = j;
-                document.getElementById("containerId4").value = j;
-                document.getElementById("containerId5").value = j;
-                document.getElementById("containerId6").value = j;
-                document.getElementById("containerId7").value = j;
-                document.getElementById("KeycontainerId").value = j;
-                document.getElementById("P7containerId").value = j;
-                document.getElementById("SncontainerId").value = j;
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_GetUserList";
+        var data="";
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg = JSON.stringify(res,null,3);
+//            console.log(msg);
+            var i = res.data.userlist.indexOf("||");
+            var j = res.data.userlist.slice(i+2);
+            console.log(j);
+            document.getElementById("GetUserListTxt").innerHTML = msg;
+            document.getElementById("GetUserListData").value = j;
+            document.getElementById("containerId3").value = j;
+            document.getElementById("containerId").value = j;
+            document.getElementById("containerId2").value = j;
+            document.getElementById("containerId4").value = j;
+            document.getElementById("containerId5").value = j;
+            document.getElementById("containerId6").value = j;
+            document.getElementById("containerId7").value = j;
+            document.getElementById("KeycontainerId").value = j;
+            document.getElementById("P7containerId").value = j;
+            document.getElementById("SncontainerId").value = j;
         });
+
     }
     //3.2.2.2.获取数字证书接口
     function GetCertBase64String(){
-        $.ajax({
-            url:commonUrl+"/RS_GetCertBase64String",
-            type:"post",
-            data:{
-                certType:$("#certType").val(),
-                containerId:$("#containerId3").val()
-            },
-            success:function(res){
-                var msg=JSON.parse(res);
-                console.log(msg.data.certBase64);
-                document.getElementById("GetCertBase64StringTxt").innerHTML = res;
-                document.getElementById("GetCertBase64StringData").value = msg.data.certBase64;
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_GetCertBase64String";
+        var data={
+            certType:$("#certType").val(),
+            containerId:$("#containerId3").val()
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("GetCertBase64StringTxt").innerHTML = msg;
+            document.getElementById("GetCertBase64StringData").value = res.data.certBase64;
         });
     }
     //3.2.2.3.获取证书信息接口
     function GetCertInfo(){
-        $.ajax({
-            url:commonUrl+"/RS_GetCertInfo",
-            type:"post",
-            data:{
-                certBase64:$("#certBase64").val(),
-                type:$("#type").val(),
-            },
-            success:function(res){
-                var msg=JSON.parse(res);
-                document.getElementById("GetCertInfoTxt").innerHTML = res;
-                document.getElementById("GetCertInfoData").value = msg.data.info;
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_GetCertInfo";
+        var data={
+            certBase64:$("#certBase64").val(),
+            type:$("#type").val(),
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("GetCertInfoTxt").innerHTML = msg;
+            document.getElementById("GetCertInfoData").value = res.data.info;
         });
     }
     //3.2.2.4.证书口令验证接口
     function CertLogin(){
-        $.ajax({
-            url:commonUrl+"/RS_CertLogin",
-            type:"post",
-            data:{
-                containerId:$("#containerId").val(),
-                password:$("#password").val(),
-            },
-            success:function(res){
-                var msg=JSON.parse(res);
-                document.getElementById("CertLoginTxt").innerHTML = res;
-                document.getElementById("CertLoginData").value = msg.data.containerId;
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_CertLogin";
+        var data={
+            containerId:$("#containerId").val(),
+            password:$("#password").val(),
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("CertLoginTxt").innerHTML = msg;
+            document.getElementById("CertLoginData").value = res.data.containerId;
         });
+
     }
     //3.2.2.5.获取密码重试剩余次数接口
     function GetPinRetryCount(){
-        $.ajax({
-            url:commonUrl+"/RS_GetPinRetryCount",
-            type:"post",
-            data:{
-                containerId:$("#containerId2").val()
-            },
-            success:function(res){
-                var msg=JSON.parse(res);
-                document.getElementById("GetPinRetryCountTxt").innerHTML = res;
-                document.getElementById("GetPinRetryCountData").value = msg.data.retryCount;
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_GetPinRetryCount";
+        var data={
+            containerId:$("#containerId2").val()
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("GetPinRetryCountTxt").innerHTML = msg;
+            document.getElementById("GetPinRetryCountData").value = res.data.retryCount;
         });
     }
     //3.2.2.6.修改证书口令接口
     function changePwd(){
-        $.ajax({
-            url:commonUrl+"/RS_ChangePassWd",
-            type:"post",
-            data:{
-                containerId:$("#containerId4").val(),
-                oldCode:$("#oldCode").val(),
-                newCode:$("#newCode").val()
-            },
-            success:function(res){
-                var msg=JSON.parse(res);
-                document.getElementById("changePwdTxt").innerHTML = res;
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_ChangePassWd";
+        var data={
+            containerId:$("#containerId4").val(),
+            oldCode:$("#oldCode").val(),
+            newCode:$("#newCode").val()
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("changePwdTxt").innerHTML = msg;
         });
     }
     //3.2.2.7.验证证书有效性接口
@@ -1003,103 +909,72 @@
 
     //3.2.2.8.获取证书用户标识接口
     function KeyGetKeySn(){
-        $.ajax({
-            url:commonUrl+"/RS_KeyGetKeySn",
-            type:"post",
-            data:{
-                containerId:$("#SncontainerId").val()
-            },
-            success:function(res){
-                var msg=JSON.parse(res);
-                console.log(msg);
-                document.getElementById("KeyGetKeySnTxt").innerHTML = res;
-                document.getElementById("KeyGetKeySnData").value = msg.data.keySn;
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_KeyGetKeySn";
+        var data={
+            containerId:$("#SncontainerId").val()
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("KeyGetKeySnTxt").innerHTML = msg;
+            document.getElementById("KeyGetKeySnData").value = res.data.keySn;
         });
     }
 
     //3.2.1.6.对称加密接口
     function EncryptFile(){
-        $.ajax({
-            url:commonUrl+"/RS_EncryptFile",
-            type:"post",
-            data:{
-                souceFilePath:$("#surEncryption").val(),
-                encFilePath:$("#encryption").val()
-            },
-            success:function(res){
-                var msg = JSON.parse(res);
-                document.getElementById("EncryptFileTxt").innerHTML = res;
-                document.getElementById("EncryptFileData").value = msg.data.symKey;
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_EncryptFile";
+        var data={
+            souceFilePath:$("#surEncryption").val(),
+            encFilePath:$("#encryption").val()
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("EncryptFileTxt").innerHTML = msg;
+            document.getElementById("EncryptFileData").value = res.data.symKey;
         });
     }
     //3.2.1.7.对称解密接口
     function DevryptFile(){
-        $.ajax({
-            url:commonUrl+"/RS_DecryptFile",
-            type:"post",
-            data:{
-                symKey:$("#symmetricKey").val(),
-                encFilePath:$("#encryption2").val(),
-                dncDirectoryPath:$("#decryptedFiles").val()
-            },
-            success:function(res){
-
-                document.getElementById("DevryptFileTxt").innerHTML = res;
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_DecryptFile";
+        var data={
+            symKey:$("#symmetricKey").val(),
+            encFilePath:$("#encryption2").val(),
+            dncDirectoryPath:$("#decryptedFiles").val()
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("DevryptFileTxt").innerHTML = msg;
         });
     }
     //3.2.2.14.非对称加密接口
     function KeyEncryptData(){
-        $.ajax({
-            url:commonUrl+"/RS_KeyEncryptData",
-            type:"post",
-            data:{
-                rsKey:$("#rsKey").val(),
-                certBase64:$("#KeycertBase64").val()
-            },
-            success:function(res){
-
-                var msg = JSON.parse(res);
-                document.getElementById("KeyEncryptDataData").value = msg.data.encRsKey;
-                document.getElementById("KeyEncryptDataTxt").innerHTML = res;
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_KeyEncryptData";
+        var data={
+            rsKey:$("#rsKey").val(),
+            certBase64:$("#KeycertBase64").val()
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("KeyEncryptDataTxt").innerHTML = msg;
+            document.getElementById("KeyEncryptDataData").value = res.data.encRsKey;
         });
+
     }
     //3.2.2.15.非对称解密接口
     function KeyDecryptData(){
-        $.ajax({
-            url:commonUrl+"/RS_KeyDecryptData",
-            type:"post",
-            data:{
-                encRsKey:$("#encRsKey").val(),
-                containerId:$("#containerId6").val(),
-            },
-            success:function(res){
-
-                document.getElementById("KeyDecryptDataTxt").innerHTML = res;
-                console.log(res);
-            },
-            error:function(res){
-                console.log(res);
-            }
+        var url=commonUrl+"/RS_KeyDecryptData";
+        var data={
+            encRsKey:$("#encRsKey").val(),
+            containerId:$("#containerId6").val(),
+        }
+        ajax(url, data,function(res) {
+            console.log(res)
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("KeyDecryptDataTxt").innerHTML = msg;
         });
     }
     //3.2.2.16.数字信封加密接口
