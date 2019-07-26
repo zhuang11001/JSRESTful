@@ -78,7 +78,7 @@ function RCode(){
             console.log(res);
         },
         error:function(res){
-            alert("RCode Not Implmented!")
+            alert("RCode Not Implmented!");
         }
     });
 }
