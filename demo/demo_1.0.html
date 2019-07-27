@@ -40,13 +40,14 @@
                     <button type="button" class="btn btn-primary" onclick="GetUserList()">获取证书列表接口</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="GetUserListTxt" cols="150" rows="5"></textarea>
+                    <textarea class="form-control" id="GetUserListTxt" cols="150" rows="5" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <input value="" type="text" class="form-control" id="GetUserListData">
+                    <h5>唯一标识：</h5>
+                    <input value="" type="text" class="form-control" id="GetUserListData" disabled>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-default" onClick="copy(GetUserListData)">复制data数据</button>
+                    <button type="button" class="btn btn-default" onClick="copy(GetUserListData)">复制唯一标识</button>
                 </div>
             </div>
         </div>
@@ -63,16 +64,12 @@
                 </div>
                 <div class="form-group">
                     <button type="button" class="btn btn-primary" onclick="CertLogin()">证书口令验证接口</button>
+                    <p class="text-danger" id="danger">请勿连续输入错误口令</p>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="CertLoginTxt" cols="150" rows="5"></textarea>
+                    <textarea class="form-control" id="CertLoginTxt" cols="150" rows="5" disabled></textarea>
                 </div>
-                <div class="form-group">
-                    <input value="" type="text" class="form-control" id="CertLoginData">
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-default" onClick="copy(CertLoginData)">复制data数据</button>
-                </div>
+
             </div>
         </div>
         <div class="panel panel-default">
@@ -90,13 +87,14 @@
                     <button type="button" class="btn btn-primary" onclick="GetCertBase64String()">获取数字证书接口</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="GetCertBase64StringTxt" cols="150" rows="5"></textarea>
+                    <textarea class="form-control" id="GetCertBase64StringTxt" cols="150" rows="5" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="GetCertBase64StringData">
+                    <h5>证书base64编码：</h5>
+                    <input type="text" class="form-control" id="GetCertBase64StringData" disabled>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-default" onClick="copy(GetCertBase64StringData)">复制data数据</button>
+                    <button type="button" class="btn btn-default" onClick="copy(GetCertBase64StringData)">复制证书base64编码</button>
                 </div>
             </div>
         </div>
@@ -116,13 +114,7 @@
                     <button type="button" class="btn btn-primary" onclick="GetCertInfo()">获取证书信息接口</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="GetCertInfoTxt" cols="150" rows="5"></textarea>
-                </div>
-                <div class="form-group">
-                    <input value="" type="text" class="form-control" id="GetCertInfoData">
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-default" onClick="copy(GetCertInfoData)">复制data数据</button>
+                    <textarea class="form-control" id="GetCertInfoTxt" cols="150" rows="5" disabled></textarea>
                 </div>
             </div>
         </div>
@@ -137,14 +129,9 @@
                     <button type="button" class="btn btn-primary" onclick="KeyGetKeySn()">获取证书用户标识接口</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="KeyGetKeySnTxt" cols="150" rows="5"></textarea>
+                    <textarea class="form-control" id="KeyGetKeySnTxt" cols="150" rows="5" disabled></textarea>
                 </div>
-                <div class="form-group">
-                    <input value="" type="text" class="form-control" id="KeyGetKeySnData">
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-default" onClick="copy(KeyGetKeySnData)">复制data数据</button>
-                </div>
+
             </div>
         </div>
         <div class="panel panel-default">
@@ -162,13 +149,14 @@
                     <button type="button" class="btn btn-primary" onclick="KeyEncryptData()">非对称加密</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="KeyEncryptDataTxt" cols="150" rows="5"></textarea>
+                    <textarea class="form-control" id="KeyEncryptDataTxt" cols="150" rows="5" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <input value="" type="text" class="form-control" id="KeyEncryptDataData">
+                    <h5>密文：</h5>
+                    <input value="" type="text" class="form-control" id="KeyEncryptDataData" disabled>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-default" onClick="copy(KeyEncryptDataData)">复制data数据</button>
+                    <button type="button" class="btn btn-default" onClick="copy(KeyEncryptDataData)">复制密文</button>
                 </div>
             </div>
         </div>
@@ -188,62 +176,12 @@
                     <button type="button" class="btn btn-primary" onclick="KeyDecryptData()">非对称解密</button>
                 </div>
                 <div class="form-group">
-
-                    <textarea class="form-control" id="KeyDecryptDataTxt" cols="150" rows="5"></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-body" id="EncryptFile-pos">
-                <h4>8、对称加密接口</h4>
-                <div class="form-group">
-                    <label for="surEncryption" class="control-label">待加密文件路径，带文件名:</label>
-                    <input type="text" class="form-control" id="surEncryption">
-                </div>
-                <div class="form-group">
-                    <label for="encryption" class="control-label">加密后文件保存路径，带文件名:</label>
-                    <input type="text" class="form-control" id="encryption">
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-primary" onclick="EncryptFile()">对称加密</button>
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" id="EncryptFileTxt" cols="150" rows="5"></textarea>
-                </div>
-                <div class="form-group">
-                    <input value="" type="text" class="form-control" id="EncryptFileData">
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-default" onClick="copy(EncryptFileData)">复制data数据</button>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-body" id="DevryptFile-pos">
-                <h4>9、对称解密接口</h4>
-                <div class="form-group">
-                    <label for="symmetricKey" class="control-label">对称密钥原文:</label>
-                    <input type="text" class="form-control" id="symmetricKey">
-                </div>
-                <div class="form-group">
-                    <label for="encryption2" class="control-label">加密文件路径，带文件名:</label>
-                    <input type="text" id="encryption2" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="decryptedFiles" class="control-label">解密后文件保存路径，带文件名:</label>
-                    <input type="text" class="form-control" id="decryptedFiles">
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-primary" onclick="DevryptFile()">对称解密</button>
-
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" id="DevryptFileTxt" cols="150" rows="5"></textarea>
+                    <textarea class="form-control" id="KeyDecryptDataTxt" cols="150" rows="5" disabled></textarea>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" id="nav-right">
         <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
             <ul class="nav bs-docs-sidenav">
                 <li class="">
@@ -269,13 +207,6 @@
                     <a href="#KeyDecryptData-pos">7、非对称解密接口</a>
                 </li>
                 <li class="">
-                    <a href="#EncryptFile-pos">8、对称加密接口</a>
-                </li>
-                <li class="">
-                    <a href="#DevryptFile-pos">9、对称解密接口</a>
-                </li>
-
-                <li class="">
                     <a class="back-to-top" href="#top">
                         返回顶部
                     </a>
@@ -284,15 +215,48 @@
         </nav>
     </div>
 </div>
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">验证口令</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="model-containerId" class="control-label">唯一标识:</label>
+                        <input type="text" class="form-control" id="model-containerId">
+                    </div>
+                    <div class="form-group">
+                        <label for="model-password" class="control-label">口令:</label>
+                        <input type="text" class="form-control" id="model-password">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="ModelLogin()">验证口令</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div style="margin-bottom: 150px;"></div>
 </body>
-<script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
 <script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/html5shiv/r29/html5.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="./js/JSRESTful.js" type="text/javascript"></script>
+<script src="http://148.70.186.168/JSRESTful.js" type="text/javascript"></script>
 <script type="text/javascript">
+    if (document.all && document.querySelector && !document.addEventListener) {
+        $("#nav-right").attr("style","display:none");
+    }
     jQuery.support.cors=true;
-
+    if(!window.console){
+        window.console = {};
+        window.console.log = function(){};
+    }
     $(function(){
         buffer();
         if($(window).height()<700){
@@ -300,7 +264,7 @@
         }
     });
     //轮询，查询插拔状态
-    setInterval("buffer()",10000);
+    setInterval("buffer()",5000);
 
     function copy(e){
         //获取input对象
@@ -323,99 +287,122 @@
     }
     //3.2.2.1.获取证书列表接口
     function GetUserList(){
-        RS_GetUserList(function(res){
+        document.getElementById("GetUserListTxt").value = "加载中...";
+        var res =RS_GetUserList();
+        setTimeout(function(){
             var msg = JSON.stringify(res,null,3);
             var i = res.data.userlist.indexOf("||");
             var j = res.data.userlist.slice(i+2);
-            document.getElementById("GetUserListTxt").innerHTML = msg;
+            document.getElementById("GetUserListTxt").value = msg;
             document.getElementById("GetUserListData").value = j;
             document.getElementById("containerId3").value = j;
             document.getElementById("containerId").value = j;
+            document.getElementById("model-containerId").value = j;
             document.getElementById("containerId6").value = j;
             document.getElementById("SncontainerId").value = j;
-        });
-    }
+        }, 500);
 
-    //3.2.2.2.获取数字证书接口
-    function GetCertBase64String(){
-        var certType=$("#certType").val();
-        var containerId=$("#containerId3").val();
-        RS_GetCertBase64String(certType, containerId,function(res) {
-            var msg=JSON.stringify(res,null,3);
-            document.getElementById("GetCertBase64StringTxt").innerHTML = msg;
-            document.getElementById("GetCertBase64StringData").value = res.data.certBase64;
-        });
     }
-    //3.2.2.3.获取证书信息接口
-    function GetCertInfo(){
-        var certBase64=$("#certBase64").val();
-        var type=$("#type").val();
-        RS_GetCertInfo(certBase64, type,function(res) {
-            var msg=JSON.stringify(res,null,3);
-            document.getElementById("GetCertInfoTxt").innerHTML = msg;
-            document.getElementById("GetCertInfoData").value = res.data.info;
-        });
-    }
+    //
     //3.2.2.4.证书口令验证接口
     function CertLogin(){
         var containerId=$("#containerId").val();
         var password=$("#password").val();
-        RS_CertLogin(containerId, password,function(res) {
+        document.getElementById("CertLoginTxt").value = "加载中...";
+        var res = RS_CertLogin(containerId, password);
+        setTimeout(function(){
             var msg=JSON.stringify(res,null,3);
-            document.getElementById("CertLoginTxt").innerHTML = msg;
-            document.getElementById("CertLoginData").value = res.data.containerId;
-        });
+            document.getElementById("CertLoginTxt").value = msg;
+            var num = RS_GetPinRetryCount(containerId);
+            document.getElementById("danger").innerHTML = "口令尝试剩余次数："+num.data.retryCount;
+        }, 500);
+    }
+    //3.2.2.2.获取数字证书接口
+    function GetCertBase64String(){
+        document.getElementById("GetCertBase64StringTxt").value = "加载中...";
+        var certType=$("#certType").val();
+        var containerId=$("#containerId3").val();
+        var res = RS_GetCertBase64String(certType, containerId);
+        setTimeout(function(){
+            var msg = JSON.stringify(res,null,3);
+            document.getElementById("GetCertBase64StringTxt").value = msg;
+            document.getElementById("GetCertBase64StringData").value = res.data.certBase64;
+            document.getElementById("certBase64").value = res.data.certBase64;
+            document.getElementById("KeycertBase64").value = res.data.certBase64;
+        }, 500);
+
+    }
+    //3.2.2.3.获取证书信息接口
+    function GetCertInfo(){
+        document.getElementById("GetCertInfoTxt").value = "加载中...";
+        var certBase64=$("#certBase64").val();
+        var type=$("#type").val();
+        var res=RS_GetCertInfo(certBase64, type);
+        setTimeout(function(){
+            var msg=JSON.stringify(res,null,3);
+            document.getElementById("GetCertInfoTxt").value = msg;
+        }, 500);
     }
 
     //3.2.2.8.获取证书用户标识接口
     function KeyGetKeySn(){
+        document.getElementById("KeyGetKeySnTxt").value = "加载中...";
         var containerId=$("#SncontainerId").val();
-        RS_KeyGetKeySn(containerId,function(res) {
+        var res=RS_KeyGetKeySn(containerId);
+        setTimeout(function(){
             var msg=JSON.stringify(res,null,3);
-            document.getElementById("KeyGetKeySnTxt").innerHTML = msg;
-            document.getElementById("KeyGetKeySnData").value = res.data.keySn;
-        });
+            document.getElementById("KeyGetKeySnTxt").value = msg;
+        }, 500);
+
     }
 
     //3.2.2.14.非对称加密接口
     function KeyEncryptData(){
+        document.getElementById("KeyEncryptDataTxt").value = "加载中...";
         var rsKey=$("#rsKey").val();
         var certBase64=$("#KeycertBase64").val();
-        RS_KeyEncryptData(rsKey, certBase64,function(res) {
+        var res=RS_KeyEncryptData(rsKey, certBase64);
+        setTimeout(function(){
             var msg=JSON.stringify(res,null,3);
-            document.getElementById("KeyEncryptDataTxt").innerHTML = msg;
+            document.getElementById("KeyEncryptDataTxt").value = msg;
             document.getElementById("KeyEncryptDataData").value = res.data.encRsKey;
-        });
+            document.getElementById("encRsKey").value = res.data.encRsKey;
+        }, 500);
+
     }
     //3.2.2.15.非对称解密接口
     function KeyDecryptData(){
+        document.getElementById("KeyDecryptDataTxt").value = "加载中...";
         var encRsKey=$("#encRsKey").val();
         var containerId=$("#containerId6").val();
-        RS_KeyDecryptData(encRsKey, containerId,function(res) {
-            console.log(res)
-            var msg=JSON.stringify(res,null,3);
-            document.getElementById("KeyDecryptDataTxt").innerHTML = msg;
-        });
+        var res=RS_KeyDecryptData(encRsKey, containerId);
+        setTimeout(function(){
+            if(res && res.code == "A00002D"){
+                $('#loginModal').modal();
+            }else{
+                var msg=JSON.stringify(res,null,3);
+                document.getElementById("KeyDecryptDataTxt").value = msg;
+            }
+
+        }, 500);
+
     }
-    //3.2.1.6.对称加密接口
-    function EncryptFile(){
-        var souceFilePath=$("#surEncryption").val();
-        var encFilePath=$("#encryption").val();
-        RS_EncryptFile(souceFilePath, encFilePath,function(res) {
-            var msg=JSON.stringify(res,null,3);
-            document.getElementById("EncryptFileTxt").innerHTML = msg;
-            document.getElementById("EncryptFileData").value = res.data.symKey;
-        });
-    }
-    //3.2.1.7.对称解密接口
-    function DevryptFile(){
-        var symKey=$("#symmetricKey").val();
-        var encFilePath=$("#encryption2").val();
-        var dncDirectoryPath=$("#decryptedFiles").val();
-        RS_DecryptFile(symKey, encFilePath,dncDirectoryPath,function(res) {
-            var msg=JSON.stringify(res,null,3);
-            document.getElementById("DevryptFileTxt").innerHTML = msg;
-        });
+    function ModelLogin(){
+        var containerId=$("#model-containerId").val();
+        var password=$("#model-password").val();
+        if(!containerId){
+            alert("请先获取证书列表");
+        }else if(!password){
+            alert("请输入口令");
+        }else{
+            var res = RS_CertLogin(containerId,password);
+            setTimeout(function(){
+                document.getElementById("CertLoginTxt").value = msg;
+                var num = RS_GetPinRetryCount(containerId);
+                document.getElementById("danger").innerHTML = "口令尝试剩余次数："+num.data.retryCount;
+            }, 500);
+            $('#loginModal').modal('toggle');
+        }
     }
 </script>
 </html>
