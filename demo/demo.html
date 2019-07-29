@@ -30,8 +30,8 @@
     <div class="col-md-9">
         <div class="top">
             <h2>接口测试 版本1.1.35.6 </h2>
-            <span class="label label-success" style="display: none">设备使已插入</span>
-            <span class="label label-danger" style="display: none">设备使已拔出</span>
+            <span class="label label-success" style="display: none">设备已插入</span>
+            <span class="label label-danger" style="display: none">设备已拔出</span>
         </div>
         <div class="panel panel-default">
             <div class="panel-body" id="GetUserListData-pos">
@@ -281,7 +281,7 @@
             }else{
                 $(".label-success").hide();
                 $(".label-danger").show();
-                $(".label-danger").text("无设备插入");
+                $(".label-danger").text("无设备插入中");
                 RS_state = 0;
             }
         });
@@ -294,7 +294,7 @@
             alert("无设备插入,无法发起请求");
             return false;
         }else if(RS_state==2){
-            alert("插入的设备数大于1");
+            alert("插入的设备数大于1,无法发起请求");
             return false;
         }
     }
@@ -305,7 +305,7 @@
         var res =RS_GetUserList();
         setTimeout(function(){
             if(res.code==0000){
-                var msg= '{\n    "code":"'+res.code+',"\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":'+res.msg+'\n}';
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":'+res.msg+'"\n}';
                 var i = res.data.userlist.indexOf("||");
                 var j = res.data.userlist.slice(i+2);
                 document.getElementById("GetUserListTxt").value = msg;
@@ -421,14 +421,12 @@
         getBuffer();
         var res=RS_KeyDecryptData(encRsKey, containerId);
         setTimeout(function(){
-//            $('#loginModal').modal();
             if(res.code == "A00002D"){
                 $('#loginModal').modal();
             }else if(res.code == "A000001"){
                 $('#loginModal').modal();
             }
             else if(res.code==0000){
-//                var msg=JSON.stringify(res,null,3);
                 var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "rsKey":"'+res.data.rsKey+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("KeyDecryptDataTxt").value = msg;
             }else{
