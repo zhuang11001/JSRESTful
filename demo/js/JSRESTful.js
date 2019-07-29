@@ -1,19 +1,19 @@
 //url接口地址
 var commonUrl="http://127.0.0.1:11200";
-//插入状态 1:允许请求 2:插入设备大于1 3：无设备插入
-var RS_state = 1;
+/**插入状态 0：无设备插入 1:允许请求 2:插入设备大于1*/
+var RS_state = 0;
 
-var result;
 /**
  * 封装ajax 函数
  * @param url  请求地址
- * @param type 请求方法 get||post；默认同步
+ * @param type 请求方法 get||post；
  * @param dataType 接收数据类型
  * @param async 是否异步 true 异步 || false  同步；默认异步
  * @param data 发送数据
  * @param Callback  回调函数(数据,对象)
  */
 function ajax(url, data,async,callback) {
+    console.log(RS_state);
     var type =  'post';
     var dataType =  'json';
     var success =  function (res) {
@@ -33,13 +33,13 @@ function ajax(url, data,async,callback) {
             'error': error,
         });
     }else if(RS_state==2){
-        alert("插入的设备大于2，无法请求");
-    }else if(RS_state==3){
-        alert("无设备插入，无法请求");
+        alert("插入的设备大于2，无法发起请求");
+    }else if(RS_state==0){
+        alert("无设备插入，无法发起请求");
     }
 
 }
-//3.2.2.1.获取证书列表接口
+//获取证书列表接口
 function RS_GetUserList(){
     buffer();
     var url=commonUrl+"/RS_GetUserList";
@@ -52,7 +52,7 @@ function RS_GetUserList(){
 }
 
 
-//3.2.2.4.证书口令验证接口
+//证书口令验证接口
 function RS_CertLogin(containerId,password){
     buffer();
     var url=commonUrl+"/RS_CertLogin";
@@ -66,7 +66,7 @@ function RS_CertLogin(containerId,password){
     });
     return result;
 }
-//3.2.2.2.获取数字证书接口
+//获取数字证书接口
 function RS_GetCertBase64String(certType,containerId){
     buffer();
     var url=commonUrl+"/RS_GetCertBase64String";
@@ -80,7 +80,7 @@ function RS_GetCertBase64String(certType,containerId){
     });
     return result;
 }
-//3.2.2.3.获取证书信息接口
+//.获取证书信息接口
 function RS_GetCertInfo(certBase64,type){
     buffer();
     var url=commonUrl+"/RS_GetCertInfo";
@@ -94,7 +94,7 @@ function RS_GetCertInfo(certBase64,type){
     });
     return result;
 }
-//3.2.2.8.获取证书用户标识接口
+//获取证书用户标识接口
 function RS_KeyGetKeySn(containerId){
     buffer();
     var url=commonUrl+"/RS_KeyGetKeySn";
@@ -107,19 +107,8 @@ function RS_KeyGetKeySn(containerId){
     });
     return result;
 }
-//3.2.2.5.获取密码重试剩余次数接口
-function RS_GetPinRetryCount(containerId){
-    var url=commonUrl+"/RS_GetPinRetryCount";
-    var data={
-        containerId:containerId,
-    };
-    var result;
-    ajax(url, data,false,function(res) {
-        result = res;
-    });
-    return result;
-}
-//3.2.2.14.非对称加密接口
+
+//非对称加密接口
 function RS_KeyEncryptData(rsKey,certBase64){
     buffer();
     var url=commonUrl+"/RS_KeyEncryptData";
@@ -133,7 +122,7 @@ function RS_KeyEncryptData(rsKey,certBase64){
     });
     return result;
 }
-//3.2.2.15.非对称解密接口
+//.非对称解密接口
 function RS_KeyDecryptData(encRsKey,containerId){
     buffer();
     var url=commonUrl+"/RS_KeyDecryptData";
@@ -147,35 +136,46 @@ function RS_KeyDecryptData(encRsKey,containerId){
     });
     return result;
 }
-
+//获取密码重试剩余次数接口
+function RS_GetPinRetryCount(containerId){
+    var url=commonUrl+"/RS_GetPinRetryCount";
+    var data={
+        containerId:containerId,
+    };
+    var result;
+    ajax(url, data,false,function(res) {
+        result = res;
+    });
+    return result;
+}
 //查询key的状态
 function buffer() {
+    var url=commonUrl+"/buffer";
+    //var url=commonUrl+"/buffer"+"?ran="+new Date().getTime();
+    $.ajax({
+        url: url,
+        async:true,
+        type: 'POST',
+        'dataType':"json",
+        success: function (res){
+            if(res.length==1){
+                $(".label-success").show();
+                $(".label-danger").hide();
+                RS_state = 1;
 
-    //var url=commonUrl+"/buffer";
-    //$.ajax({
-    //    url: url,
-    //    async:true,
-    //    type: 'get',
-    //    'dataType':"json",
-    //    success: function (res){
-    //        if(res.length==1){
-    //            $(".label-success").show();
-    //            $(".label-danger").hide();
-    //            RS_state = 1;
-    //        }else if(res.length>1){
-    //            $(".label-success").hide();
-    //            $(".label-danger").show();
-    //            $(".label-danger").text("插入的设备数大于1");
-    //            RS_state = 2;
-    //        }else{
-    //            $(".label-success").hide();
-    //            $(".label-danger").show();
-    //            $(".label-danger").text("无设备插入");
-    //            RS_state = 3;
-    //        }
-    //
-    //    }
-    //})
+            }else if(res.length>1){
+                $(".label-success").hide();
+                $(".label-danger").show();
+                $(".label-danger").text("插入的设备数大于1");
+                RS_state = 2;
+            }else{
+                $(".label-success").hide();
+                $(".label-danger").show();
+                $(".label-danger").text("无设备插入");
+                RS_state = 0;
+            }
+        }
+    })
 }
 
 
