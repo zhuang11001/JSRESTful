@@ -29,7 +29,7 @@
 <div class="container">
     <div class="col-md-9">
         <div class="top">
-            <h2>接口测试 版本1.1.35.5 </h2>
+            <h2>接口测试 版本1.1.35.6 </h2>
             <span class="label label-success" style="display: none">设备使已插入</span>
             <span class="label label-danger" style="display: none">设备使已拔出</span>
         </div>
@@ -101,7 +101,7 @@
                     <input type="text" class="form-control" id="certBase64">
                 </div>
                 <div class="form-group">
-                    <label for="type" class="control-label">1、证书版本；2、证书序列号:</label>
+                    <label for="type" class="control-label">信息标识，例如传2可获取证书序列号:</label>
                     <input type="text" class="form-control" id="type">
                 </div>
 
@@ -243,6 +243,9 @@
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/JSRESTful.js" type="text/javascript"></script>
 <script type="text/javascript">
+    /**插入状态 0：无设备插入 1:允许请求 2:插入设备大于1*/
+    var RS_state = 0;
+
     if (document.all && document.querySelector && !document.addEventListener) {
         $("#nav-right").attr("style","display:none");
     }
@@ -265,18 +268,44 @@
     });
     //轮询，查询插拔状态
     function ajaxBuffer(){
-        buffer();
-        setInterval("buffer()",5000);
+        buffer(function(res){
+            if(res.length==1){
+                $(".label-success").show();
+                $(".label-danger").hide();
+                RS_state = 1;
+            }else if(res.length>1){
+                $(".label-success").hide();
+                $(".label-danger").show();
+                $(".label-danger").text("插入的设备数大于1");
+                RS_state = 2;
+            }else{
+                $(".label-success").hide();
+                $(".label-danger").show();
+                $(".label-danger").text("无设备插入");
+                RS_state = 0;
+            }
+        });
     }
+    setInterval("ajaxBuffer()",5000);
 
-
+    function getBuffer(){
+        ajaxBuffer();
+        if(RS_state==0){
+            alert("无设备插入,无法发起请求");
+            return false;
+        }else if(RS_state==2){
+            alert("插入的设备数大于1");
+            return false;
+        }
+    }
     //获取证书列表接口
     function GetUserList(){
         document.getElementById("GetUserListTxt").value = "加载中...";
+        getBuffer();
         var res =RS_GetUserList();
         setTimeout(function(){
             if(res.code==0000){
-                var msg= "{\ncode:"+res.code+"\ndata:{\n  userlist:"+res.data.userlist+"\n}\nmsg:"+res.msg+"\n}";
+                var msg= '{\n    "code":"'+res.code+',"\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":'+res.msg+'\n}';
                 var i = res.data.userlist.indexOf("||");
                 var j = res.data.userlist.slice(i+2);
                 document.getElementById("GetUserListTxt").value = msg;
@@ -287,7 +316,7 @@
                 document.getElementById("containerId6").value = j;
                 document.getElementById("SncontainerId").value = j;
             }else{
-                document.getElementById("GetUserListTxt").value = "加载失败";
+                document.getElementById("GetUserListTxt").value = "获取证书列表失败";
             }
         }, 500);
     }
@@ -297,6 +326,7 @@
         var containerId=$("#containerId").val();
         var password=$("#password").val();
         document.getElementById("CertLoginTxt").value = "加载中...";
+        getBuffer();
         var res = RS_CertLogin(containerId, password);
         setTimeout(function(){
             if(res.code==0000){
@@ -305,7 +335,7 @@
                 var num = RS_GetPinRetryCount(containerId);
                 document.getElementById("danger").innerHTML = "口令尝试剩余次数："+num.data.retryCount;
             }else{
-                document.getElementById("CertLoginTxt").value = "加载失败";
+                document.getElementById("CertLoginTxt").value = "验证口令失败";
                 var num = RS_GetPinRetryCount(containerId);
                 document.getElementById("danger").innerHTML = "口令尝试剩余次数："+num.data.retryCount;
             }
@@ -317,6 +347,7 @@
         document.getElementById("GetCertBase64StringTxt").value = "加载中...";
         var certType=$("#certType").val();
         var containerId=$("#containerId3").val();
+        getBuffer();
         var res = RS_GetCertBase64String(certType, containerId);
         setTimeout(function(){
             if(res.code==0000){
@@ -326,7 +357,7 @@
                 document.getElementById("certBase64").value = res.data.certBase64;
                 document.getElementById("KeycertBase64").value = res.data.certBase64;
             }else{
-                document.getElementById("GetCertBase64StringTxt").value = "加载失败";
+                document.getElementById("GetCertBase64StringTxt").value = "获取数字证书失败";
             }
         }, 500);
 
@@ -339,10 +370,10 @@
         var res=RS_GetCertInfo(certBase64, type);
         setTimeout(function(){
             if(res.code==0000){
-                var msg= "{\ncode:"+res.code+"\ndata:{\n  info:"+res.data.userlist+"\n}\nmsg:"+res.msg+"\n}";
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "info":"'+res.data.info+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("GetCertInfoTxt").value = msg;
             }else{
-                document.getElementById("GetCertInfoTxt").value = "加载失败";
+                document.getElementById("GetCertInfoTxt").value = "获取证书信息失败";
             }
         }, 500);
     }
@@ -351,13 +382,14 @@
     function KeyGetKeySn(){
         document.getElementById("KeyGetKeySnTxt").value = "加载中...";
         var containerId=$("#SncontainerId").val();
+        getBuffer();
         var res=RS_KeyGetKeySn(containerId);
         setTimeout(function(){
             if(res.code==0000){
                 var msg=JSON.stringify(res,null,3);
                 document.getElementById("KeyGetKeySnTxt").value = msg;
             }else{
-                document.getElementById("KeyGetKeySnTxt").value = "加载失败";
+                document.getElementById("KeyGetKeySnTxt").value = "获取证书用户标识失败";
             }
         }, 500);
     }
@@ -367,6 +399,7 @@
         document.getElementById("KeyEncryptDataTxt").value = "加载中...";
         var rsKey=$("#rsKey").val();
         var certBase64=$("#KeycertBase64").val();
+        getBuffer();
         var res=RS_KeyEncryptData(rsKey, certBase64);
         setTimeout(function(){
             if(res.code==0000){
@@ -375,7 +408,7 @@
                 document.getElementById("KeyEncryptDataData").value = res.data.encRsKey;
                 document.getElementById("encRsKey").value = res.data.encRsKey;
             }else{
-                document.getElementById("KeyEncryptDataTxt").value = "加载失败";
+                document.getElementById("KeyEncryptDataTxt").value = "非对称加密失败";
             }
         }, 500);
 
@@ -385,17 +418,21 @@
         document.getElementById("KeyDecryptDataTxt").value = "加载中...";
         var encRsKey=$("#encRsKey").val();
         var containerId=$("#containerId6").val();
+        getBuffer();
         var res=RS_KeyDecryptData(encRsKey, containerId);
         setTimeout(function(){
 //            $('#loginModal').modal();
             if(res.code == "A00002D"){
                 $('#loginModal').modal();
-            }else if(res.code==0000){
+            }else if(res.code == "A000001"){
+                $('#loginModal').modal();
+            }
+            else if(res.code==0000){
 //                var msg=JSON.stringify(res,null,3);
-                var msg= "{\ncode:"+res.code+"\ndata:{\n  rsKey:"+res.data.userlist+"\n}\nmsg:"+res.msg+"\n}";
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "rsKey":"'+res.data.rsKey+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("KeyDecryptDataTxt").value = msg;
             }else{
-                document.getElementById("KeyDecryptDataTxt").value = "加载失败";
+                document.getElementById("KeyDecryptDataTxt").value = "非对称解密失败";
             }
         }, 500);
 
