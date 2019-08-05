@@ -237,15 +237,14 @@
 </div>
 <div style="margin-bottom: 150px;"></div>
 </body>
-<script src="./js/jquery.min.js"></script>
-<script src="./js/html5shiv.js"></script>
-<script src="./js/respond.js"></script>
-<script src="./js/bootstrap.min.js"></script>
+<script src="./js/jquery.min.js" type="text/javascript"></script>
+<script src="./js/html5shiv.js" type="text/javascript"></script>
+<script src="./js/respond.js" type="text/javascript"></script>
+<script src="./js/bootstrap.min.js" type="text/javascript"></script>
 <script src="./js/JSRESTful.js" type="text/javascript"></script>
 <script type="text/javascript">
     /**插入状态 0：无设备插入 1:允许请求 2:插入设备大于1*/
     var RS_state = 0;
-
     if (document.all && document.querySelector && !document.addEventListener) {
         $("#nav-right").attr("style","display:none");
     }
@@ -304,7 +303,7 @@
         getBuffer();
         var res =RS_GetUserList();
         setTimeout(function(){
-            if(res.code==0000){
+            if(res.code){
                 var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":'+res.msg+'"\n}';
                 var i = res.data.userlist.indexOf("||");
                 var j = res.data.userlist.slice(i+2);
@@ -329,7 +328,7 @@
         getBuffer();
         var res = RS_CertLogin(containerId, password);
         setTimeout(function(){
-            if(res.code==0000){
+            if(res.code){
                 var msg=JSON.stringify(res,null,3);
                 document.getElementById("CertLoginTxt").value = msg;
                 var num = RS_GetPinRetryCount(containerId);
@@ -350,7 +349,7 @@
         getBuffer();
         var res = RS_GetCertBase64String(certType, containerId);
         setTimeout(function(){
-            if(res.code==0000){
+            if(res.code){
                 var msg = JSON.stringify(res,null,3);
                 document.getElementById("GetCertBase64StringTxt").value = msg;
                 document.getElementById("GetCertBase64StringData").value = res.data.certBase64;
@@ -360,7 +359,6 @@
                 document.getElementById("GetCertBase64StringTxt").value = "获取数字证书失败";
             }
         }, 500);
-
     }
     //获取证书信息接口
     function GetCertInfo(){
@@ -369,7 +367,7 @@
         var type=$("#type").val();
         var res=RS_GetCertInfo(certBase64, type);
         setTimeout(function(){
-            if(res.code==0000){
+            if(res.code){
                 var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "info":"'+res.data.info+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("GetCertInfoTxt").value = msg;
             }else{
@@ -385,7 +383,7 @@
         getBuffer();
         var res=RS_KeyGetKeySn(containerId);
         setTimeout(function(){
-            if(res.code==0000){
+            if(res.code){
                 var msg=JSON.stringify(res,null,3);
                 document.getElementById("KeyGetKeySnTxt").value = msg;
             }else{
@@ -402,7 +400,7 @@
         getBuffer();
         var res=RS_KeyEncryptData(rsKey, certBase64);
         setTimeout(function(){
-            if(res.code==0000){
+            if(res.code){
                 var msg=JSON.stringify(res,null,3);
                 document.getElementById("KeyEncryptDataTxt").value = msg;
                 document.getElementById("KeyEncryptDataData").value = res.data.encRsKey;
@@ -411,7 +409,6 @@
                 document.getElementById("KeyEncryptDataTxt").value = "非对称加密失败";
             }
         }, 500);
-
     }
     //非对称解密接口
     function KeyDecryptData(){
@@ -421,12 +418,9 @@
         getBuffer();
         var res=RS_KeyDecryptData(encRsKey, containerId);
         setTimeout(function(){
-            if(res.code == "A00002D"){
+            if(res.code && res.code == "A00002D"){
                 $('#loginModal').modal();
-            }else if(res.code == "A000001"){
-                $('#loginModal').modal();
-            }
-            else if(res.code==0000){
+            }else if(res.code){
                 var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "rsKey":"'+res.data.rsKey+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("KeyDecryptDataTxt").value = msg;
             }else{
