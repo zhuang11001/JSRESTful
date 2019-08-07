@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>瑞证通--手机云证办理</title>
+		<base href="${basePath}">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<!-- icon -->
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<!-- 通用自定义样式 -->
+		<link href="css/ext.css" rel="stylesheet" />
+		<style type="text/css">
+			.message {
+				text-align: center;
+				color: #222222;
+				margin-top: 50px;
+			}
+
+			.message i {
+				font-size: 22px;
+				vertical-align: middle;
+				color: #7AB4F2;
+			}
+
+			.phoneBox {
+				width: 300px;
+				height: 150px;
+				box-shadow: 1px 1px 1px 2px rgba(152, 123, 144, .2);
+				margin: 15px auto;
+				text-align: center;
+				position: relative;
+			}
+
+			.phoneBox p {
+				display: inline-block;
+			}
+
+			.phoneBox i {
+				font-size: 46px;
+			}
+
+			.phoneBox img {
+				position: absolute;
+				top: 1%;
+				left: 1%;
+				height: 98%;
+				width: 98%;
+			}
+
+			.modal {
+				width: 70%;
+				height: 430px;
+				position: fixed;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				transform: translateY(-50%);
+				z-index: 999;
+				background: #fff;
+				margin-left: 15%;
+				padding: 2%;
+				text-align: center;
+				display: none;
+			}
+
+			.modal img {
+				width: 230px;
+			}
+
+			.modal h4 {
+				text-align: center;
+				color: #515151;
+			}
+
+			.modal-div {
+				height: 100vh;
+				width: 100vh;
+				position: fixed;
+				background: #000000;
+				top: 0;
+				opacity: .4;
+				display: none;
+			}
+
+			@media (max-width:320px) {
+				.modal img {
+					width: 190px;
+				}
+			}
+			
+		</style>
+	</head>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">身份验证</h1>
+	</header>
+	<div class="mui-content" style="text-align: center;">
+		<form action="" method="">
+			
+		
+		<p class="message">拍摄上传您的二代身份证<i class="iconfont icon-question-circle" onclick="modelShow()"></i></p>
+		<!-- 正面 -->
+		<div class="phoneBox" id="idCardFrontUrl" type="idCardFrontUrl">
+			<p style="margin-top: 40px;"><i class="iconfont icon-camera"></i></p>
+			<br>
+			<p>点击拍摄/上传人像面</p>
+		</div>
+		<p style="text-align: center;" id="cardName"></p>
+		<input type="file" accept="image/*" id="uploadImg" value="+" style="display: none;position:absolute;width:100%; height: 100%;border:none">
+		<!-- 反面 -->
+		<div class="phoneBox" id="idCardBackUrl" type="idCardBackUrl">
+			<p style="margin-top: 40px;"><i class="iconfont icon-camera"></i></p>
+			<br>
+			<p>点击拍摄/上传国徽面</p>
+		</div>
+		<p style="text-align: center;" id="cardTime"></p>
+		<input type="file" accept="image/*" id="fanmian" value="+" style="display: none;position:absolute;width:100%; height: 100%;border:none">
+		<button type="button" class="mui-btn mui-btn-blue " style="width: 250px;margin-top:10px: " id="submit">开始人脸识别</button>
+		<div class="modal">
+			<h4>证件上传示例</h4>
+			<img src="images/title.png" alt="" style="margin: 20px auto 10px;height: 300px;">
+			<button type="button" class="mui-btn mui-btn-blue " style="width: 150px;" onclick="modelHide()">知道了</button>
+		</div>
+		<div class="modal-div"></div>
+		<div style="display: none;">
+			<input type="" name="name" id="" value="" />
+			<input type="" name="idCard" id="" value="" />
+		</div>
+		</form>
+	</div>
+	<body>
+		<script src="js/mui.js"></script>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/ext.js"></script>
+		<script src="js/mui.showLoading.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var flat = true;
+			function modelShow() {
+				$(".modal").show();
+				$(".modal-div").show();
+			}
+
+			function modelHide() {
+				$(".modal").hide();
+				$(".modal-div").hide();
+			}
+			
+			$('#submit').click(function() {
+				var userData = getFromData();
+				userData.token = getCookie("token");
+				userData.orgId = getCookie("enterpriseId");
+				if (userData.idCardFrontUrl == "" || userData.idCardFrontUrl == undefined) {
+					mui.toast("请上传身份证正面照。");
+					return
+				}
+				if (userData.idCardBackUrl == "" || userData.idCardBackUrl == undefined) {
+					mui.toast("请上传身份证反面照。");
+					return
+				}
+				mui.showLoading("正在提交..", "div");
+				$.ajax({
+					type: 'POST',
+					url: "auth/toAuthPage",
+					data: {
+						userId:'${userId}'
+					},
+					success: function(data) {
+						mui.hideLoading();
+						if (data.code == 0) {
+							mui.toast("提交成功");
+							window.location.href = data.data
+						} else {
+							mui.toast(data.msg);
+						}
+					},
+					error: function(data) {
+						mui.hideLoading();
+						mui.toast("实名验证信息提交接口请求服务器失败。");
+					},
+					dataType: "json",
+				});
+			});
+			
+			$('#idCardFrontUrl').on('DOMNodeInserted', function() {
+				if ($(this).find('input').length == 0) {
+					return
+				};
+				if (flat) {
+					flat = false;
+					mui.showLoading("正在识别..", "div");
+					$.ajax({
+						type: 'POST',
+						url: "auth/discern",
+						data: {
+							userId:'${userId}',
+							"extName":'jpg',
+							"photoType": 2,
+							"photoBase64": $("input[name=idCardFrontUrl]").val(),
+							"type":"1"
+						},
+						success: function(data) {
+							mui.hideLoading();
+							if (data.code == 0) {
+								if (JSON.stringify(data.data.ocrInfo) != "{}") {
+									$('#idCardFrontUrl').children("input").remove();
+									$('#idCardFrontUrl').append('<input type="text" style="display:none" name="idCardFrontUrl" value="' + data.data.ocrInfo.fileSavePath +'">');
+									$("input[name=name]").val(data.data.ocrInfo.name);
+									$("input[name=idCard]").val(data.data.ocrInfo.number);
+									$("#cardName").html(data.data.ocrInfo.name +"&nbsp"+ data.data.ocrInfo.number)
+								} else {
+									$('#idCardFrontUrl').children("input").val("");
+									$('#idCardFrontUrl').children("img").remove();
+									mui.toast('OCR识别失败请重新上传识别！');
+								}
+							} else {
+								$('#idCardFrontUrl').children("input").val("");
+								$('#idCardFrontUrl').children("img").remove();
+								mui.toast(data.msg);
+							}
+							flat = true;
+						},
+						error: function(data) {
+							mui.hideLoading();
+							$('#idCardFrontUrl').children("input").val("");
+							$('#idCardFrontUrl').children("img").remove();
+							mui.toast("OCR识别接口请求服务器失败。");
+							flat = true;
+						},
+						dataType: "json"
+					});
+
+				}
+			});
+			
+			$('#idCardBackUrl').on('DOMNodeInserted', function() {
+				if ($(this).find('input').length == 0) {
+					return
+				};
+				if (flat) {
+					flat = false;
+					mui.showLoading("正在识别..", "div");
+					$.ajax({
+						type: 'POST',
+						url: "auth/discern",
+						data: {
+							'userId':'${userId}',
+							"extName":'jpg',
+							"photoType": 3,
+							"photoBase64": $("input[name=idCardBackUrl]").val()
+						},
+						success: function(data) {
+							mui.hideLoading();
+							if (data.code == 0) {
+								if (JSON.stringify(data.data.ocrInfo) != "{}") {
+									$('#idCardBackUrl').children("input").remove();
+									$('#idCardBackUrl').append('<input type="text" style="display:none" name="idCardBackUrl" value="' + data.data.ocrInfo.fileSavePath +'">')
+									$("#cardTime").html('有效时间:' + data.data.ocrInfo.startDate +"到"+ data.data.ocrInfo.endDate)
+								} else {
+									$('#idCardBackUrl').children("input").val("");
+									$('#idCardBackUrl').children("img").remove();
+									mui.toast('OCR识别失败请重新上传识别！');
+								}
+							} else {
+								$('#idCardBackUrl').children("input").val("");
+								$('#idCardBackUrl').children("img").remove();
+								mui.toast(data.msg);
+							}
+							flat = true;
+						},
+						error: function(data) {
+							mui.hideLoading();
+							$('#idCardBackUrl').children("input").val("");
+							$('#idCardBackUrl').children("img").remove();
+							mui.toast("OCR识别接口请求服务器失败。");
+							flat = true;
+						},
+						dataType: "json"
+					});
+			
+				}
+			});
+		</script>
+	</body>
+
+</html>

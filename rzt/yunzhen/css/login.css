@@ -1,0 +1,129 @@
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.login {
+	background-color: #ffffff;
+	width: 450px;
+	height: 280px;
+	border-radius: 5px;
+	position: absolute;
+	top: 50%;
+	margin-top: -140px;
+	left: 50%;
+	margin-left: -225px;
+}
+
+.loginBox {
+	background-color: #fff;
+	float: right;
+	margin-right: 15%;
+	border-radius: 5px;
+	position: fixed;
+	width: 500px;
+	top: 90px;
+	left: 50%;
+	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+}
+
+.input_box {
+	position: relative;
+	height: 38px;
+	line-height: 38px;
+	width: 330px;
+	border: 1px solid #cccccc;
+	/*#8daee5*/
+	text-align: left;
+	padding: 0px;
+	border-radius: 5px;
+}
+
+
+
+.input_box img {
+	width: 40px;
+	height: 40px;
+	margin-top: -6px;
+}
+
+.input_box input {
+	border: none;
+	outline: none;
+	height: 34px;
+}
+
+.loginBtn {
+	border: 1px solid rgba(103, 162, 235, 1);
+	border-radius: 5px;
+	display: inline-block;
+	height: 35px;
+	line-height: 35px;
+	padding: 0 20px;
+	position: relative;
+	top: -7px;
+}
+
+.loginTab {
+	margin-bottom: 0;
+}
+
+.loginTab h4 {
+	margin: 0;
+	text-align: center;
+	color: #191A1B;
+	margin: 20px 10% 20px;
+	width: 30%;
+	display: inline-block;
+	float: left;
+	border-bottom: none;
+	cursor: pointer;
+}
+
+.loginTab:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+.activeTab {
+	color: #67A2EB !important;
+	border-bottom: 1px solid #67A2EB !important;
+}
+
+/*bootstap样式*/
+.input-group-addon {
+	color: #555;
+	background-color: #FAFAFA;
+}
+
+.form-control {
+	color: #555;
+	background-color: #FAFAFA;
+}
+
+.input-group input {
+	border-left: none;
+}
+
+.input-group-addon {
+	border: 1px solid rgba(231, 231, 231, 1);
+	border-right: none;
+}
+
+.form-control {
+	border: 1px solid rgba(231, 231, 231, 1);
+	border-left: none;
+	/*font-size: 18px;*/
+	font-family: MicrosoftYaHei;
+	font-weight: 400;
+	color: rgba(173, 172, 172, 1);
+}
+
+

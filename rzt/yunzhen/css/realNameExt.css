@@ -1,0 +1,79 @@
+.logoImg {
+	height: 50px;
+	margin-top: 2px;
+}
+
+.customerServiceImg {
+	height: 25px;
+	margin-right: 7px;
+}
+
+.navbar-nav li {
+	height: 55px
+}
+
+.navbar-default .navbar-nav>li>a {
+	height: 53px;
+	color: #67A2EB;
+}
+
+.checkCode {
+	position: absolute;
+	right: 2px;
+	z-index: 999;
+	top: 8px;
+	cursor: pointer;
+}
+
+/* bootstrap CSS */
+.navbar-default {
+	background-color: #fff;
+	border-color: #e7e7e7;
+}
+
+.row {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.form-control {
+	background-color: #FAFAFA;
+}
+
+.form-control input::-webkit-input-placeholder {
+	color: #ADACAC;
+}
+
+.form-control input::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #ADACAC;
+}
+
+.form-control input:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #ADACAC;
+}
+
+.form-control input:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: #ADACAC;
+}
+
+@media (min-width: 768px) {
+
+	/*.modal-dialog {*/
+		/*width: 60% !important;*/
+		/*margin: 30px auto;*/
+	/*}*/
+}
+
+/*  */
+.sendSmsCode {
+	position: relative;
+}
+
+.sendSmsCode button {
+	position: absolute;
+	right: 0;
+	top: 25px;
+}

@@ -1,0 +1,401 @@
+body {
+	background-color: #fff;
+}
+
+a {
+	text-decoration: none
+}
+
+input::-webkit-input-placeholder {
+	/* placeholder颜色  */
+	color: #aab2bd;
+	/* placeholder字体大小  */
+	font-size: 12px;
+}
+
+input,
+textarea,
+select,
+label {
+	font-size: 12px;
+}
+
+button a {
+	color: #fff;
+}
+
+/* 列表表格样式 */
+.table-list {
+	width: 100%;
+}
+
+.table-list th {
+	background: #999999;
+	padding: 8px;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+}
+
+.table-list th:first-child {
+	border-left: none;
+}
+
+.table-list td {
+	padding: 7px;
+	font-size: 13px;
+	text-align: center;
+	/* border-left: 1px solid #000; */
+	/* border-right: 1px solid #000; */
+}
+
+.table-list td:first-child {
+	border-left: none;
+}
+
+.table-list tr:nth-child(2n) {
+	background-color: ivory;
+}
+
+/* 信息表格样式 */
+.table-info {
+	border: 1px solid #000000;
+	text-align: center;
+}
+
+.table-info th {
+	padding: 10px;
+	font-size: 18px;
+	font-weight: 800;
+}
+
+.table-info td {
+	padding: 8px;
+	font-size: 12px;
+}
+
+.table-info img {
+	width: 100%;
+	height: 100px;
+}
+
+.table-info td:first-child {
+	width: 150px;
+	font-weight: 700;
+}
+
+.table-info td:first-child span {
+	color: red
+}
+
+.table-info input {
+	background: #EFEFF4;
+	border: none;
+}
+
+/* 编辑表格样式 */
+.table-edit {
+	text-align: center;
+}
+
+.table-edit img {
+	width: 100%;
+	height: 100px;
+}
+
+.table-edit td {
+	padding: 10px;
+}
+
+.table-edit td:first-child {
+	width: 150px;
+	font-size: 12px;
+	font-weight: 700;
+	text-align: left;
+}
+
+.table-edit tr {
+	margin-bottom: 10px;
+	/* border-bottom: 1px solid; */
+}
+
+.table-edit input,
+select,
+textarea {
+	margin-bottom: 0;
+}
+
+.table-edit-img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	background: #000;
+	width: 80%;
+	color: #fff;
+	text-align: center;
+	opacity: 0.6;
+}
+
+/*  */
+.btn-style {
+	width: 88%;
+	margin: 0 auto;
+}
+
+.btn-style a {
+	color: #fff;
+}
+
+.mui-input-row {
+	border-bottom: 1px solid #E3E3E3;
+}
+
+.mui-input-row span {
+	color: red;
+}
+
+.mui-input-row select {
+	font-size: 12px;
+}
+
+.mui-input-row label~div {
+	/* float: right; */
+	margin-top: 30px;
+	width: 65%;
+	padding: 10px;
+	position: relative;
+}
+
+.mui-input-group:before {
+	height: 0px;
+}
+
+.upimg label {
+	width: 100%;
+}
+
+upimg:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.mui-input-row img {
+	width: 100%;
+	height: 100%;
+}
+
+.mui-input-row input {
+	color: #888BA2;
+	text-align: right;
+	padding-right: 35px;
+}
+
+.mui-input-row select {
+	color: #888BA2;
+	direction: rtl;
+	padding-right: 35px;
+}
+
+.mui-input-row textarea {
+	color: #888BA2;
+	text-align: right;
+	padding-right: 35px;
+}
+
+.mui-input-row input::-webkit-input-placeholder {
+	color: #888BA2;
+	text-align: right;
+	;
+}
+
+.mui-input-row input::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #888BA2;
+	text-align: right;
+	padding-right: 35px;
+}
+
+.mui-input-row input:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #888BA2;
+	text-align: right;
+	padding-right: 35px;
+}
+
+.mui-input-row input:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: #888BA2;
+	text-align: right;
+	padding-right: 35px;
+}
+
+.mui-btn-block {
+	font-size: 14px;
+
+}
+
+.mui-input-row .mui-icon-zhnj {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	color: #BEBEBE;
+}
+
+/* 图片上传 */
+.phoneBox {
+	/* width: 300px; */
+	height: 150px;
+	box-shadow: 1px 1px 1px 2px rgba(152, 123, 144, .2);
+	margin: 0 auto;
+	text-align: center;
+	position: relative;
+}
+
+.phoneBox p {
+	display: inline-block;
+}
+
+.phoneBox i {
+	font-size: 46px;
+}
+
+.phoneBox input {
+	display: none;
+}
+
+.phoneBox img {
+	position: absolute;
+	top: 1%;
+	left: 1%;
+}
+
+/* 对话框样式 */
+#chatBtn {
+	width: 45px !important;
+	bottom: 150px !important;
+	background: rgba(42,44,61,.56) !important;
+}
+
+/*----------------mui.showLoading---------------*/
+.mui-show-loading {
+	position: fixed;
+	padding: 5px;
+	width: 120px;
+	min-height: 120px;
+	top: 45%;
+	left: 50%;
+	margin-left: -60px;
+	background: rgba(0, 0, 0, 0.6);
+	text-align: center;
+	border-radius: 5px;
+	color: #FFFFFF;
+	visibility: hidden;
+	margin: 0;
+	z-index: 2000;
+
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+	opacity: 0;
+	-webkit-transform: scale(0.9) translate(-50%, -50%);
+	transform: scale(0.9) translate(-50%, -50%);
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+}
+
+.mui-show-loading.loading-visible {
+	opacity: 1;
+	visibility: visible;
+	-webkit-transform: scale(1) translate(-50%, -50%);
+	transform: scale(1) translate(-50%, -50%);
+}
+
+.mui-show-loading .mui-spinner {
+	margin-top: 24px;
+	width: 36px;
+	height: 36px;
+}
+
+.mui-show-loading .text {
+	line-height: 1.6;
+	font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+	font-size: 14px;
+	margin: 10px 0 0;
+	color: #fff;
+}
+
+.mui-show-loading-mask {
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+}
+
+.mui-show-loading-mask-hidden {
+	display: none !important;
+}
+
+/* 修改框架样式 */
+header.mui-bar {
+	background-color: #6674E8;
+}
+
+.mui-content {
+	background-color: #fff;
+}
+
+.mui-title {
+	color: #fff;
+}
+
+header.mui-bar .mui-icon {
+	color: #fff;
+}
+
+.mui-input-group .mui-input-row:after {
+	height: 0;
+}
+
+/* 企业基本信息样式 */
+.bg-now div {
+	background: #6A78DA;
+	color: #fff;
+}
+
+.bg-now span {
+	color: #6A78DA;
+}
+
+.flow-num-S {
+	background: #CBCBCB;
+	color: #fff;
+}
+
+.flow {
+	color: #CBCBCB;
+}
+
+.flow img {
+	width: 15px;
+	height: 15px;
+	margin-top: 11px;
+}
+
+.zhnj-notice {
+	color: #888BA2;
+	text-align: left;
+	padding: 0 15px;
+	font-size: 13px;
+	line-height: 16px
+}
+
+.zhnj-notice img {
+	width: 15px;
+	height: 16px;
+	vertical-align: middle;
+}

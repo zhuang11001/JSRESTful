@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<base href="${basePath}">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<!-- icon -->
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<!-- 通用自定义样式 -->
+		<link href="css/ext.css" rel="stylesheet" />
+		<style type="text/css">
+			.message {
+				text-align: center;
+				color: #222222;
+				margin-top: 50px;
+			}
+
+			.message i {
+				font-size: 22px;
+				vertical-align: middle;
+				color: #7AB4F2;
+			}
+
+			.phoneBox {
+				width: 300px;
+				height: 150px;
+				box-shadow: 1px 1px 1px 2px rgba(152, 123, 144, .2);
+				margin: 15px auto;
+				text-align: center;
+				position: relative;
+			}
+
+			.phoneBox p {
+				display: inline-block;
+			}
+
+			.phoneBox i {
+				font-size: 46px;
+			}
+
+			.phoneBox img {
+				position: absolute;
+				top: 1%;
+				left: 1%;
+				height: 98%;
+				width: 98%;
+			}
+
+			.modal {
+				width: 70%;
+				height: 430px;
+				position: fixed;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				transform: translateY(-50%);
+				z-index: 999;
+				background: #fff;
+				margin-left: 15%;
+				padding: 2%;
+				text-align: center;
+				display: none;
+			}
+
+			.modal img {
+				width: 230px;
+			}
+
+			.modal h4 {
+				text-align: center;
+				color: #515151;
+			}
+
+			.modal-div {
+				height: 100vh;
+				width: 100vh;
+				position: fixed;
+				background: #000000;
+				top: 0;
+				opacity: .4;
+				display: none;
+			}
+
+			@media (max-width:320px) {
+				.modal img {
+					width: 190px;
+				}
+			}
+			
+		</style>
+	</head>
+	<header class="mui-bar mui-bar-nav">
+		<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+		<h1 class="mui-title">身份验证</h1>
+	</header>
+	<div class="mui-content" style="text-align: center;">
+		<img src="images/mobilRealNameSuccess.png" alt="" style="width:200px;margin-top:150px">
+		<p style="margin-top: 20px;">人脸识别成功，请在电脑上继续操作。</p>
+	</div>
+	<body>
+		<script src="js/mui.js"></script>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/ext.js"></script>
+		<script type="text/javascript">
+	</body>
+
+</html>

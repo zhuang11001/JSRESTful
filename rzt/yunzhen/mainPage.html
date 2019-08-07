@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>瑞证通--手机云证办理</title>
+		<link rel="stylesheet" href="css/font-awesome.css">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/realNameExt.css">
+		<link rel="stylesheet" type="text/css" href="css/model-loading.css"/>
+		<style>
+			body{
+				background: #F4F4F4;
+			}
+			ul{
+				padding: 0;
+			}
+			li{
+				list-style: none;
+				line-height: 35px;
+			}
+			.mainLeftBox{
+				background:rgba(255,255,255,1);
+				box-shadow:0px 4px 9px 0px rgba(224, 224, 224, 0.35);
+				border-radius:5px;
+				padding: 1px;
+				position: relative;
+				margin-bottom: 20px;
+				padding-left: 50px;
+			}
+			.mainRightBox{
+				background:rgba(255,255,255,1);
+				box-shadow:0px 4px 9px 0px rgba(224, 224, 224, 0.35);
+				border-radius:5px;
+				padding: 1px;
+				padding: 3%;
+			}
+			.mainRightBox li{
+				color: #999999;
+			}
+			.userBox{
+				position:relative;
+				height:100px;
+				
+			}
+			.userBox img{
+				position: absolute;
+				width: 70px;
+				top: 50px;
+				margin-top:-35px;
+				left:56px;
+			}
+			.userBox p{
+				padding-left: 100px;;
+			}
+			.realNameBox{
+				position:relative;
+				height:100px;
+				margin-bottom: 20px;
+			}
+			.realNameBox img{
+				position: absolute;
+				width: 136px;
+				top: 31px;
+				margin-top: -35px;
+				left: 22px;
+			}
+			.realNameBox p{
+				padding-left: 190px;
+				position: relative;
+			}
+			.raelNameQrcodeBox{
+				display: inline-block;
+				position: absolute;
+				right: 76px;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			.row {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			.flow-num-S {
+				width: 30px;
+				height: 30px;
+				margin:15px 0 10px 20px;
+				border-radius: 50%;
+				text-align: center;
+				/* color: #000; */
+				line-height: 30px;
+				background: #CBCBCB;
+				color: #fff;
+				display: inline-block;
+			}
+			.order-flow{
+				color:#191A1B;
+			}
+			.enterprise{
+				width:200px;
+				height:80px;
+				border:1px solid rgba(103,162,235,1);
+				border-radius:10px;
+				float: left;
+				margin-bottom: 30px;
+				cursor: pointer;
+			}
+			
+			.enterprise span{
+				margin-left: 5px;
+				font-size:18px;
+				font-weight: bold;
+			}
+			.flow-active div{
+				background: #67A2EB !important;
+			}
+			.flow-active span{
+				color: #fff !important;
+			}
+			.realP{
+				margin-top: 16px;
+				font-weight:400;
+				color: #191A1B;
+				font-size:22px;
+			}
+			#codeP{
+				text-align: center;
+				display: none;
+			}
+			.status-5{
+				text-align: right;
+				position: absolute;
+				right: 40px;
+				bottom: 15px;
+				font-size: 16px;
+				font-weight: 600;
+				color: #d63636;
+				display: none;
+			}
+			</style>
+	</head>
+	<body>
+		<nav class="navbar scrollspy navbar-fixed-top  navbar-default">
+			<div class="container">
+				<div class="navbar-header ">
+					<span><img src="images/logo.png" height="62px" alt="Logo" class="logoImg"></span>
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"
+					 aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a data-track="" data-track-location="header" href="javascript:void(0);" style=""><img src="images/customerService.png"
+								 alt="" class="customerServiceImg">客服热线：0591968975</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img src="./images/userLogo-small.png" alt="" style="width: 25px;">
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="openPage?url=commons/change-password">修改密码</a></li>
+								<li><a href="loginOut">安全退出</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="row" style="margin-top:56px">
+			<div class="col-md-8" style="padding: 2% 2% 2% 3%;">
+				<!-- 用户信息 -->
+				<div class="mainLeftBox userBox">
+					<img src="images/userLogo.png" alt="" style="">
+					<p style="margin-top: 16px;">
+						<span style="color: #636466;font-size:24px;" id="isRealName">未实名</span>
+						<span style="font-size:14px;margin-left:5px" id="mobilePhone"></span></p>
+					<!-- <p style="color: #ADACAC;">注册时间：2019-03-23</p> -->
+				</div>
+				<!-- 个人实名 -->
+				<div class="mainLeftBox" style="padding-bottom: 30px;">
+					<div class="flow-active" id="flow-1">
+						<div class="flow-num-S">1</div>
+						个人实名验证
+					</div>
+					<div class="realNameBox">
+						<img src="images/realNameLogo.png" alt="" id="realNameLogo">
+						<p class="realP" id="isRealNameTitle">你还未进行个人实名认证！</span></p>
+						<p style="color: #ADACAC;" id="isRealNameTitle-2">实名认证后才可进行企业实名申请证章</p>
+					</div>
+					<div class="raelNameQrcodeBox">
+						<div id="code" style="margin: 13px 15px 0 15px;">
+
+						</div>
+						<p id="codeP">请使用微信扫码</p>
+						<div class="model-loading">
+							<div class="skype-loader">
+								<div class="dot">
+									<div class="first"></div>
+								</div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 企业实名 -->
+				<div class="mainLeftBox" id="order" style="height: 193px;display: none"></div>
+				<div class="mainLeftBox" id="enterprise" style="display: none;">
+					<div style="margin-bottom: 15px;" id="flow-2">
+						<div class="flow-num-S">2</div>
+						企业实名验证
+					</div>
+					<div id="enterpriseStatus">
+						<div class="enterprise enterpriseRealName" style="margin-left: 22px;background: #EDF5FF;" type="legalPerson">
+							<div style="margin-top: 17px;text-align: center;">
+								<img src="images/legalPerson.png" alt="" style="width: 50px;">
+								<span style="color:#67A2EB;">我是法人</span>
+							</div>
+						</div>
+						<div class="enterprise enterpriseRealName" style="margin-left: 50px;background: #E0E0E0;border: 1px solid #72D0BD;"
+						 type="agency">
+							<div style="margin-top: 13px;text-align: center;">
+								<img src="images/agent.png" alt="" style="width: 50px;">
+								<span style="color: #72D0BD;">我是代理人</span>
+							</div>
+						</div>
+						<div style="clear: both;"></div>
+						<p class="status-5">审核不通过，请重新上传。</p>
+					</div>
+				</div>
+				<!-- 个人信息上传 -->
+				<div class="mainLeftBox" id="personage">
+					<div style="margin-bottom: 15px;" id="flow-2-2">
+						<div class="flow-num-S">2</div>
+						个人信息上传
+					</div>
+					<div class="realNameBox" id="personInfo">
+						<img src="images/myselfLogo.png" alt="" style="">
+						<p style="margin-top: 16px;font-weight:400;color: #191A1B;font-size:22px;">请上传个人身份证信息</span></p>
+					</div>
+					<button type="button" disabled class="btn btn-primary" style="position: absolute;right: 20px;bottom: 30px;display: none;"
+					 id="updataSeft">&nbsp;&nbsp;去上传&nbsp;&nbsp;</button>
+				</div>
+				<!-- 购买套餐 -->
+				<div class="mainLeftBox">
+					<div id="flow-3">
+						<div class="flow-num-S">3</div>
+						购买套餐
+					</div>
+					<div class="realNameBox">
+						<img src="images/buyLogo.png" alt="" style="">
+						<p style="margin-top: 16px;font-weight:400;color: #191A1B;font-size:22px;">套餐费用：<span id="price"></span></span></p>
+						<p style="color: #999999;" id="remake"></p>
+						<button type="button" class="btn btn-primary" disabled style="position: absolute;right: 20px;bottom: 10px;display: none;"
+						 id="PurchasePlan">&nbsp;&nbsp;去购买&nbsp;&nbsp;</button>
+					</div>
+					<div>
+						<div id="code" class="raelNameQrcodeBox">
+							
+							<div class="model-loading">
+								<div class="skype-loader">
+									<div class="dot">
+										<div class="first"></div>
+									</div>
+									<div class="dot"></div>
+									<div class="dot"></div>
+									<div class="dot"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 激活证书 -->
+				<div class="mainLeftBox">
+					<div id="flow-4">
+						<div class="flow-num-S">4</div>
+						激活证书
+					</div>
+					<div class="realNameBox">
+						<img src="images/activate.png" alt="" style="width: 210px;margin-top: -18px;">
+						<!-- <button type="button" class="btn btn-primary" disabled style="position: absolute;right: 20px;bottom: 10px;">&nbsp;&nbsp;去激活&nbsp;&nbsp;</button> -->
+					</div>
+					<div>
+						<div id="code" class="raelNameQrcodeBox">
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4" style="padding: 2%;">
+				<div class="mainRightBox">
+					<h4>如何进行实名认证?</h4>
+					<ul>
+						<li>1、使用微信扫一扫功能，扫描左边二维码。</li>
+						<li>2、根据提示上传二代身份证正面、上传反面，点击开始人脸识别。</li>
+						<li>3、上传完身份证后，根据提示录制人脸动作。</li>
+					</ul>
+					<h4>如何找回密码。</h4>
+					<ul>
+						<li>可以在登录页面点击“忘记密码”通过手机号与验证码进行验证，重新设置密码。</li>
+					</ul>
+					<h4>如何开增值税专用发票。</h4>
+					<ul>
+						<li>在付款时填写发票抬头、纳税人号、邮箱地址，系统会开增值税电子专用发票，开票完成后您可在邮箱收到发票。</li>
+					</ul>
+					<h4>云证是否要下载客户端才能使用？</h4>
+					<ul>
+						<li>目前云证书采用账号密码的方式使用签名、加解密功能，之后会提供手机APP支持扫码签名、加解密功能。</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 系统主页${processStatus};${userId};${user};${personalAuthUrl}; -->
+	</body>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/ext.js"></script>
+	<script src="js/jquery.qrcode.min.js"></script>
+	<script src="js/nmp.js"></script>
+	<script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=321066d0-948f-11e8-ae85-f7c4a95d6890&autoShow=true&language=ZHCN'
+	 async='async'></script>
+	<script type="text/javascript">
+	    var ws =null;
+		var userInfo = ${userinfo};
+		var processStatus = "${processStatus}";
+		setCookie("processStatus", processStatus);
+		var num = 0;
+		$(document).ready(function() {
+			// userInfo = JSON.parse(userInfo);
+			console.log(userInfo);
+			setCookie("loginName", userInfo.loginName);
+			setCookie("mobilePhone", userInfo.mobilePhone);
+			setCookie("name", userInfo.name);
+			setCookie("idCard", userInfo.idCard);
+			setCookie("id", userInfo.id);
+			setCookie("companyName", userInfo.companyName);
+			$("#mobilePhone").html("(" + userInfo.mobilePhone.slice(0, 3) + "****" + userInfo.mobilePhone.slice(7) + ")");
+			
+			getPackage(userInfo.type);
+			
+			setCookie("userInfoType", userInfo.type);
+			
+			if (userInfo.type == "1") {
+				$("#order").css("display", "none");
+				$("#enterprise").css("display", "block");
+				$("#personage").css("display", "none");
+			}
+			
+			if (userInfo.type == "3") {
+				$("#order").css("display", "none");
+				$("#enterprise").css("display", "none");
+				$("#personage").css("display", "block");
+			}
+			
+			if (processStatus == "1") {
+				$("#isRealName").html("未实名");
+				$("#flow-1").addClass("flow-active");
+				$("#codeP").css("display", "block");
+				jQuery("#code").qrcode({
+					render: "canvas", //也可以替换为table
+					width: 150,
+					height: 150,
+					text: "${personalAuthUrl}",
+				});
+				 var wsurl = "ws://"+path+projectName+"/websocket/"+userInfo.id;
+				 ws = new WS(wsurl,aa);
+				 ws.initialization();
+				//AuthStatus = setInterval(getAuthStatus, 3000);
+
+			} else {
+				$("#isRealName").html("已实名:" + userInfo.name);
+				$("#isRealNameTitle").html('已完成个人实名认证！');
+				$("#isRealNameTitle-2").html('');
+				$("#realNameLogo").attr("src", "images/realNameLogo-true.png");
+			}
+			
+			
+			if (processStatus == "2") {
+				$("#flow-2").addClass("flow-active");
+				$("#flow-2-2").addClass("flow-active");
+				$("#updataSeft").removeAttr("disabled").css("display", "block");;
+			}
+			
+			if (processStatus == "3") {
+				$("#flow-2").addClass("flow-active");
+				$("#flow-2-2").addClass("flow-active");
+				$("#flow-3").addClass("flow-active");
+				$("#updataSeft").html('&nbsp;&nbsp;审核中&nbsp;&nbsp;').css("display", "block");
+				$("#PurchasePlan").removeAttr("disabled").css("display", "block");
+				$("#enterpriseStatus").html(
+					'<div class="realNameBox"><img src="images/enterprise.png" alt="">' +
+					'<p class="realP">已上传企业实名资料！</span></p></div>' +
+					'<button type="button" disabled class="btn btn-primary" style="position: absolute;right: 20px;bottom: 30px;" id="updataSeft">&nbsp;&nbsp;审核中&nbsp;&nbsp;</button>'
+				)
+				$("#personInfo img").attr("src", "images/myselfLogo-true.png");
+				$("#personInfo p").html('已上传个人信息！');
+			    
+			}
+			
+			if (processStatus == "4") {
+				$("#flow-2").addClass("flow-active");
+				$("#flow-2-2").addClass("flow-active");
+				$("#flow-3").addClass("flow-active");
+				$("#updataSeft").html('&nbsp;&nbsp;审核中&nbsp;&nbsp;').css("display", "block");;
+				$("#PurchasePlan").html("查看电子发票").css("display", "block");
+				$("#enterpriseStatus").html(
+					'<div class="realNameBox"><img src="images/enterprise.png" alt="">' +
+					'<p class="realP">已上传企业实名资料！</span></p></div>' +
+					'<button type="button" disabled class="btn btn-primary" style="position: absolute;right: 20px;bottom: 30px;">&nbsp;&nbsp;审核中&nbsp;&nbsp;</button>'
+				)
+				$("#personInfo img").attr("src", "images/myselfLogo-true.png");
+				$("#personInfo p").html('已上传个人信息！');
+			}
+			
+			if (processStatus == "5") {
+				$("#flow-2").addClass("flow-active");
+				$("#flow-2-2").addClass("flow-active");
+				$("#flow-3").addClass("flow-active");
+				$("#updataSeft").removeAttr("disabled").css("display", "block");
+				$(".status-5").css("display", "block");
+				$("#PurchasePlan").html("查看电子发票").css("display", "block");
+				$("#personInfo img").attr("src", "images/myselfLogo-true.png");
+				$("#personInfo p").html('已上传个人信息！');
+			}
+			
+			if (processStatus == "6") {
+				$("#flow-2").addClass("flow-active");
+				$("#flow-2-2").addClass("flow-active");
+				$("#flow-3").addClass("flow-active");
+				$("#flow-4").addClass("flow-active");
+				getUserInfo();
+				$("#updataSeft").html('&nbsp;&nbsp;审核通过&nbsp;&nbsp;').css("display", "block");;
+				$("#PurchasePlan").html("查看电子发票").css("display", "block");
+				$("#enterpriseStatus").html(
+					'<div class="realNameBox"><img src="images/enterprise.png" alt="">' +
+					'<p class="realP">企业实名验证通过！（' + userInfo.companyName + '）</span></p></div>' +
+					'<button type="button" disabled class="btn btn-primary" style="position: absolute;right: 20px;bottom: 30px;">&nbsp;&nbsp;审核通过&nbsp;&nbsp;</button>'
+				)
+				$("#personInfo img").attr("src", "images/myselfLogo-true.png");
+				$("#personInfo p").html('已上传个人信息！');
+			}
+		});
+
+		function getAuthStatus() {
+			$.ajax({
+				url: "getAuthStatus",
+				type: 'POST',
+				success: function(result) {
+					if ("0000" == result.code) {
+						if (result.data !== "1") {
+							window.location.href = "toMainPage"
+							// 							processStatus = result.data;
+							// 							$("#isRealName").html("已实名");
+							// 							$("#isRealNameTitle").html('已完成个人实名认证！');
+							// 							$("#isRealNameTitle-2").html('');
+							// 							$("#realNameLogo").attr("src", "images/realNameLogo-true.png");
+							// 							$("#code").html("");
+							// 							$("#flow-2").addClass("flow-active");  
+							// 							$("#flow-2-2").addClass("flow-active");
+							// 							$("#updataSeft").removeAttr("disabled").css("display","block");
+							// 							clearInterval(AuthStatus);
+						}
+					} else {
+
+					}
+				},
+				error: function() {}
+			});
+		}
+		$(".enterpriseRealName").click(function() {
+			if (processStatus == "2" || processStatus == "5") {
+				var type = $(this).attr("type");
+				if (type == "legalPerson") {
+					window.location.href = "openPage?url=commons/identification-legalPerson"
+				}
+				if (type == "agency") {
+					window.location.href = "openPage?url=commons/identification-agency"
+				}
+			} else {
+				return;
+			}
+		});
+		$("#updataSeft").click(function() {
+			if (processStatus == "2" || processStatus == "5") {
+				window.location.href = "openPage?url=commons/information-Personal"
+			} else {
+				return;
+			}
+		});
+		$("#PurchasePlan").click(function() {
+			if (processStatus == "3") {
+				toPay()
+			}
+			if (processStatus == "4" || processStatus == "5" || processStatus == "6") {
+				window.open($(this).attr("urlHref"));
+			}
+		});
+		// 获取套餐信息
+		function getPackage(type) {
+			$.ajax({
+				url: "order/findPackage",
+				type: 'POST',
+				data: {
+					"type": type
+				},
+				success: function(result) {
+					if ("0000" == result.code) {
+						console.log(result.data);
+						if (result.data != "") {
+							setCookie("pid", result.data[0].pid);
+							$("#remake").html(result.data[0].remake);
+							$("#price").html("￥" + result.data[0].price);
+							if (processStatus == "3") {
+								getOrder(userInfo.type);
+							}
+							if (processStatus == "4" || processStatus == "5" || processStatus == "6") {
+								setTimeout(getInvoice,100);
+							}
+						}
+					} else {
+
+					}
+				},
+				error: function() {}
+			});
+		}
+		
+		// 获取未付款订单
+		function getOrder(type) {
+			$.ajax({
+				url: "order/getOrder",
+				type: 'POST',
+				data: {
+					"type": type
+				},
+				success: function(result) {
+					if ("0000" == result.code) {
+						if (result.data.length == 0) {
+							$("#PurchasePlan").removeAttr("disabled").attr('payType', "0");
+						} else {
+							$("#PurchasePlan").removeAttr("disabled").attr('payType', "1");
+						}
+					} else {}
+				},
+				error: function() {}
+			});
+		}
+		
+		// 跳转订单页面
+		function toPay() {
+			// 			if(processStatus == "5"){
+			// 				window.location.href = "";
+			// 			}
+			var type = $("#PurchasePlan").attr("payType");
+			window.location.href = "openPage?url=commons/paymentOfAnOrder?url=1&type=" + type;
+		}
+		
+		// 获取电子发票
+		function getInvoice() {
+			num++;
+			$.ajax({
+				url: "order/getInvoice",
+				type: 'POST',
+				success: function(result) {
+					if ("0000" == result.code) {
+						$("#PurchasePlan").attr("urlHref", result.data).removeAttr("disabled");
+					} else {
+						if(num > 4){return};
+						$("#PurchasePlan").attr("disabled",true);	
+						setTimeout(getInvoice, 3000)
+					}
+				},
+				error: function() {}
+			});
+		}
+		
+		function aa(data){
+			data = JSON.parse(data);
+			if(data.code == "1001"){
+				$(".model-loading").css("display", "block");
+			}
+			if(data.code == "1002"){
+				window.location.href = "toMainPage";
+			}
+		}
+		// 获取用户信息
+		function getUserInfo(){
+			$.ajax({
+				url: "getUserInfo",
+				type: 'get',
+				success: function(result) {
+					if ("0000" == result.code) {
+						$("#flow-4").html('<div class="flow-num-S">4</div>' + '证书已激活&nbsp;&nbsp;到期时间:'+result.data.endTime.substring(0,10));
+					} else {}
+				},
+				error: function() {}
+			});
+		}
+	</script>
+</html>
