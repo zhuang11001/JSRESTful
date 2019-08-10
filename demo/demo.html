@@ -29,9 +29,10 @@
 <div class="container">
     <div class="col-md-9">
         <div class="top">
-            <h2>接口测试 版本1.1.35.6 </h2>
-            <span class="label label-success" style="display: none">设备已插入</span>
-            <span class="label label-danger" style="display: none">设备已拔出</span>
+            <h2>接口测试demo 版本1.1.37.1 </h2>
+            <span class="label label-success" style="display: none;padding: 10px">设备已插入</span>
+            <span class="label label-danger" style="display: none;padding: 10px">设备已拔出</span>
+
         </div>
         <div class="panel panel-default">
             <div class="panel-body" id="GetUserListData-pos">
@@ -304,16 +305,22 @@
         var res =RS_GetUserList();
         setTimeout(function(){
             if(res.code){
-                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":'+res.msg+'"\n}';
-                var i = res.data.userlist.indexOf("||");
-                var j = res.data.userlist.slice(i+2);
-                document.getElementById("GetUserListTxt").value = msg;
-                document.getElementById("GetUserListData").value = j;
-                document.getElementById("containerId3").value = j;
-                document.getElementById("containerId").value = j;
-                document.getElementById("model-containerId").value = j;
-                document.getElementById("containerId6").value = j;
-                document.getElementById("SncontainerId").value = j;
+                if(res.msg=="UDevice open failed!"){
+                    document.getElementById("GetUserListTxt").value = "福建ca请使用IE浏览器";
+                }else{
+                    var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":'+res.msg+'"\n}';
+                    console.log(res);
+                    var i = res.data.userlist.indexOf("||");
+                    var j = res.data.userlist.slice(i+2);
+                    document.getElementById("GetUserListTxt").value = msg;
+                    document.getElementById("GetUserListData").value = j;
+                    document.getElementById("containerId3").value = j;
+                    document.getElementById("containerId").value = j;
+                    document.getElementById("model-containerId").value = j;
+                    document.getElementById("containerId6").value = j;
+                    document.getElementById("SncontainerId").value = j;
+                }
+
             }else{
                 document.getElementById("GetUserListTxt").value = "获取证书列表失败";
             }
@@ -332,11 +339,20 @@
                 var msg=JSON.stringify(res,null,3);
                 document.getElementById("CertLoginTxt").value = msg;
                 var num = RS_GetPinRetryCount(containerId);
-                document.getElementById("danger").innerHTML = "口令尝试剩余次数："+num.data.retryCount;
+                if(num.code=="0000"){
+                    document.getElementById("danger").innerHTML = "口令尝试剩余次数："+num.data.retryCount;
+                }else{
+                    document.getElementById("danger").innerHTML = "请勿连续输入错误口令";
+                }
+
             }else{
                 document.getElementById("CertLoginTxt").value = "验证口令失败";
                 var num = RS_GetPinRetryCount(containerId);
-                document.getElementById("danger").innerHTML = "口令尝试剩余次数："+num.data.retryCount;
+                if(num.code=="0000"){
+                    document.getElementById("danger").innerHTML = "口令尝试剩余次数："+num.data.retryCount;
+                }else{
+                    document.getElementById("danger").innerHTML = "请勿连续输入错误口令";
+                }
             }
 
         }, 500);
@@ -413,22 +429,23 @@
     //非对称解密接口
     function KeyDecryptData(){
         document.getElementById("KeyDecryptDataTxt").value = "加载中...";
+        getBuffer();
+        $('#loginModal').modal();
+    }
+    function keyDecrypt(){
         var encRsKey=$("#encRsKey").val();
         var containerId=$("#containerId6").val();
-        getBuffer();
         var res=RS_KeyDecryptData(encRsKey, containerId);
         setTimeout(function(){
-            if(res.code && res.code == "A00002D"){
-                $('#loginModal').modal();
-            }else if(res.code){
+          if(res.code){
                 var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "rsKey":"'+res.data.rsKey+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("KeyDecryptDataTxt").value = msg;
             }else{
                 document.getElementById("KeyDecryptDataTxt").value = "非对称解密失败";
             }
         }, 500);
-
     }
+
     function ModelLogin(){
         var containerId=$("#model-containerId").val();
         var password=$("#model-password").val();
@@ -439,11 +456,15 @@
         }else{
             var res = RS_CertLogin(containerId,password);
             setTimeout(function(){
-                if(res.code==0000){
+                if(res.code=="0000"){
                     alert("口令验证成功");
                     var num = RS_GetPinRetryCount(containerId);
-                    document.getElementById("model-danger").innerHTML = "口令尝试剩余次数："+num.data.retryCount;
-                    KeyDecryptData();
+                    if(num.code=="0000"){
+                        document.getElementById("model-danger").innerHTML = "口令尝试剩余次数："+num.data.retryCount;
+                    }else{
+                        document.getElementById("model-danger").innerHTML = "请勿连续输入错误口令";
+                    }
+                    keyDecrypt();
                 }else{
                     alert("口令验证失败");
                 }
