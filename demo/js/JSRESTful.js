@@ -14,8 +14,9 @@ var successlMsg={
 var failMsg={
     "code":"9999",
     "data":{},
-    "msg":"unsuccessful"
+    "msg":"未知错误"
 };
+
 /**
  * 封装ajax 函数
  * @param url  请求地址
@@ -46,71 +47,115 @@ function ajax(url, data,async,callback) {
 }
 //获取证书列表接口
 function RS_GetUserList(){
-    var queryResult=queryFJCA();
-    if(queryResult==false){
-        var url=commonUrl+"/RS_GetUserList";
-        var data="";
-        var result;
-        ajax(url,data,false,function(res){
-            result = res;
-        });
-    }else if(queryResult==true){
-        successlMsg.data={};
-        successlMsg.data.userlist = "fjca||fjca_Container";
-        return successlMsg;
+    var state = buffer();
+    console.log(state);
+    if(state.length==1){
+        if(state[0].Description== "FJCA"){
+            var queryResult=queryFJCA();
+            if(queryResult==false){
+                failMsg.data={};
+                failMsg.data.userlist = "福建ca请使用IE浏览器";
+                return failMsg;
+            }else if(queryResult==true){
+                successlMsg.data={};
+                successlMsg.data.userlist = "fjca||fjca_Container";
+                return successlMsg;
+            }
+        }else{
+            var url=commonUrl+"/RS_GetUserList";
+            var data="";
+            var result;
+            ajax(url,data,false,function(res){
+                result = res;
+            });
+            return result;
+        }
+    }else{
+        failMsg.data={};
+        failMsg.data.userlist = "没有key插入或者插入的key数量大于1";
+        return failMsg;
     }
-    return result;
+
 }
 //证书口令验证接口
 function RS_CertLogin(containerId,password){
-    var queryResult=queryFJCA();
-    if(queryResult==false){
-        var url=commonUrl+"/RS_CertLogin";
-        var data={
-            containerId:containerId,
-            password:password,
-        }
-        var result;
-        ajax(url,data,false,function(res) {
-            result = res;
-        });
-        return result;
-    }else if(queryResult==true){
-        var msg = document.getElementById("Object1").FJCA_OpenKeyWithPsw(password);
-        if(msg==true){
-            successlMsg.data={};
-            successlMsg.data.containerId = "fjca_Container";
-            return successlMsg;
+    var state = buffer();
+    if(state.length==1){
+        if(state[0].Description== "FJCA"){
+            var queryResult=queryFJCA();
+            if(queryResult==false){
+                failMsg.data={};
+                failMsg.data.containerId = "福建ca请使用IE浏览器";
+                return failMsg;
+            }else if(queryResult==true){
+                var msg = document.getElementById("Object1").FJCA_OpenKeyWithPsw(password);
+                if(msg==true){
+                    successlMsg.data={};
+                    successlMsg.data.containerId = "fjca_Container";
+                    return successlMsg;
+                }else{
+                    failMsg.data={};
+                    failMsg.data.containerId = "";
+                    return failMsg;
+                }
+            }
         }else{
-            failMsg.data={};
-            failMsg.data.containerId = "";
-            return failMsg;
+            var url=commonUrl+"/RS_CertLogin";
+            var data={
+                containerId:containerId,
+                password:password,
+            }
+            var result;
+            ajax(url,data,false,function(res) {
+                result = res;
+            });
+            return result;
         }
+    }else{
+        failMsg.data={};
+        failMsg.data.containerId = "没有key插入或者插入的key数量大于1";
+        return failMsg;
     }
 }
 //获取数字证书接口
 function RS_GetCertBase64String(certType,containerId){
-    var queryResult=queryFJCA();
-    if(queryResult==false){
-        var url=commonUrl+"/RS_GetCertBase64String";
-        var data={
-            certType:certType,
-            containerId:containerId
-        };
-        var result;
-        ajax(url, data,false,function(res) {
-            result = res;
-        });
-        return result;
-    }else{
-        var msg = document.getElementById("Object1").FJCA_ExportUserCert(certType);
-        if(msg){
-            successlMsg.data={};
-            successlMsg.data.certBase64 = msg;
-            return successlMsg;
+    var state = buffer();
+    if(state.length==1){
+        if(state[0].Description== "FJCA"){
+            var queryResult=queryFJCA();
+            if(queryResult==false){
+                failMsg.data={};
+                failMsg.data.certBase64 = "福建ca请使用IE浏览器";
+                return failMsg;
+            }else if(queryResult==true){
+                var msg = document.getElementById("Object1").FJCA_ExportUserCert(certType);
+                if(msg){
+                    successlMsg.data={};
+                    successlMsg.data.certBase64 = msg;
+                    return successlMsg;
+                }else{
+                    failMsg.data={};
+                    failMsg.data.certBase64 = "";
+                    return failMsg;
+                }
+            }
+        }else{
+            var url=commonUrl+"/RS_GetCertBase64String";
+            var data={
+                certType:certType,
+                containerId:containerId
+            };
+            var result;
+            ajax(url, data,false,function(res) {
+                result = res;
+            });
+            return result;
         }
+    }else{
+        failMsg.data={};
+        failMsg.data.certBase64 = "没有key插入或者插入的key数量大于1";
+        return failMsg;
     }
-
 }
 //.获取证书信息接口
 function RS_GetCertInfo(certBase64,type){
@@ -127,83 +172,124 @@ function RS_GetCertInfo(certBase64,type){
 }
 //获取证书用户标识接口
 function RS_KeyGetKeySn(containerId){
-    var queryResult=queryFJCA();
-    if(queryResult==false){
-        var url=commonUrl+"/RS_KeyGetKeySn";
-        var data={
-            containerId:containerId
-        };
-        var result;
-        ajax(url, data,false,function(res) {
-            result = res;
-        });
-        return result;
-    }else{
-        var cert = document.getElementById("Object1").FJCA_ExportUserCert(1);
-        var msg = document.getElementById("Object1").GetCertUID(cert);
-        if(msg){
-            successlMsg.data={};
-            successlMsg.data.encRsKey = msg;
-            return successlMsg;
+    var state = buffer();
+    if(state.length==1){
+        if(state[0].Description== "FJCA"){
+            var queryResult=queryFJCA();
+            if(queryResult==false){
+                failMsg.data={};
+                failMsg.data.keySn = "福建ca请使用IE浏览器";
+                return failMsg;
+            }else if(queryResult==true){
+                var cert = document.getElementById("Object1").FJCA_ExportUserCert(1);
+                var msg = document.getElementById("Object1").GetCertUID(cert);
+                if(msg){
+                    successlMsg.data={};
+                    successlMsg.data.keySn = msg;
+                    return successlMsg;
+                }else{
+                    failMsg.data={};
+                    failMsg.data.keySn = "";
+                    return failMsg;
+                }
+            }
         }else{
-            failMsg.data={};
-            failMsg.data.containerId = "";
-            return failMsg;
+            var url=commonUrl+"/RS_KeyGetKeySn";
+            var data={
+                containerId:containerId
+            };
+            var result;
+            ajax(url, data,false,function(res) {
+                result = res;
+            });
+            return result;
         }
+    }else{
+        failMsg.data={};
+        failMsg.data.keySn = "没有key插入或者插入的key数量大于1";
+        return failMsg;
     }
-
 }
 
 //非对称加密接口
 function RS_KeyEncryptData(rsKey,certBase64){
-    var queryResult=queryFJCA();
-    if(queryResult==false){
-        var url=commonUrl+"/RS_KeyEncryptData";
-        var data={
-            rsKey:rsKey,
-            certBase64:certBase64
-        };
-        var result;
-        ajax(url, data,false,function(res) {
-            result = res;
-        });
-        return result;
-    }else{
-        var msg = document.getElementById("Object1").FJCA_EncryptByPubkey(certBase64,rsKey);
-        if(msg){
-            successlMsg.data={};
-            successlMsg.data.encRsKey = msg;
-            return successlMsg;
+    var state = buffer();
+    if(state.length==1){
+        if(state[0].Description== "FJCA"){
+            var queryResult=queryFJCA();
+            if(queryResult==false){
+                failMsg.data={};
+                failMsg.data.encRsKey = "福建ca请使用IE浏览器";
+                return failMsg;
+            }else if(queryResult==true){
+                var msg = document.getElementById("Object1").FJCA_EncryptByPubkey(certBase64,rsKey);
+                if(msg){
+                    successlMsg.data={};
+                    successlMsg.data.encRsKey = msg;
+                    return successlMsg;
+                }else{
+                    failMsg.data={};
+                    failMsg.data.encRsKey = "";
+                    return failMsg;
+                }
+            }
         }else{
-            failMsg.data={};
-            failMsg.data.containerId = "";
-            return failMsg;
+            var url=commonUrl+"/RS_KeyEncryptData";
+            var data={
+                rsKey:rsKey,
+                certBase64:certBase64
+            };
+            var result;
+            ajax(url, data,false,function(res) {
+                result = res;
+            });
+            return result;
         }
+    }else{
+        failMsg.data={};
+        failMsg.data.encRsKey = "没有key插入或者插入的key数量大于1";
+        return failMsg;
     }
 }
 //.非对称解密接口
 function RS_KeyDecryptData(encRsKey,containerId){
-    var queryResult=queryFJCA();
-    if(queryResult==false){
-        var url=commonUrl+"/RS_KeyDecryptData";
-        var data={
-            encRsKey:encRsKey,
-            containerId:containerId
-        };
-        var result;
-        ajax(url, data,false,function(res) {
-            result = res;
-        });
-        return result;
-    }else{
-        var msg = document.getElementById("Object1").FJCA_DecryptDataByPrivateKey(encRsKey);
-        if(msg){
-            successlMsg.data={};
-            successlMsg.data.rsKey = msg;
-            return successlMsg;
+    var state = buffer();
+    if(state.length==1){
+        if(state[0].Description== "FJCA"){
+            var queryResult=queryFJCA();
+            if(queryResult==false){
+                failMsg.data={};
+                failMsg.data.rsKey = "福建ca请使用IE浏览器";
+                return failMsg;
+            }else if(queryResult==true){
+                var msg = document.getElementById("Object1").FJCA_DecryptDataByPrivateKey(encRsKey);
+                if(msg){
+                    successlMsg.data={};
+                    successlMsg.data.rsKey = msg;
+                    return successlMsg;
+                }else{
+                    failMsg.data={};
+                    failMsg.data.rsKey = "";
+                    return failMsg;
+                }
+            }
+        }else{
+            var url=commonUrl+"/RS_KeyDecryptData";
+            var data={
+                encRsKey:encRsKey,
+                containerId:containerId
+            };
+            var result;
+            ajax(url, data,false,function(res) {
+                result = res;
+            });
+            return result;
         }
+    }else{
+        failMsg.data={};
+        failMsg.data.rsKey = "没有key插入或者插入的key数量大于1";
+        return failMsg;
     }
-
 }
 //获取密码重试剩余次数接口
 function RS_GetPinRetryCount(containerId){
@@ -226,12 +312,14 @@ function RS_GetPinRetryCount(containerId){
 
 }
 //查询多key的状态
-function buffer(callback) {
+function buffer() {
     var url=commonUrl+"/buffer";
     var data="";
-    ajax(url, data,true,function(res) {
-        callback(res);
+    var result;
+    ajax(url, data,false,function(res) {
+        result = res;
     });
+    return result;
 }
 //查询是否是福建ca
 function queryFJCA(){

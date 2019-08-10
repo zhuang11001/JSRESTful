@@ -29,7 +29,7 @@
 <div class="container">
     <div class="col-md-9">
         <div class="top">
-            <h2>接口测试demo 版本1.1.37.1 </h2>
+            <h2>接口测试demo 版本1.1.37.5 </h2>
             <span class="label label-success" style="display: none;padding: 10px">设备已插入</span>
             <span class="label label-danger" style="display: none;padding: 10px">设备已拔出</span>
 
@@ -41,7 +41,7 @@
                     <button type="button" class="btn btn-primary" onclick="GetUserList()">获取证书列表接口</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="GetUserListTxt" cols="150" rows="5" disabled></textarea>
+                    <textarea class="form-control" id="GetUserListTxt" cols="150" rows="7" disabled></textarea>
                 </div>
                 <div class="form-group">
                     <h5>唯一标识：</h5>
@@ -66,7 +66,7 @@
                     <p class="text-danger" id="danger">请勿连续输入错误口令</p>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="CertLoginTxt" cols="150" rows="5" disabled></textarea>
+                    <textarea class="form-control" id="CertLoginTxt" cols="150" rows="7" disabled></textarea>
                 </div>
 
             </div>
@@ -86,7 +86,7 @@
                     <button type="button" class="btn btn-primary" onclick="GetCertBase64String()">获取数字证书接口</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="GetCertBase64StringTxt" cols="150" rows="5" disabled></textarea>
+                    <textarea class="form-control" id="GetCertBase64StringTxt" cols="150" rows="7" disabled></textarea>
                 </div>
                 <div class="form-group">
                     <h5>证书base64编码：</h5>
@@ -110,7 +110,7 @@
                     <button type="button" class="btn btn-primary" onclick="GetCertInfo()">获取证书信息接口</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="GetCertInfoTxt" cols="150" rows="5" disabled></textarea>
+                    <textarea class="form-control" id="GetCertInfoTxt" cols="150" rows="7" disabled></textarea>
                 </div>
             </div>
         </div>
@@ -125,7 +125,7 @@
                     <button type="button" class="btn btn-primary" onclick="KeyGetKeySn()">获取证书用户标识接口</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="KeyGetKeySnTxt" cols="150" rows="5" disabled></textarea>
+                    <textarea class="form-control" id="KeyGetKeySnTxt" cols="150" rows="7" disabled></textarea>
                 </div>
 
             </div>
@@ -145,7 +145,7 @@
                     <button type="button" class="btn btn-primary" onclick="KeyEncryptData()">非对称加密</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="KeyEncryptDataTxt" cols="150" rows="5" disabled></textarea>
+                    <textarea class="form-control" id="KeyEncryptDataTxt" cols="150" rows="7" disabled></textarea>
                 </div>
                 <div class="form-group">
                     <h5>密文：</h5>
@@ -170,7 +170,7 @@
                     <button type="button" class="btn btn-primary" onclick="KeyDecryptData()">非对称解密</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="KeyDecryptDataTxt" cols="150" rows="5" disabled></textarea>
+                    <textarea class="form-control" id="KeyDecryptDataTxt" cols="150" rows="7" disabled></textarea>
                 </div>
             </div>
         </div>
@@ -266,27 +266,27 @@
             $(".nav").addClass("roll");
         }
     });
+
     //轮询，查询插拔状态
     function ajaxBuffer(){
-        buffer(function(res){
-            if(res.length==1){
-                $(".label-success").show();
-                $(".label-danger").hide();
-                RS_state = 1;
-            }else if(res.length>1){
-                $(".label-success").hide();
-                $(".label-danger").show();
-                $(".label-danger").text("插入的设备数大于1");
-                RS_state = 2;
-            }else{
-                $(".label-success").hide();
-                $(".label-danger").show();
-                $(".label-danger").text("无设备插入中");
-                RS_state = 0;
-            }
-        });
+        var res =buffer();
+        if(res.length==1){
+            $(".label-success").show();
+            $(".label-danger").hide();
+            RS_state = 1;
+        }else if(res.length>1){
+            $(".label-success").hide();
+            $(".label-danger").show();
+            $(".label-danger").text("插入的设备数大于1");
+            RS_state = 2;
+        }else{
+            $(".label-success").hide();
+            $(".label-danger").show();
+            $(".label-danger").text("无设备插入中");
+            RS_state = 0;
+        }
     }
-    setInterval("ajaxBuffer()",5000);
+    setInterval("ajaxBuffer()",8000);
 
     function getBuffer(){
         ajaxBuffer();
@@ -301,28 +301,23 @@
     //获取证书列表接口
     function GetUserList(){
         document.getElementById("GetUserListTxt").value = "加载中...";
-        getBuffer();
         var res =RS_GetUserList();
         setTimeout(function(){
-            if(res.code){
-                if(res.msg=="UDevice open failed!"){
-                    document.getElementById("GetUserListTxt").value = "福建ca请使用IE浏览器";
-                }else{
-                    var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":'+res.msg+'"\n}';
-                    console.log(res);
-                    var i = res.data.userlist.indexOf("||");
-                    var j = res.data.userlist.slice(i+2);
-                    document.getElementById("GetUserListTxt").value = msg;
-                    document.getElementById("GetUserListData").value = j;
-                    document.getElementById("containerId3").value = j;
-                    document.getElementById("containerId").value = j;
-                    document.getElementById("model-containerId").value = j;
-                    document.getElementById("containerId6").value = j;
-                    document.getElementById("SncontainerId").value = j;
-                }
-
+            if(res.code=="0000"){
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":"'+res.msg+'"\n}';
+                console.log(res);
+                var i = res.data.userlist.indexOf("||");
+                var j = res.data.userlist.slice(i+2);
+                document.getElementById("GetUserListTxt").value = msg;
+                document.getElementById("GetUserListData").value = j;
+                document.getElementById("containerId3").value = j;
+                document.getElementById("containerId").value = j;
+                document.getElementById("model-containerId").value = j;
+                document.getElementById("containerId6").value = j;
+                document.getElementById("SncontainerId").value = j;
             }else{
-                document.getElementById("GetUserListTxt").value = "获取证书列表失败";
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":"'+res.msg+'"\n}';
+                document.getElementById("GetUserListTxt").value = msg;
             }
         }, 500);
     }
@@ -336,7 +331,7 @@
         var res = RS_CertLogin(containerId, password);
         setTimeout(function(){
             if(res.code){
-                var msg=JSON.stringify(res,null,3);
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "containerId":"'+res.data.containerId+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("CertLoginTxt").value = msg;
                 var num = RS_GetPinRetryCount(containerId);
                 if(num.code=="0000"){
@@ -366,7 +361,7 @@
         var res = RS_GetCertBase64String(certType, containerId);
         setTimeout(function(){
             if(res.code){
-                var msg = JSON.stringify(res,null,3);
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "certBase64":"'+res.data.certBase64+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("GetCertBase64StringTxt").value = msg;
                 document.getElementById("GetCertBase64StringData").value = res.data.certBase64;
                 document.getElementById("certBase64").value = res.data.certBase64;
@@ -400,7 +395,7 @@
         var res=RS_KeyGetKeySn(containerId);
         setTimeout(function(){
             if(res.code){
-                var msg=JSON.stringify(res,null,3);
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "keySn":"'+res.data.keySn+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("KeyGetKeySnTxt").value = msg;
             }else{
                 document.getElementById("KeyGetKeySnTxt").value = "获取证书用户标识失败";
@@ -417,7 +412,7 @@
         var res=RS_KeyEncryptData(rsKey, certBase64);
         setTimeout(function(){
             if(res.code){
-                var msg=JSON.stringify(res,null,3);
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "encRsKey":"'+res.data.encRsKey+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("KeyEncryptDataTxt").value = msg;
                 document.getElementById("KeyEncryptDataData").value = res.data.encRsKey;
                 document.getElementById("encRsKey").value = res.data.encRsKey;
@@ -467,8 +462,8 @@
                     keyDecrypt();
                 }else{
                     alert("口令验证失败");
+                    document.getElementById("KeyDecryptDataTxt").value = "密码错误";
                 }
-
             }, 500);
             $('#loginModal').modal('toggle');
         }
