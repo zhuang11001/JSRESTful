@@ -291,6 +291,137 @@ function RS_KeyDecryptData(encRsKey,containerId){
         return failMsg;
     }
 }
+//签名接口(不支持福建ca)
+function RS_KeySignByP7(msg,flag,containerId){
+    var state = buffer();
+    if(state.length==1){
+        if(state[0].Description== "FJCA"){
+            failMsg.data = {};
+            failMsg.data.signdMsg = "该接口不支持福建ca";
+            return failMsg;
+        }else{
+            var url=commonUrl+"/RS_KeySignByP7";
+            var data={
+                msg:msg,
+                flag:flag,
+                containerId:containerId
+            };
+            var result;
+            ajax(url, data,false,function(res) {
+                result = res;
+            });
+            return result;
+        }
+    }else{
+        failMsg.data={};
+        failMsg.data.signdMsg = "没有key插入或者插入的key数量大于1";
+        return failMsg;
+    }
+}
+//验签接口(不支持福建ca)
+function RS_VerifySignByP7(msg,signdMsg,flag){
+    var state = buffer();
+    if(state.length==1){
+        if(state[0].Description== "FJCA"){
+            failMsg.data = {};
+            failMsg.data.signdMsg = "该接口不支持福建ca";
+            return failMsg;
+        }else{
+            var url=commonUrl+"/RS_VerifySignByP7";
+            var data={
+                msg:msg,
+                signdMsg:signdMsg,
+                flag:flag
+            };
+            var result;
+            ajax(url, data,false,function(res) {
+                if(res.code=="0000"){
+                    result =successlMsg;
+                }else{
+                    result =failMsg;
+                }
+            });
+            return result;
+        }
+    }else{
+        failMsg.data={};
+        failMsg.data.signdMsg = "没有key插入或者插入的key数量大于1";
+        return failMsg;
+    }
+}
+//签名接口(仅支持福建ca)
+function RS_KeySignByP1(msg,containerId){
+    var state = buffer();
+    if(state.length==1){
+        if(state[0].Description== "FJCA"){
+            var queryResult=queryFJCA();
+            if(queryResult==false){
+                failMsg.data={};
+                failMsg.data.keySn = "福建ca请使用IE浏览器";
+                return failMsg;
+            }else if(queryResult==true){
+                console.log(msg);
+                var res = document.getElementById("Object1").FJCA_SignData(msg);
+                console.log(res);
+                if(res){
+                    successlMsg.data={};
+                    successlMsg.data.signdMsg = res;
+                    return successlMsg;
+                }else{
+                    failMsg.data={};
+                    failMsg.data.keySn = "";
+                    return failMsg;
+                }
+            }
+        }else{
+            failMsg.data = {};
+            failMsg.data.signdMsg = "该接口仅支持福建ca";
+            return failMsg;
+        }
+    }else{
+        failMsg.data={};
+        failMsg.data.signdMsg = "没有key插入或者插入的key数量大于1";
+        return failMsg;
+    }
+}
+//验签接口(仅支持福建ca)
+function RS_VerifySignByP1(certBase64,msg,signdMsg){
+    var state = buffer();
+    if(state.length==1){
+        if(state[0].Description== "FJCA"){
+            var queryResult=queryFJCA();
+            if(queryResult==false){
+                failMsg.data={};
+                failMsg.data.keySn = "福建ca请使用IE浏览器";
+                return failMsg;
+            }else if(queryResult==true){
+                console.log(msg);
+                console.log(signdMsg);
+                console.log(certBase64);
+                var res = document.getElementById("Object1").FJCA_VerifySign(msg,certBase64,signdMsg);
+                console.log(res);
+                if(res==true){
+                    successlMsg.data={};
+                    successlMsg.data = "执行成功";
+                    return successlMsg;
+                }else{
+                    failMsg.data={};
+                    failMsg.data = "";
+                    return failMsg;
+                }
+            }
+        }else{
+            failMsg.data = {};
+            failMsg.data.signdMsg = "该接口仅支持福建ca";
+            return failMsg;
+        }
+    }else{
+        failMsg.data={};
+        failMsg.data.signdMsg = "没有key插入或者插入的key数量大于1";
+        return failMsg;
+    }
+}
+
 //获取密码重试剩余次数接口
 function RS_GetPinRetryCount(containerId){
     var queryResult=queryFJCA();

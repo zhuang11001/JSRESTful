@@ -29,7 +29,7 @@
 <div class="container">
     <div class="col-md-9">
         <div class="top">
-            <h2>接口测试demo 版本1.1.37.5 </h2>
+            <h2>接口测试demo 版本1.1.37.7 </h2>
             <span class="label label-success" style="display: none;padding: 10px">设备已插入</span>
             <span class="label label-danger" style="display: none;padding: 10px">设备已拔出</span>
 
@@ -174,6 +174,103 @@
                 </div>
             </div>
         </div>
+        <div class="panel panel-default">
+            <div class="panel-body" id="KeySignByP7-pos">
+                <h4>8、签名接口(不支持福建ca)</h4>
+                <div class="form-group">
+                    <label for="P7containerId" class="control-label">唯一标识:</label>
+                    <input type="text" class="form-control" id="P7containerId">
+                </div>
+                <div class="form-group">
+                    <label for="msg2" class="control-label">待签名原文:</label>
+                    <input type="text" class="form-control" id="msg2">
+                </div>
+                <div class="form-group">
+                    <label for="flag" class="control-label">是否带原文的标识，1:不带原文;0:带原文:</label>
+                    <select class="form-control" id="flag">
+                        <option>请选择是否带原文</option>
+                        <option value="1">1:不带原文</option>
+                        <option value="0">0:带原文</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="KeySignByP7()">签名</button>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" id="KeySignByP7Txt" cols="150" rows="7" disabled></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" id="VerifySignByP7-pos">
+                <h4>9、验签接口(不支持福建ca)</h4>
+                <div class="form-group">
+                    <label for="signed" class="control-label">待签名原文，若signdMsg带原文，则该参数为空:</label>
+                    <input type="text" class="form-control" id="signed">
+                </div>
+                <div class="form-group">
+                    <label for="sign" class="control-label">签名值，签名:</label>
+                    <input type="text" class="form-control" id="sign">
+                </div>
+                <div class="form-group">
+                    <label for="Identification" class="control-label">是否带原文的标识，1:不带原文;0:带原文:</label>
+                    <select class="form-control" id="Identification">
+                        <option>请选择是否带原文</option>
+                        <option value="1">1:不带原文</option>
+                        <option value="0">0:带原文</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="VerifySignByP7()">验签</button>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" id="VerifySignByP7Txt" cols="150" rows="7" disabled></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" id="KeySignByP1Data-pos">
+                <h4>10、签名接口(仅支持福建ca)</h4>
+                <div class="form-group">
+                    <label for="msg" class="control-label">待签名原文:</label>
+                    <input type="text" class="form-control" id="msg">
+                </div>
+                <div class="form-group">
+                    <label for="KeycontainerId" class="control-label">唯一标识:</label>
+                    <input type="text" class="form-control" id="KeycontainerId">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="KeySignByP1()">签名</button>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" id="KeySignByP1Txt" cols="150" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" id="VerifySignByP1-pos">
+                <h4>11、验签接口(仅支持福建ca)</h4>
+                <div class="form-group">
+                    <label for="SigncertBase" class="control-label">base64编码的签名证书:</label>
+                    <input type="text" class="form-control" id="SigncertBase">
+                </div>
+                <div class="form-group">
+                    <label for="asn1Msg3" class="control-label">待签名原文:</label>
+                    <input type="text" class="form-control" id="asn1Msg3">
+                </div>
+                <div class="form-group">
+                    <label for="signdMsg2" class="control-label">签名值:</label>
+                    <input type="text" class="form-control" id="signdMsg2">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="VerifySignByP1()">验签</button>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" id="VerifySignByP1Txt" cols="150" rows="5"></textarea>
+                </div>
+
+            </div>
+        </div>
     </div>
     <div class="col-md-3" id="nav-right">
         <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
@@ -199,6 +296,18 @@
                 </li>
                 <li class="">
                     <a href="#KeyDecryptData-pos">7、非对称解密接口</a>
+                </li>
+                <li class="">
+                    <a href="#KeySignByP7-pos">8、签名接口(不支持福建ca)</a>
+                </li>
+                <li class="">
+                    <a href="#VerifySignByP7-pos">9、验签接口(不支持福建ca)</a>
+                </li>
+                <li class="">
+                    <a href="#KeySignByP1Data-pos">10、签名接口(仅支持福建ca)</a>
+                </li>
+                <li class="">
+                    <a href="#VerifySignByP1-pos">11、验签接口(仅支持福建ca)</a>
                 </li>
                 <li class="">
                     <a class="back-to-top" href="#top">
@@ -315,6 +424,9 @@
                 document.getElementById("model-containerId").value = j;
                 document.getElementById("containerId6").value = j;
                 document.getElementById("SncontainerId").value = j;
+                document.getElementById("P7containerId").value = j;
+                document.getElementById("SncontainerId").value = j;
+                document.getElementById("KeycontainerId").value = j;
             }else{
                 var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("GetUserListTxt").value = msg;
@@ -366,6 +478,7 @@
                 document.getElementById("GetCertBase64StringData").value = res.data.certBase64;
                 document.getElementById("certBase64").value = res.data.certBase64;
                 document.getElementById("KeycertBase64").value = res.data.certBase64;
+                document.getElementById("SigncertBase").value = res.data.certBase64;
             }else{
                 document.getElementById("GetCertBase64StringTxt").value = "获取数字证书失败";
             }
@@ -468,6 +581,77 @@
             $('#loginModal').modal('toggle');
         }
     }
+
+    //签名接口(不支持福建ca)
+    function KeySignByP7(){
+        document.getElementById("GetCertInfoTxt").value = "加载中...";
+        var containerId=$("#P7containerId").val();
+        var msg=$("#msg2").val();
+        var flag=$("#flag").val();
+        var res=RS_KeySignByP7(msg,flag,containerId);
+        setTimeout(function(){
+            if(res.code){
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n      "signdMsg":"'+res.data.signdMsg+'"\n    },\n    "msg":"'+res.msg+'"\n}';
+                document.getElementById("KeySignByP7Txt").value = msg;
+                document.getElementById("sign").value = res.data.signdMsg;
+            }else{
+                document.getElementById("KeySignByP7Txt").value = "签名失败";
+            }
+        }, 500);
+    }
+    //验签接口(不支持福建ca)
+    function VerifySignByP7(){
+        document.getElementById("GetCertInfoTxt").value = "加载中...";
+        var msg=$("#signed").val();
+        var signdMsg=$("#sign").val();
+        var flag=$("#Identification").val();
+        var res=RS_VerifySignByP7(msg,signdMsg,flag);
+        setTimeout(function(){
+            console.log(res);
+            if(res.code){
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n      "signdMsg":"'+res.data.signdMsg+'"\n    },\n    "msg":"'+res.msg+'"\n}';
+                document.getElementById("VerifySignByP7Txt").value = msg;
+            }else{
+                document.getElementById("VerifySignByP7Txt").value = "验签失败";
+            }
+        }, 500);
+    }
+    //签名接口(仅支持福建ca)
+    function KeySignByP1(){
+        document.getElementById("GetCertInfoTxt").value = "加载中...";
+        var msg=$("#msg").val();
+        var containerId=$("#KeycontainerId").val();
+        var res=RS_KeySignByP1(msg,containerId);
+        setTimeout(function(){
+            console.log(res);
+            if(res.code){
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n      "signdMsg":"'+res.data.signdMsg+'"\n    },\n    "msg":"'+res.msg+'"\n}';
+                document.getElementById("KeySignByP1Txt").value = msg;
+                document.getElementById("signdMsg2").value = res.data.signdMsg;
+            }else{
+                document.getElementById("KeySignByP1Txt").value = "验签失败";
+            }
+        }, 500);
+    }
+    //验签接口(仅支持福建ca)
+    function VerifySignByP1(){
+        document.getElementById("GetCertInfoTxt").value = "加载中...";
+        var certBase64=$("#SigncertBase").val();
+        var msg=$("#asn1Msg3").val();
+        var signdMsg=$("#signdMsg2").val();
+        console.log(certBase64,msg,signdMsg);
+        var res=RS_VerifySignByP1(certBase64,msg,signdMsg);
+        setTimeout(function(){
+            console.log(res);
+            if(res.code){
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":"'+res.data+'",\n    "msg":"'+res.msg+'"\n}';
+                document.getElementById("VerifySignByP1Txt").value = msg;
+            }else{
+                document.getElementById("VerifySignByP1Txt").value = "验签失败";
+            }
+        }, 500);
+    }
+
     function getContainerId(){
         $('#loginModal').modal('toggle');
         $("html,body").animate({scrollTop:$("#GetUserListData-pos").offset().top},1000);
