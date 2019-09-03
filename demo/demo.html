@@ -29,7 +29,7 @@
 <div class="container">
     <div class="col-md-9">
         <div class="top">
-            <h2>接口测试demo 版本1.1.37.7 </h2>
+            <h2>接口测试demo 版本1.1.37.83 </h2>
             <span class="label label-success" style="display: none;padding: 10px">设备已插入</span>
             <span class="label label-danger" style="display: none;padding: 10px">设备已拔出</span>
 
@@ -98,7 +98,7 @@
             <div class="panel-body" id="GetCertInfo-pos">
                 <h4>4、获取证书信息接口</h4>
                 <div class="form-group">
-                    <label for="certBase64" class="control-label">证书base64编码:</label>
+                    <label for="certBase64" class="control-label">base64编码证书:</label>
                     <input type="text" class="form-control" id="certBase64">
                 </div>
                 <div class="form-group">
@@ -138,7 +138,7 @@
                     <input type="text" class="form-control" id="rsKey">
                 </div>
                 <div class="form-group">
-                    <label for="certBase64" class="control-label">证书base64编码:</label>
+                    <label for="certBase64" class="control-label">base64编码的加密证书:</label>
                     <input type="text" class="form-control" id="KeycertBase64">
                 </div>
                 <div class="form-group">
@@ -188,7 +188,7 @@
                 <div class="form-group">
                     <label for="flag" class="control-label">是否带原文的标识，1:不带原文;0:带原文:</label>
                     <select class="form-control" id="flag">
-                        <option>请选择是否带原文</option>
+                        <option value="9">请选择是否带原文</option>
                         <option value="1">1:不带原文</option>
                         <option value="0">0:带原文</option>
                     </select>
@@ -215,7 +215,7 @@
                 <div class="form-group">
                     <label for="Identification" class="control-label">是否带原文的标识，1:不带原文;0:带原文:</label>
                     <select class="form-control" id="Identification">
-                        <option>请选择是否带原文</option>
+                        <option value="9">请选择是否带原文</option>
                         <option value="1">1:不带原文</option>
                         <option value="0">0:带原文</option>
                     </select>
@@ -236,14 +236,10 @@
                     <input type="text" class="form-control" id="msg">
                 </div>
                 <div class="form-group">
-                    <label for="KeycontainerId" class="control-label">唯一标识:</label>
-                    <input type="text" class="form-control" id="KeycontainerId">
-                </div>
-                <div class="form-group">
                     <button type="button" class="btn btn-primary" onclick="KeySignByP1()">签名</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="KeySignByP1Txt" cols="150" rows="5"></textarea>
+                    <textarea class="form-control" id="KeySignByP1Txt" cols="150" rows="5" disabled></textarea>
                 </div>
             </div>
         </div>
@@ -266,7 +262,7 @@
                     <button type="button" class="btn btn-primary" onclick="VerifySignByP1()">验签</button>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="VerifySignByP1Txt" cols="150" rows="5"></textarea>
+                    <textarea class="form-control" id="VerifySignByP1Txt" cols="150" rows="5" disabled></textarea>
                 </div>
 
             </div>
@@ -355,6 +351,8 @@
 <script type="text/javascript">
     /**插入状态 0：无设备插入 1:允许请求 2:插入设备大于1*/
     var RS_state = 0;
+    //登录验证弹窗类型 :1\非对称解密，2、签名（不支持福建CA） 3、签名（仅支持福建CA）
+    var modalType;
     if (document.all && document.querySelector && !document.addEventListener) {
         $("#nav-right").attr("style","display:none");
     }
@@ -426,7 +424,6 @@
                 document.getElementById("SncontainerId").value = j;
                 document.getElementById("P7containerId").value = j;
                 document.getElementById("SncontainerId").value = j;
-                document.getElementById("KeycontainerId").value = j;
             }else{
                 var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n        "userlist":"'+res.data.userlist+'"\n    },\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("GetUserListTxt").value = msg;
@@ -538,6 +535,7 @@
     function KeyDecryptData(){
         document.getElementById("KeyDecryptDataTxt").value = "加载中...";
         getBuffer();
+        modalType=1;
         $('#loginModal').modal();
     }
     function keyDecrypt(){
@@ -572,7 +570,14 @@
                     }else{
                         document.getElementById("model-danger").innerHTML = "请勿连续输入错误口令";
                     }
-                    keyDecrypt();
+                    if(modalType==1){
+                        keyDecrypt();
+                    }else if(modalType==2){
+                        P7KeySign();
+                    }else if(modalType==3){
+                        P1KeySign();
+                    }
+
                 }else{
                     alert("口令验证失败");
                     document.getElementById("KeyDecryptDataTxt").value = "密码错误";
@@ -584,7 +589,17 @@
 
     //签名接口(不支持福建ca)
     function KeySignByP7(){
-        document.getElementById("GetCertInfoTxt").value = "加载中...";
+        var flag=$("#flag").val();
+        if(flag==9){
+            alert("请选择是否带原文");
+            return false;
+        }
+        document.getElementById("KeySignByP7Txt").value = "加载中...";
+        getBuffer();
+        modalType=2;
+        $('#loginModal').modal();
+    }
+    function P7KeySign(){
         var containerId=$("#P7containerId").val();
         var msg=$("#msg2").val();
         var flag=$("#flag").val();
@@ -599,17 +614,22 @@
             }
         }, 500);
     }
+
     //验签接口(不支持福建ca)
     function VerifySignByP7(){
-        document.getElementById("GetCertInfoTxt").value = "加载中...";
+        document.getElementById("VerifySignByP7Txt").value = "加载中...";
         var msg=$("#signed").val();
         var signdMsg=$("#sign").val();
         var flag=$("#Identification").val();
+        if(flag==9){
+            alert("请选择是否带原文");
+            return false;
+        }
         var res=RS_VerifySignByP7(msg,signdMsg,flag);
         setTimeout(function(){
             console.log(res);
             if(res.code){
-                var msg= '{\n    "code":"'+res.code+'",\n    "data":{\n      "signdMsg":"'+res.data.signdMsg+'"\n    },\n    "msg":"'+res.msg+'"\n}';
+                var msg= '{\n    "code":"'+res.code+'",\n    "data":"",\n    "msg":"'+res.msg+'"\n}';
                 document.getElementById("VerifySignByP7Txt").value = msg;
             }else{
                 document.getElementById("VerifySignByP7Txt").value = "验签失败";
@@ -618,10 +638,14 @@
     }
     //签名接口(仅支持福建ca)
     function KeySignByP1(){
-        document.getElementById("GetCertInfoTxt").value = "加载中...";
+        document.getElementById("KeySignByP1Txt").value = "加载中...";
+        getBuffer();
+        modalType=3;
+        $('#loginModal').modal();
+    }
+    function P1KeySign(){
         var msg=$("#msg").val();
-        var containerId=$("#KeycontainerId").val();
-        var res=RS_KeySignByP1(msg,containerId);
+        var res=RS_KeySignByP1(msg);
         setTimeout(function(){
             console.log(res);
             if(res.code){
@@ -633,9 +657,10 @@
             }
         }, 500);
     }
+
     //验签接口(仅支持福建ca)
     function VerifySignByP1(){
-        document.getElementById("GetCertInfoTxt").value = "加载中...";
+        document.getElementById("VerifySignByP1Txt").value = "加载中...";
         var certBase64=$("#SigncertBase").val();
         var msg=$("#asn1Msg3").val();
         var signdMsg=$("#signdMsg2").val();

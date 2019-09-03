@@ -48,7 +48,6 @@ function ajax(url, data,async,callback) {
 //获取证书列表接口
 function RS_GetUserList(){
     var state = buffer();
-    console.log(state);
     if(state.length==1){
         if(state[0].Description== "FJCA"){
             var queryResult=queryFJCA();
@@ -338,6 +337,14 @@ function RS_VerifySignByP7(msg,signdMsg,flag){
                 if(res.code=="0000"){
                     result =successlMsg;
                 }else{
+                    var onlineUrl = commonUrl+"/RS_VerifySignByP7Ext";
+                    ajax(onlineUrl, data,false,function(res) {
+                        if(res.code=="0000"){
+                            result =successlMsg;
+                        }else{
+                            result =failMsg;
+                        }
+                    });
                     result =failMsg;
                 }
             });
@@ -350,7 +357,7 @@ function RS_VerifySignByP7(msg,signdMsg,flag){
     }
 }
 //签名接口(仅支持福建ca)
-function RS_KeySignByP1(msg,containerId){
+function RS_KeySignByP1(msg){
     var state = buffer();
     if(state.length==1){
         if(state[0].Description== "FJCA"){
@@ -360,9 +367,7 @@ function RS_KeySignByP1(msg,containerId){
                 failMsg.data.keySn = "福建ca请使用IE浏览器";
                 return failMsg;
             }else if(queryResult==true){
-                console.log(msg);
                 var res = document.getElementById("Object1").FJCA_SignData(msg);
-                console.log(res);
                 if(res){
                     successlMsg.data={};
                     successlMsg.data.signdMsg = res;
@@ -395,19 +400,27 @@ function RS_VerifySignByP1(certBase64,msg,signdMsg){
                 failMsg.data.keySn = "福建ca请使用IE浏览器";
                 return failMsg;
             }else if(queryResult==true){
-                console.log(msg);
-                console.log(signdMsg);
-                console.log(certBase64);
                 var res = document.getElementById("Object1").FJCA_VerifySign(msg,certBase64,signdMsg);
-                console.log(res);
                 if(res==true){
                     successlMsg.data={};
                     successlMsg.data = "执行成功";
                     return successlMsg;
                 }else{
-                    failMsg.data={};
-                    failMsg.data = "";
-                    return failMsg;
+                    var url=commonUrl+"/RS_VerifySignByP1Ext";
+                    var data={
+                        msg:msg,
+                        certBase64:certBase64,
+                        signdMsg:signdMsg
+                    };
+                    var result;
+                    ajax(url, data,false,function(res) {
+                        if(res.code=="0000"){
+                            result =successlMsg;
+                        }else{
+                            result =failMsg;
+                        }
+                    });
+                    return result;
                 }
             }
         }else{
